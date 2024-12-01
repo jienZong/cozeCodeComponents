@@ -10,9 +10,12 @@ npm run dev
 # 测试打包
 npm run build
 
-# 如果没安装functorz，安装并登录CLI
+# 如果没安装functorz，安装并用CLI登录ZION
 npm install -g functorz
 npx functorz signin 你的邮箱账号 你的密码
+
+# 初始化代码组件到ZION账号
+npx functorz reinit
 
 # 发布
 npx functorz publish

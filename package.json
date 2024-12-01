@@ -1,6 +1,6 @@
 {
-  "name": "coze-code-components",
-  "version": "0.1.0",
+  "name": "cozeCodeComponents",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
