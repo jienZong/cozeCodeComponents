@@ -1,5 +1,5 @@
 import { importShared } from './__federation_fn_import-lyDSGtOx.js';
-import { j as jsxRuntimeExports, C as CozeWebSdk } from './CozeWebSdk-YQ2h0hPp.js';
+import Components, { j as jsxRuntimeExports } from './__federation_expose_Main-CUDPwJUL.js';
 import { r as reactDomExports } from './__federation_shared_react-dom-ChyTJqHm.js';
 
 var client = {};
@@ -11,22 +11,24 @@ var m = reactDomExports;
 }
 
 const {BrowserRouter} = await importShared('react-router-dom');
+const { CozeNodeSdk } = Components;
 function App() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { height: "100%", width: "100%", background: "green" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-    CozeWebSdk,
+    CozeNodeSdk,
     {
       propData: {
         config_botId: "7442276476630171688",
         ui_asstBtn_isNeed: "true",
-        ui_chatBot_width: "80%"
+        ui_chatBot_width: "80%",
+        auth_token: "pat_nbz9Ek4HFkXwp0ZgQCV8U38QEIZ3uqqKlQcA3RIX88rZBbTBY3LW1eq5poiPTZoz"
       },
       propState: {},
       event: {
-        onChatBotHide: () => {
-          console.log(11);
+        onChatBotHide: (e) => {
+          console.log(e, "hide===");
         },
-        onChatBotShow: () => {
-          console.log(22);
+        onChatBotShow: (e) => {
+          console.log(e, "show===");
         }
       }
     }
