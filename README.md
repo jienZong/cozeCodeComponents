@@ -26,6 +26,7 @@ npx functorz publish
 
 cozeWebSDK 文档地址:https://www.coze.cn/docs/developer_guides/install_web_sdk
 配置参数定义完全参照 cozeWebSDK 文档
+使用时将智能体发布为 chat-sdk，然后配置 config_botId 为智能体 ID
 
 ```ts
 export interface CozeWebSdkPropData {
@@ -55,5 +56,41 @@ export interface CozeWebSdkPropData {
   // ui-chatBot
   ui_chatBot_title?: string;
   ui_chatBot_width?: string;
+}
+```
+
+cozeNodeSdk 文档地址:https://www.coze.cn/docs/developer_guides/install_node_sdk
+使用时将智能体发布为 API，然后配置 config_botId 为智能体 ID
+
+```ts
+export interface CozeNodeSdkPropData {
+  // Conversation
+  conversation_id?: string; // 会话ID
+  conversation_initContent?: string; // 会话初始内容
+
+  // 对话禁用还是启用（默认启用，传入 disable 则禁用）
+  conversation_mode?: string;
+
+  // Config
+  config_botId: string; // 智能体ID
+
+  // Auth
+  auth_token?: string; // 鉴权token
+
+  // User Info
+  userInfo_id?: string;
+  userInfo_url?: string; // 用户头像
+  userInfo_nickname?: string; // 用户昵称
+
+  botInfo_url?: string; // 智能体的头像（消息列表的）
+  botInfo_nickname?: string; // 智能体的昵称（消息列表的）
+
+  // UI Base
+  ui_base_icon?: string; // 智能体的LOGO（顶部的）
+  ui_base_title?: string; // 智能体的名称（顶部的标题）
+
+  ui_input_placeholder?: string; // 输入框的提示
+  // Footer
+  ui_footer_expressionText?: string; // 底部提示
 }
 ```

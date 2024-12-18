@@ -405,20 +405,23 @@
   
   /* 推荐问题骨架屏 */
   .recommend-question-skeleton {
-    width: calc(70% - 8px);
+    width: 200px;
     height: 36px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #e5e6eb;
     border-radius: 8px;
     overflow: hidden;
     position: relative;
-    margin-bottom: 8px;
-    margin-left: 0;
   }
   
   .skeleton-content {
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, #f2f3f5 25%, #e5e6eb 37%, #f2f3f5 63%);
+    background: linear-gradient(90deg, 
+      rgba(190, 190, 190, 0.1) 25%, 
+      rgba(190, 190, 190, 0.2) 37%, 
+      rgba(190, 190, 190, 0.1) 63%
+    );
     background-size: 400% 100%;
     animation: skeleton-loading 1.4s ease infinite;
   }
@@ -696,16 +699,28 @@
   /* 图片预览区域 */
   .uploaded-images {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 8px;
-    padding: 8px 0;
     width: 100%;
+    padding: 8px;
   }
   
   .uploaded-image-item {
     position: relative;
-    aspect-ratio: 1;
+    background: #fff;
+    border: 1px solid #e5e6eb;
     border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+  }
+  
+  .image-wrapper {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 4px;
     overflow: hidden;
   }
   
@@ -715,13 +730,52 @@
     object-fit: cover;
   }
   
-  /* 文件预览区域 */
-  .uploaded-files {
+  .image-info {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 8px 0;
-    width: 100%;
+    gap: 2px;
+    padding: 4px 0;
+    min-width: 0;
+  }
+  
+  .image-info .file-name {
+    font-size: 12px;
+    color: #1f2329;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.4;
+    max-width: 100%;
+  }
+  
+  .image-info .file-size {
+    font-size: 11px;
+    color: #86909c;
+    line-height: 1.2;
+  }
+  
+  .remove-file-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    padding: 4px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e5e6eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #4e5969;
+  }
+  
+  .remove-file-btn:hover {
+    background: #fff;
+    border-color: #ff4d4f;
+    color: #ff4d4f;
   }
   
   /* 上传中的加载状态 */
@@ -766,7 +820,7 @@
     pointer-events: none;
   }
   
-  /* 上传中的加载状态 */
+  /* 传中的加载状 */
   .uploading-overlay {
     position: absolute;
     top: 0;
@@ -877,106 +931,68 @@
   
   /* 消息内容包装器 */
   .message-content-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
     width: 100%;
     max-width: 100%;
     overflow: hidden;
   }
   
-  /* 图片列表样式 */
+  /* 图片容器样式 */
   .message-images {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 150px));
-    gap: 4px;
-    max-width: 100%;
-    margin: 4px 0;
-    overflow: hidden;
-  }
-  
-  .message-image {
-    position: relative;
-    width: 100%;
-    padding-bottom: 75%;
-    overflow: hidden;
-    border-radius: 8px;
-  }
-  
-  .message-image-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    cursor: zoom-in;
-    transition: transform 0.2s;
-  }
-  
-  .message-image-content:hover {
-    transform: scale(1.02);
-  }
-  
-  /* 文件列表样式 */
-  .message-files {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    width: 100%;
     margin: 8px 0;
   }
   
-  .message-file {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px;
+  /* 单个图片容器样式 */
+  .message-image {
+    width: fit-content; /* 改为��应内容宽度 */
+    max-width: 100%; /* 最大不超过容器宽度 */
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
     background: #f7f8fa;
-    border-radius: 4px;
-    width: 100%;
-    box-sizing: border-box;
+    border: 1px solid #e5e6eb;
+  }
+  
+  /* 图片本身的样式 */
+  .message-image img {
     max-width: 100%;
-    overflow: hidden;
+    width: auto; /* 使用图片原始宽度 */
+    height: auto;
+    display: block;
+    object-fit: contain;
+    background: #fff;
+    padding: 4px;
+    box-sizing: border-box;
+    margin: 0;
   }
   
-  .message-file a {
-    color: #4c6fff;
-    text-decoration: none;
-    font-size: 14px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  /* 富文本中的图片样式 */
+  .message-bubble img:not(.clickable-image) {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin: 8px auto;
+    display: block;
+    background: #fff;
+    border: 1px solid #e5e6eb;
+    border-radius: 8px;
+    padding: 4px;
   }
   
-  .message-file a:hover {
-    text-decoration: underline;
-  }
-  
-  /* 用户消息的样式调整 */
-  .message-item.user .message-bubble {
-    background: #4c6fff;
-    color: #fff;
-  }
-  
-  .message-item.user .message-file {
-    background: rgba(255, 255, 255, 0.1);
-  }
-  
-  .message-item.user .message-file a {
-    color: #fff;
-  }
-  
-  /* 可点击的图片样式 */
   .clickable-image {
     cursor: zoom-in;
-    transition: transform 0.2s;
+    transition: opacity 0.2s;
   }
   
   .clickable-image:hover {
-    transform: scale(1.02);
+    opacity: 0.9;
   }
   
-  /* 图片预览遮罩 */
+  /* 图片预览遮罩层样式优化 */
   .image-preview-overlay {
     position: fixed;
     top: 0;
@@ -989,38 +1005,27 @@
     justify-content: center;
     z-index: 1000;
     cursor: zoom-out;
-    animation: fade-in 0.2s ease-out;
+    backdrop-filter: blur(5px);
+    animation: fade-in 0.2s ease;
   }
   
-  /* 预览图片样式 */
   .preview-image {
-    max-width: 90vw;
+    max-width: 90%;
     max-height: 90vh;
     object-fit: contain;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    animation: zoom-in 0.2s ease-out;
+    cursor: default;
+    animation: zoom-in 0.2s ease;
   }
   
-  /* 动画效果 */
   @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
   
   @keyframes zoom-in {
-    from {
-      transform: scale(0.95);
-      opacity: 0;
-    }
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
+    from { transform: scale(0.95); }
+    to { transform: scale(1); }
   }
   
   /* 上传片预览样式 */
@@ -1074,7 +1079,7 @@
     width: fit-content;
   }
   
-  /* 富���本段落样式 */
+  /* 富本段落样式 */
   .message-bubble p {
     margin: 0;
     padding: 0;
@@ -1133,7 +1138,7 @@
     font-size: 13px !important;
   }
   
-  /* 行内代码样式 */
+  /* 行内代码样��� */
   .message-bubble code:not([class*="language-"]) {
     font-family: monospace;
     font-size: 13px;
@@ -1181,7 +1186,7 @@
     border-top: 1px solid #e5e6eb;
   }
   
-  /* 用户消息中的操作按钮容器 - 悬浮样式 */
+  /* 用户消息中的操作按容器 - 浮样式 */
   .message-item.user .message-actions {
     position: absolute;
     bottom: -36px;
@@ -1200,7 +1205,7 @@
     transition: all 0.2s ease;
   }
   
-  /* 用户消息中悬时显示操作按钮 */
+  /* 户消息中悬时显示操作按钮 */
   .message-item.user .message-content:hover .message-actions {
     opacity: 1;
     visibility: visible;
@@ -1263,7 +1268,7 @@
     text-transform: uppercase;
   }
   
-  /* 复制按��样式 */
+  /* 复制按样式 */
   .code-copy-btn {
     display: flex;
     align-items: center;
@@ -1351,7 +1356,7 @@
   .message-image {
     position: relative;
     width: 100%;
-    padding-bottom: 75%;
+    overflow: hidden;
     border-radius: 6px;
     overflow: hidden;
     background: #f5f6f7; /* 添加背景色 */
@@ -1446,7 +1451,7 @@
   /* 移动端适配 */
   @media screen and (max-width: 768px) {
     .message-images {
-      grid-template-columns: repeat(auto-fit, minmax(100px, 150px)); /* 移动图片更小 */
+      grid-template-columns: repeat(auto-fit, minmax(100px, 150px)); /* 移动图片更 */
     }
     
     .message-file {
@@ -1566,7 +1571,7 @@
     margin-left: auto;
   }
   
-  /* 消息气泡内容样式 */
+  /* 消息气泡内样式 */
   .message-bubble > div {
     max-width: 100%;
     overflow-x: auto;
@@ -1574,23 +1579,56 @@
     scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
   }
   
-  /* 滚动条样式 */
+  /* 滚动条样式优化 */
+  .message-list::-webkit-scrollbar {
+    width: 4px; /* 减小滚动条宽度 */
+  }
+
+  .message-list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .message-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1); /* 更淡的颜色 */
+    border-radius: 2px;
+    transition: background 0.2s;
+  }
+
+  .message-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2); /* 悬浮时稍微加深 */
+  }
+
+  /* Firefox 滚���条样式 */
+  .message-list {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+  }
+
+  /* 代码块滚动条样式优化 */
   .message-bubble > div::-webkit-scrollbar {
     height: 4px;
     width: 4px;
   }
-  
-  .message-bubble > div::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
-  }
-  
+
   .message-bubble > div::-webkit-scrollbar-track {
     background: transparent;
   }
-  
-  /* 用户消息滚动条样式 */
+
+  .message-bubble > div::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+  }
+
+  .message-bubble > div::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  /* 用户消息中的滚动条样式 */
   .message-item.user .message-bubble > div::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .message-item.user .message-bubble > div::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
   }
   
@@ -1638,23 +1676,84 @@
   .message-file {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 8px;
     padding: 12px 16px;
     background: #f7f8fa;
     border: 1px solid #e5e6eb;
     border-radius: 8px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 320px;
     transition: all 0.2s ease;
     margin: 4px 0;
   }
   
-  /* 文件项悬浮效果 */
-  .message-file:hover {
-    background: #f0f2f5;
-    border-color: #d0d3d9;
+  .file-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    flex: 1;
   }
   
-  /* 用户消息中的文件样式 - 保持和普通文一样的白底黑字 */
+  .file-icon {
+    width: 16px;
+    height: 16px;
+    color: #4e5969;
+    flex-shrink: 0;
+  }
+  
+  .file-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
+  }
+  
+  .file-name {
+    font-size: 14px;
+    color: #1f2329;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+  
+  .file-size {
+    font-size: 12px;
+    color: #86909c;
+    line-height: 1.2;
+  }
+  
+  /* 下载按钮样式 */
+  .download-file-btn {
+    width: 24px;
+    height: 24px;
+    padding: 4px;
+    border-radius: 4px;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #4e5969;
+    flex-shrink: 0;
+  }
+  
+  .download-file-btn:hover {
+    background: #e5e6eb;
+    color: #4c6fff;
+  }
+  
+  .download-file-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  /* 用户消息中的文件样式 - 保持和普通文一样的白底黑 */
   .message-item.user .message-file {
     background: #f7f8fa;
     border-color: #e5e6eb;
@@ -1713,7 +1812,7 @@
     100% { opacity: 0; transform: translateY(-20px); }
   }
   
-  /* 富文本标题样式优化 */
+  /* 富文本题样式优化 */
   .message-bubble h1 {
     font-size: 20px;
     margin: 16px 0 12px;
@@ -1787,4 +1886,188 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  /* 滚动到底部按钮样式 */
+  .scroll-to-bottom {
+    position: fixed;
+    right: 20px; /* 调整为与头像对齐 */
+    bottom: 200px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e6eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    z-index: 100;
+  }
+  
+  .scroll-to-bottom.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  
+  .scroll-to-bottom:hover {
+    background: #fff;
+    border-color: #4c6fff;
+    color: #4c6fff;
+    transform: translateY(-2px);
+  }
+  
+  .scroll-to-bottom svg {
+    width: 20px;
+    height: 20px;
+    color: #4e5969;
+    transition: color 0.2s;
+  }
+  
+  .scroll-to-bottom:hover svg {
+    color: #4c6fff;
+  }
+  
+  /* 移动端适配 */
+  @media screen and (max-width: 768px) {
+    .scroll-to-bottom {
+      right: 12px; /* 移动端也相应调整 */
+      bottom: 160px;
+      width: 36px;
+      height: 36px;
+    }
+  }
+  
+  /* 新建会话按钮禁用状态 */
+  .new-chat-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: none;
+    color: #86909c;
+  }
+  
+  .new-chat-btn.disabled:hover {
+    background: none;
+    color: #86909c;
+  }
+  
+  /* 富文本中的图片样式控制 */
+  .message-bubble img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+    margin: 8px 0;
+  }
+  
+  /* 确保消息气泡内的所有内容都不会溢出 */
+  .message-bubble > div {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden; /* 防止垂直滚动条 */
+  }
+  
+  /* 消息内容包装器样式 */
+  .message-content-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  /* 图片容器样式 */
+  .message-images {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin: 8px 0;
+  }
+  
+  /* 单个图片容器样式 */
+  .message-image {
+    width: fit-content; /* 改为适应内容宽度 */
+    max-width: 100%; /* 最大不超过容器宽度 */
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #f7f8fa;
+    border: 1px solid #e5e6eb;
+  }
+  
+  /* 图片本身的样式 */
+  .message-image img {
+    max-width: 100%;
+    width: auto; /* 使用图片原始宽度 */
+    height: auto;
+    display: block;
+    object-fit: contain;
+    background: #fff;
+    padding: 4px;
+    box-sizing: border-box;
+    margin: 0;
+  }
+  
+  /* 富文本中的图片样式 */
+  .message-bubble img:not(.clickable-image) {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin: 8px auto;
+    display: block;
+    background: #fff;
+    border: 1px solid #e5e6eb;
+    border-radius: 8px;
+    padding: 4px;
+  }
+  
+  .clickable-image {
+    cursor: zoom-in;
+    transition: opacity 0.2s;
+  }
+  
+  .clickable-image:hover {
+    opacity: 0.9;
+  }
+  
+  /* 图片预览遮罩层样式优化 */
+  .image-preview-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    cursor: zoom-out;
+    backdrop-filter: blur(5px);
+    animation: fade-in 0.2s ease;
+  }
+  
+  .preview-image {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    cursor: default;
+    animation: zoom-in 0.2s ease;
+  }
+  
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes zoom-in {
+    from { transform: scale(0.95); }
+    to { transform: scale(1); }
   }

@@ -13,6 +13,7 @@ export type CozeConfig = {
   bot_id: string;
   conversation_id?: string;
   user_id?: string;
+  conversation_mode?: "enable" | "disable";
 };
 
 type ImageMessageInput_obj = {
@@ -140,29 +141,39 @@ export class CozeApiClient {
 
   // 机器人id
   public bot_id: string = "";
+  // 鉴权token
+  public token: string = "";
   // 会话id
   public conversation_id: string = "";
+  // 会话模式
+  public conversation_mode: "enable" | "disable" = "enable";
   // 用户id
   public user_id: string = "123";
   constructor(cozeConfig: CozeConfig) {
     if (!cozeConfig.token) {
-      throw new Error("token is required");
+      console.error("token is required");
+      //throw new Error("token is required");
     }
     if (!cozeConfig.bot_id) {
-      throw new Error("bot_id is required");
+      console.error("bot_id is required");
+    }
+    if (cozeConfig?.conversation_mode) {
+      this.conversation_mode = cozeConfig?.conversation_mode || "enable";
     }
     this.bot_id = cozeConfig.bot_id;
+    this.token = cozeConfig.token;
 
     this.user_id = cozeConfig.user_id || "";
     this.cozeApiInstance = new CozeAPI({
       baseURL: COZE_CN_BASE_URL,
-      token: cozeConfig.token,
+      token: this.token,
       allowPersonalAccessTokenInBrowser: true, // Allow the browers to use PAT
     });
 
     if (cozeConfig.conversation_id) {
       this.conversation_id = cozeConfig.conversation_id || "";
-      //this.conversations_messages_list();
+    } else {
+      this.messages_has_more = false;
     }
 
     console.log("CozeApiClient", this);
@@ -270,6 +281,7 @@ export class CozeApiClient {
     conversation_initContent: string = "",
     role: RoleType = RoleType.Assistant
   ) {
+    this._checkConfig();
     let content_type = "object_string";
     try {
       const content_data = JSON.parse(conversation_initContent || "");
@@ -324,11 +336,25 @@ export class CozeApiClient {
       })
     );
     // 获会话消息列表
+
+    // 延时等待messages_is_loading为false
+    while (this.messages_is_loading) {
+      let seconds = 0;
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      seconds += 0.05;
+      if (seconds > 10) {
+        throw new Error("messages_is_loading timeout");
+      }
+    }
     await this.conversations_messages_list();
   }
 
   // 流式响应发消息
-  public async chat_stream(conversation_content?: string) {
+  public async chat_stream(
+    conversation_content?: string,
+    isCreateConversation: boolean = false
+  ) {
+    this._checkConfig();
     if (this.isStreaming) {
       throw new Error("Already streaming a response");
     }
@@ -338,14 +364,27 @@ export class CozeApiClient {
     }
 
     if (!this.input_text_message) {
-      throw new Error("Text message is required");
+      //throw new Error("Text message is required");
     }
 
-    if (!this.conversation_id) {
+    if (!this.conversation_id || isCreateConversation) {
       const { content } = this._buildMessageContent();
       await this.conversations_create(content, RoleType.User);
     }
     await this._processChatStream();
+  }
+
+  // 实例配置校验
+  private _checkConfig() {
+    if (!this.bot_id) {
+      throw new Error("bot_id is required");
+    }
+    if (!this.token) {
+      throw new Error("token is required");
+    }
+    if (this.conversation_mode === "disable") {
+      throw new Error("conversation_mode is disable");
+    }
   }
 
   // 清空输入状态
@@ -379,34 +418,46 @@ export class CozeApiClient {
   // 处理流式响应
   private async _processChatStream() {
     const { content, content_type, content_data } = this._buildMessageContent();
+    // 如果消息列表为空，并且用户也没有输入，则不发送消息
+    if (!this.messages.length && !content) {
+      return;
+    }
 
     const stream = await this.cozeApiInstance.chat.stream({
       bot_id: this.bot_id,
       conversation_id: this.conversation_id,
       user_id: this.user_id,
-      additional_messages: [
-        {
-          role: RoleType.User,
-          type: "question",
-          content,
-          content_type,
-        },
-      ],
+      ...(content
+        ? {
+            additional_messages: [
+              {
+                role: RoleType.User,
+                type: "question",
+                content,
+                content_type,
+              },
+            ],
+          }
+        : {}),
     });
 
     const inputState = this._backupInputState();
     // 清空当前状态
     this._clearInputState();
-    const message = this.createNewMessage({
-      id: Date.now().toString(),
-      role: RoleType.User,
-      content_type: content_type,
-      content: content,
-      status: "completed",
-      type: "question",
-      content_data: content_data,
-    });
-    this.messages.push(message);
+
+    let message: MessageObject | null = null;
+    if (content) {
+      message = this.createNewMessage({
+        id: Date.now().toString(),
+        role: RoleType.User,
+        content_type: content_type,
+        content: content,
+        status: "completed",
+        type: "question",
+        content_data: content_data,
+      });
+      this.messages.push(message);
+    }
 
     try {
       this.isStreaming = true;
@@ -415,7 +466,9 @@ export class CozeApiClient {
     } catch (error) {
       this._restoreInputState(inputState);
       // 消息从列表取出
-      this.messages = this.messages.filter((item) => item.id !== message.id);
+      if (message) {
+        this.messages = this.messages.filter((item) => item.id !== message.id);
+      }
       throw error;
     } finally {
       this.isStreaming = false;
@@ -427,6 +480,7 @@ export class CozeApiClient {
 
   // 上传文件
   public async files_upload(file: File) {
+    this._checkConfig();
     if (this.isUploading) {
       throw new Error("Already uploading a file");
     }

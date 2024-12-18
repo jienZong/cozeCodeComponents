@@ -39,6 +39,7 @@
     "react-router-dom": "^6.26.2",
     "react-syntax-highlighter": "^15.6.1",
     "rehype-katex": "^7.0.1",
+    "rehype-raw": "^7.0.0",
     "remark-math": "^6.0.0",
     "zustand": "^5.0.2",
     "zvm-code-context": "^0.4.3"

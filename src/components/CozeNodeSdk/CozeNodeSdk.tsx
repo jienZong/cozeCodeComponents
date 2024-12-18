@@ -9,6 +9,7 @@ import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import 'katex/dist/katex.min.css';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import rehypeRaw from 'rehype-raw';
 
 type ExtendedCozeApiClient = CozeApiClient & {
   uploadingFileType?: 'image' | 'file';
@@ -18,12 +19,14 @@ export interface CozeNodeSdkPropData {
   // Conversation
   conversation_id?: string;
   conversation_initContent?: string;
+  // 对话禁用还是启用（默认启用，传入 disable 则禁用）
+  conversation_mode?: string;
 
   // Config
   config_botId: string;
 
   // Auth
-  auth_token?: string;
+  auth_token: string;
 
   // User Info
   userInfo_id?: string;
@@ -46,10 +49,12 @@ export interface CozeNodeSdkPropData {
 
 export interface CozeNodeSdkStateData {
   conversation_id?: State<string>;
+  chat_id?: State<string>;
 }
 
 export interface CozeNodeSdkEvent {
   conversations_create?: EventHandler;
+  onChatCreated?: EventHandler;
 }
 
 export interface CozeNodeSdkProps {
@@ -58,14 +63,18 @@ export interface CozeNodeSdkProps {
   event?: CozeNodeSdkEvent;
 }
 
+// 添加默认值常量
+const DEFAULT_USER_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234e5969' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E";
+const DEFAULT_BOT_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234c6fff' d='M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 12.5v2.5h-2V12H7v-2h2V8.5h2V11h2v2h-2v1.5zM18 9h-4v6h4V9z'/%3E%3C/svg%3E";
+const DEFAULT_USER_NICKNAME = "我";
+const DEFAULT_BOT_NICKNAME = "AI助手";
+
 export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
   const [forceUpdate, setForceUpdate] = useState(0);
   if (forceUpdate < 0) {
     console.log("forceUpdate", forceUpdate);
   }
 
-
-  const [inputText, setInputText] = useState('');
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
   const cozeApiClient = useMemo(() => {
@@ -93,12 +102,18 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
     }
   }, [cozeApiClient]);
 
+  // 监听conversation_mode
+  useEffect(() => {
+    const client = cozeApiClientRef.current;
+    client.conversation_mode = propData.conversation_mode == "disable" ? "disable" : "enable";
+  }, [propData.conversation_mode]);
+
 
   // Move this before the useEffect hooks
-  const scrollToBottom = useCallback((immediate = false) => {
+  const scrollToBottom = useCallback((auto = false) => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({
-        behavior: immediate ? "auto" : "smooth"
+        behavior: auto ? "auto" : "smooth"
       });
     }
   }, []);
@@ -161,12 +176,23 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
     event?.conversations_create?.call(null);
   }, [propState?.conversation_id, event?.conversations_create]);
 
+  const onChatCreated = useCallback((chat?: any) => {
+    propState?.chat_id?.set(chat?.id);
+    event?.onChatCreated?.call(null);
+  }, [propState?.chat_id, event?.onChatCreated]);
+
   // 监听消息流事件
   useEffect(() => {
 
     const handleChatStream = (event: string, data: any) => {
       console.log("chat_stream", event, data);
       setForceUpdate(prev => prev + 1);
+
+      if (event === ChatEventType.CONVERSATION_CHAT_CREATED) {
+        setTimeout(() => {
+          onChatCreated(data);
+        }, 0);
+      }
 
       if (event === ChatEventType.DONE) {
         // 第一次获取消息列表后,滚动到底部
@@ -217,19 +243,18 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
 
   const handleSendMessage = async () => {
     const client = cozeApiClientRef.current;
-    if (!client || !inputText.trim() || client.isStreaming) return;
+    // 是否存在内容
+    const hasContent = client.input_text_message || client.input_file_messages.length > 0 || client.input_image_messages.length > 0;
+    if (!client || !hasContent || client.isStreaming) return;
 
     try {
-      const messageToSend = inputText.trim();
       requestAnimationFrame(() => {
         scrollToBottom(false);
       });
-      setInputText('');
-      client.input_text_message = messageToSend;
       await client.chat_stream();
-
-    } catch (error) {
+    } catch (error: any) {
       console.error('发送消息失败:', error);
+      showToast(error.message || '发送失败');
     }
   };
 
@@ -272,9 +297,9 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
             <ReactMarkdown
               key={`text-${index}`}
               remarkPlugins={[remarkMath]}
-              rehypePlugins={[rehypeKatex]}
+              rehypePlugins={[rehypeKatex, rehypeRaw]}
               components={{
-                code({ node, inline, className, children, ...props }) {
+                code({ node, inline, className, children, ...props }: any) {
                   const match = /language-(\w+)/.exec(className || '');
                   return !inline && match ? (
                     <div className="code-block-wrapper">
@@ -303,6 +328,17 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
                     <code className={className} {...props}>
                       {children}
                     </code>
+                  );
+                },
+                img({ src, alt, ...props }: any) {
+                  return (
+                    <img
+                      src={src}
+                      alt={alt}
+                      className="clickable-image"
+                      onClick={() => setPreviewImage(src)}
+                      {...props}
+                    />
                   );
                 }
               }}
@@ -349,9 +385,9 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
     return (
       <ReactMarkdown
         remarkPlugins={[remarkMath]}
-        rehypePlugins={[rehypeKatex]}
+        rehypePlugins={[rehypeKatex, rehypeRaw]}
         components={{
-          code({ node, inline, className, children, ...props }) {
+          code({ node, inline, className, children, ...props }: any) {
             const match = /language-(\w+)/.exec(className || '');
             return !inline && match ? (
               <div className="code-block-wrapper">
@@ -381,6 +417,17 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
                 {children}
               </code>
             );
+          },
+          img({ src, alt, ...props }: any) {
+            return (
+              <img
+                src={src}
+                alt={alt}
+                className="clickable-image"
+                onClick={() => setPreviewImage(src)}
+                {...props}
+              />
+            );
           }
         }}
       >
@@ -400,7 +447,7 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
     }, 2000);
   };
 
-  // 修改复制消息的函数
+  // 改复制息的函数
   const copyMessage = (message: MessageObject) => {
     let textToCopy = '';
 
@@ -432,12 +479,12 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
     });
   };
 
-  // 在 parseMessageContent 函数中修改文件渲染部分
+  // 在 parseMessageContent 函数中���改文件渲染部分
   const renderFile = (file: any) => {
     return (
       <div className="message-file">
         <div className="file-info">
-          <svg viewBox="0 0 24 24" width="16" height="16">
+          <svg className="file-icon" viewBox="0 0 24 24">
             <path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z" />
           </svg>
           <div className="file-details">
@@ -446,10 +493,11 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
           </div>
         </div>
         <button
-          className="remove-file-btn"
+          className="download-file-btn"
           onClick={() => window.open(file.url, '_blank')}
+          title="下载文件"
         >
-          <svg viewBox="0 0 24 24" width="16" height="16">
+          <svg viewBox="0 0 24 24">
             <path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
           </svg>
         </button>
@@ -457,24 +505,67 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
     );
   };
 
+  // 添加状态控制按钮显示
+  const [showScrollButton, setShowScrollButton] = useState(false);
+
+  // 添加滚动监听
+  useEffect(() => {
+    const messageList = messageListRef.current;
+    if (!messageList) return;
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = messageList;
+      // 当距离底部超过 200px 时显示按钮
+      setShowScrollButton(scrollHeight - scrollTop - clientHeight > 200);
+    };
+
+    messageList.addEventListener('scroll', handleScroll);
+    return () => messageList.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="coze-container">
       {/* 头部 */}
       <div className="chat-header">
         <div className="header-left">
           <img
-            src={propData.ui_base_icon || ""}
+            src={propData.ui_base_icon || DEFAULT_BOT_AVATAR}
             alt="bot-icon"
             className="header-icon"
           />
           <span className="header-title">
-            {propData.ui_base_title || "Coze智能体"}
+            {propData.ui_base_title || DEFAULT_BOT_NICKNAME}
           </span>
         </div>
       </div>
 
       {/* 消息列表区域 */}
       <div className="message-list" ref={messageListRef}>
+        {/* 当消息为空且没有更多消息时显示初始内容 */}
+        {cozeApiClientRef.current.messages.length === 0 && !cozeApiClientRef.current.messages_has_more && (
+          <div className="message-item">
+            <div className="message-avatar">
+              <img
+                src={propData.botInfo_url || propData.ui_base_icon || DEFAULT_BOT_AVATAR}
+                alt="AI助手"
+              />
+              <span className="message-nickname">
+                {propData.botInfo_nickname || DEFAULT_BOT_NICKNAME}
+              </span>
+            </div>
+            <div className="message-content">
+              <div className="message-bubble">
+                {propData.conversation_initContent || (
+                  <>
+                    👋 你好！我是 {propData.botInfo_nickname || propData.ui_base_title || DEFAULT_BOT_NICKNAME}，
+                    很高兴见到你！你可以问我任何问题。
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
         {cozeApiClientRef.current.messages_has_more && (
           <div className="message-item">
             <div className="message-content loading">
@@ -499,17 +590,23 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
               <div className="message-avatar">
                 {message.role === RoleType.User ? (
                   <>
-                    <img src={propData.userInfo_url || ""} alt="用户" />
-                    {propData.userInfo_nickname && (
-                      <span className="message-nickname">{propData.userInfo_nickname}</span>
-                    )}
+                    <img
+                      src={propData.userInfo_url || DEFAULT_USER_AVATAR}
+                      alt="用户"
+                    />
+                    <span className="message-nickname">
+                      {propData.userInfo_nickname || DEFAULT_USER_NICKNAME}
+                    </span>
                   </>
                 ) : (
                   <>
-                    <img src={propData.botInfo_url || propData.ui_base_icon || ""} alt="AI助手" />
-                    {propData.botInfo_nickname && (
-                      <span className="message-nickname">{propData.botInfo_nickname}</span>
-                    )}
+                    <img
+                      src={propData.botInfo_url || propData.ui_base_icon || DEFAULT_BOT_AVATAR}
+                      alt="AI助手"
+                    />
+                    <span className="message-nickname">
+                      {propData.botInfo_nickname || propData.ui_base_title || DEFAULT_BOT_NICKNAME}
+                    </span>
                   </>
                 )}
               </div>
@@ -546,8 +643,9 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
                           client.input_text_message = question.content || '';
                           try {
                             await client.chat_stream();
-                          } catch (error) {
+                          } catch (error: any) {
                             console.error('发送推荐问题失败:', error);
+                            showToast(error.message || '发送失败');
                           }
                         }}
                       >
@@ -561,29 +659,42 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
           );
         })}
 
-        {/* 推荐问题的骨架屏 */}
-        {cozeApiClientRef.current.isStreaming && cozeApiClientRef.current.isFollowUpStreaming && (
-          <div className="recommend-questions">
-            {[1, 2, 3].map((key) => (
-              <div key={key} className="recommend-question-skeleton">
-                <div className="skeleton-content" />
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* 在消息列表的最后添加加载动画 */}
-        {cozeApiClientRef.current.isStreaming && !cozeApiClientRef.current.isAnswerStreaming && (
+        {/* 在消息列表的最后添加加载动画和骨架屏 */}
+        {cozeApiClientRef.current.isStreaming && (
           <div className="message-item">
+            {/* 只在显示加载动时显示头像和昵称 */}
             <div className="message-avatar">
-              <img src={propData.botInfo_url || propData.ui_base_icon || ""} alt="AI助手" />
+              {!cozeApiClientRef.current.isAnswerStreaming && !cozeApiClientRef.current.isFollowUpStreaming && (
+                <>
+                  <img
+                    src={propData.botInfo_url || propData.ui_base_icon || DEFAULT_BOT_AVATAR}
+                    alt="AI助手"
+                  />
+                  <span className="message-nickname">
+                    {propData.botInfo_nickname || DEFAULT_BOT_NICKNAME}
+                  </span>
+                </>
+              )}
             </div>
-            <div className="message-content loading">
-              <div className="message-bubble loading">
-                <svg className="loading-icon" viewBox="0 0 24 24">
-                  <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
-                </svg>
-              </div>
+
+            <div className="message-content">
+              {!cozeApiClientRef.current.isAnswerStreaming && (
+                <div className="message-bubble loading">
+                  <svg className="loading-icon" viewBox="0 0 24 24">
+                    <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
+                  </svg>
+                </div>
+              )}
+              {/* 推荐问题的骨架屏 */}
+              {cozeApiClientRef.current.isFollowUpStreaming && (
+                <div className="recommend-questions">
+                  {[1, 2, 3].map((key) => (
+                    <div key={key} className="recommend-question-skeleton">
+                      <div className="skeleton-content" />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -683,9 +794,9 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
 
           <div className="input-area">
             <textarea
-              value={inputText}
+              value={cozeApiClientRef.current.input_text_message}
               onChange={(e) => {
-                setInputText(e.target.value);
+                setForceUpdate(prev => prev + 1);
                 if (cozeApiClientRef.current) {
                   cozeApiClientRef.current.input_text_message = e.target.value;
                 }
@@ -707,14 +818,16 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
             <div className="input-actions">
               {/* 新建会话按钮 */}
               <button
-                className="new-chat-btn"
+                className={`new-chat-btn ${cozeApiClientRef.current.isStreaming ? 'disabled' : ''}`}
                 onClick={async () => {
                   try {
-                    await cozeApiClientRef.current?.conversations_create('');
-                  } catch (error) {
+                    await cozeApiClientRef.current?.chat_stream(undefined, true);
+                  } catch (error: any) {
                     console.error('创建新会话失败:', error);
+                    showToast(error.message || '创建失败');
                   }
                 }}
+                disabled={cozeApiClientRef.current.isStreaming}
               >
                 <svg viewBox="0 0 24 24" width="20" height="20">
                   <path fill="currentColor" d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
@@ -739,6 +852,15 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
                           }
                           // 设置正在上传的是图片
                           cozeApiClientRef.current.uploadingFileType = 'image';
+
+                          // 检查是否已经存在相同的文件
+                          const isDuplicate = cozeApiClientRef.current.input_image_messages.some(
+                            img => img.file?.name === file.name && img.file?.size === file.size
+                          );
+                          if (isDuplicate) {
+                            showToast('该图片已经上传过了');
+                            return;
+                          }
                         } else {
                           if (cozeApiClientRef.current.input_file_messages.length >= 4) {
                             alert('最多只能上传4个文件');
@@ -746,6 +868,15 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
                           }
                           // 设置正在上传的是文件
                           cozeApiClientRef.current.uploadingFileType = 'file';
+
+                          // 检查是否已经存在相同的文件
+                          const isDuplicate = cozeApiClientRef.current.input_file_messages.some(
+                            f => f.file?.name === file.name && f.file?.size === file.size
+                          );
+                          if (isDuplicate) {
+                            showToast('该文件已经上传过了');
+                            return;
+                          }
                         }
 
                         // 开始上传前触发更新
@@ -755,14 +886,17 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
                         setForceUpdate(prev => prev + 1);
                         // 清除上传文件类型
                         cozeApiClientRef.current.uploadingFileType = undefined;
-                      } catch (error) {
+                      } catch (error: any) {
                         console.error('文件上传失败:', error);
+                        showToast(error?.message || '文件上传失败');
                         // 上传失败也触发更新
                         setForceUpdate(prev => prev + 1);
                         // 清除上传文件类型
                         cozeApiClientRef.current.uploadingFileType = undefined;
                       }
                     }
+                    // 清空 input 的值，确保相同文件可以重复选择
+                    e.target.value = '';
                   }}
                   accept="image/*,.pdf,.doc,.docx,.txt"
                 />
@@ -773,9 +907,11 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
 
               {/* 发送按钮 */}
               <button
-                className={`send-btn ${inputText.trim() && !cozeApiClientRef.current.isStreaming ? 'active' : ''}`}
+                className={
+                  `send-btn ${(cozeApiClientRef.current.input_text_message || cozeApiClientRef.current.input_file_messages.length > 0 || cozeApiClientRef.current.input_image_messages.length > 0) && !cozeApiClientRef.current.isStreaming ? 'active' : ''}`
+                }
                 onClick={handleSendMessage}
-                disabled={!inputText.trim() || cozeApiClientRef.current.isStreaming}
+                disabled={(!cozeApiClientRef.current.input_text_message && cozeApiClientRef.current.input_file_messages.length == 0 && cozeApiClientRef.current.input_image_messages.length == 0) || cozeApiClientRef.current.isStreaming}
               >
                 <svg viewBox="0 0 24 24" className="send-icon">
                   {cozeApiClientRef.current.isStreaming ? (
@@ -819,6 +955,16 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
             {message}
           </div>
         ))}
+      </div>
+
+      {/* 滚动到底部按钮 */}
+      <div
+        className={`scroll-to-bottom ${showScrollButton ? 'visible' : ''}`}
+        onClick={() => scrollToBottom(false)}
+      >
+        <svg viewBox="0 0 24 24">
+          <path fill="currentColor" d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+        </svg>
       </div>
     </div>
   );
