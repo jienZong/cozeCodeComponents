@@ -94,3 +94,7 @@ export interface CozeNodeSdkPropData {
   ui_footer_expressionText?: string; // 底部提示
 }
 ```
+
+# 更新日志
+
+2024-12-18【v1.0.2】 新增 CozeNodeSdk 组件，CozeWebSdk 组件更新到 Coze 官方最新版本 1.1.0-beta.0

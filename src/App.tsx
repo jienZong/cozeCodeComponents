@@ -1,12 +1,22 @@
 import { BrowserRouter } from "react-router-dom";
 import "./App.scss";
 import Components from "./components/index";
-const { CozeNodeSdk } = Components;
+const {
+  //  CozeNodeSdk,
+   CozeWebSdk } = Components;
 function App() {
   return (
     <BrowserRouter>
       <div style={{ height: "100%", width: "100%", backgroundColor: "#f5f8fa" }}>
-        <CozeNodeSdk
+        <CozeWebSdk
+          propData={{
+            config_botId: "7440005235935920164",
+            auth_token: "pat_oue31YyvzrfVM55P1Jd2dK3IKDSuEat4zWvvzuAV9VBK8W147x9zD54qIXxHCrC5",
+          }}
+          propState={{}}
+          event={{}}
+        />
+        {/* <CozeNodeSdk
           propData={{
             conversation_id: "",
             ui_base_icon: "",
@@ -30,7 +40,7 @@ function App() {
               console.log(e, "onChatCreated===");
             },
           }}
-        />
+        /> */}
       </div>
     </BrowserRouter>
   );

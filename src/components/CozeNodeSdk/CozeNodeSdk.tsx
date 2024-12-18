@@ -94,8 +94,6 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
   const cozeApiClientRef = useRef<ExtendedCozeApiClient>(cozeApiClient);
   // 当cozeApiClient变化时，更新cozeApiClientRef并获取初始消息列表
   useEffect(() => {
-    console.log("cozeApiClientRef.current", cozeApiClientRef.current);
-
     cozeApiClientRef.current = cozeApiClient;
     if (cozeApiClientRef.current.conversation_id && !cozeApiClientRef.current.messages_is_loading) {
       cozeApiClientRef.current.conversations_messages_list()
@@ -174,18 +172,19 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
   const conversations_create = useCallback((conversation: any) => {
     propState?.conversation_id?.set(conversation?.id);
     event?.conversations_create?.call(null);
+    console.log("conversations_create:emit", conversation);
   }, [propState?.conversation_id, event?.conversations_create]);
 
   const onChatCreated = useCallback((chat?: any) => {
     propState?.chat_id?.set(chat?.id);
     event?.onChatCreated?.call(null);
+    console.log("onChatCreated:emit", chat);
   }, [propState?.chat_id, event?.onChatCreated]);
 
   // 监听消息流事件
   useEffect(() => {
 
     const handleChatStream = (event: string, data: any) => {
-      console.log("chat_stream", event, data);
       setForceUpdate(prev => prev + 1);
 
       if (event === ChatEventType.CONVERSATION_CHAT_CREATED) {
@@ -239,7 +238,7 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
       client.off("files_remove", handUpdate);
       client.off("conversations_create", handleConversationCreate);
     };
-  }, [isInitialized, scrollToBottom, conversations_create]);
+  }, [isInitialized, scrollToBottom, conversations_create, onChatCreated]);
 
   const handleSendMessage = async () => {
     const client = cozeApiClientRef.current;

@@ -1,4 +1,4 @@
-import "https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.0.0-beta.4/libs/cn/index.js";
+import "https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.1.0-beta.0/libs/cn/index.js";
 import { EventHandler, State } from "zvm-code-context";
 import { useRef, useEffect, useState } from 'react';  // 添加这行
 export interface CozeWebSdkPropData {
@@ -35,8 +35,8 @@ export interface CozeWebSdkStateData {
 }
 
 export interface CozeWebSdkEvent {
-  onChatBotHide: EventHandler;
-  onChatBotShow: EventHandler;
+  onChatBotHide?: EventHandler;
+  onChatBotShow?: EventHandler;
 }
 
 export interface CozeWebSdkProps {
