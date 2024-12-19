@@ -83967,6 +83967,23 @@ const DEFAULT_USER_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 const DEFAULT_BOT_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234c6fff' d='M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 12.5v2.5h-2V12H7v-2h2V8.5h2V11h2v2h-2v1.5zM18 9h-4v6h4V9z'/%3E%3C/svg%3E";
 const DEFAULT_USER_NICKNAME = "我";
 const DEFAULT_BOT_NICKNAME = "AI助手";
+const remarkMathOptions = {
+  singleDollar: true,
+  inlineMath: [
+    ["$", "$"],
+    ["\\(", "\\)"]
+  ],
+  displayMath: [
+    ["$$", "$$"],
+    ["\\[", "\\]"]
+  ]
+};
+const rehypeKatexOptions = {
+  strict: false,
+  trust: true,
+  throwOnError: false,
+  output: "html"
+};
 function CozeNodeSdk({ propData, propState, event }) {
   const [forceUpdate, setForceUpdate] = useState(0);
   if (forceUpdate < 0) {
@@ -84100,6 +84117,7 @@ function CozeNodeSdk({ propData, propState, event }) {
       client.off("conversations_create", handleConversationCreate);
     };
   }, [isInitialized, scrollToBottom, conversations_create, onChatCreated]);
+  const textareaRef = useRef(null);
   const handleSendMessage = async () => {
     const client = cozeApiClientRef.current;
     const hasContent = client.input_text_message || client.input_file_messages.length > 0 || client.input_image_messages.length > 0;
@@ -84108,11 +84126,16 @@ function CozeNodeSdk({ propData, propState, event }) {
       requestAnimationFrame(() => {
         scrollToBottom(false);
       });
+      setForceUpdate((prev) => prev + 1);
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+      }
       await client.chat_stream();
     } catch (error) {
       console.error("发送消息失败:", error);
       showToast(error.message || "发送失败");
     }
+    setForceUpdate((prev) => prev + 1);
   };
   const formatFileSize = (bytes) => {
     if (!bytes) return "0 B";
@@ -84140,8 +84163,8 @@ function CozeNodeSdk({ propData, propState, event }) {
         textContents.map((item, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(
           Markdown,
           {
-            remarkPlugins: [remarkMath],
-            rehypePlugins: [rehypeKatex, rehypeRaw],
+            remarkPlugins: [[remarkMath, remarkMathOptions]],
+            rehypePlugins: [[rehypeKatex, rehypeKatexOptions], rehypeRaw],
             components: {
               code({ node, inline, className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || "");
@@ -84172,15 +84195,26 @@ function CozeNodeSdk({ propData, propState, event }) {
                   )
                 ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("code", { className, ...props, children });
               },
-              img({ src, alt, ...props }) {
+              img({ src, alt, onLoad, ...props }) {
                 return /* @__PURE__ */ jsxRuntimeExports.jsx(
                   "img",
                   {
                     src,
                     alt,
                     className: "clickable-image",
-                    onClick: () => setPreviewImage(src),
-                    ...props
+                    onClick: (e) => {
+                      e.stopPropagation();
+                      setPreviewImage(src);
+                    },
+                    onLoad: (e) => {
+                      if (typeof onLoad === "function") {
+                        onLoad(e);
+                      }
+                      const img = e.target;
+                      img.style.opacity = "1";
+                    },
+                    ...props,
+                    loading: "lazy"
                   }
                 );
               }
@@ -84195,7 +84229,14 @@ function CozeNodeSdk({ propData, propState, event }) {
             src: item.file_url,
             alt: item.name || "image",
             className: "message-image-content clickable-image",
-            onClick: () => setPreviewImage(item.file_url)
+            onClick: (e) => {
+              e.stopPropagation();
+              setPreviewImage(item.file_url);
+            },
+            onLoad: (e) => {
+              const img = e.target;
+              img.style.opacity = "1";
+            }
           }
         ) }, `image-${index}`)) }),
         fileContents.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-files", children: fileContents.map((item, index) => /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: renderFile({
@@ -84208,8 +84249,8 @@ function CozeNodeSdk({ propData, propState, event }) {
     return /* @__PURE__ */ jsxRuntimeExports.jsx(
       Markdown,
       {
-        remarkPlugins: [remarkMath],
-        rehypePlugins: [rehypeKatex, rehypeRaw],
+        remarkPlugins: [[remarkMath, remarkMathOptions]],
+        rehypePlugins: [[rehypeKatex, rehypeKatexOptions], rehypeRaw],
         components: {
           code({ node, inline, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
@@ -84240,15 +84281,26 @@ function CozeNodeSdk({ propData, propState, event }) {
               )
             ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("code", { className, ...props, children });
           },
-          img({ src, alt, ...props }) {
+          img({ src, alt, onLoad, ...props }) {
             return /* @__PURE__ */ jsxRuntimeExports.jsx(
               "img",
               {
                 src,
                 alt,
                 className: "clickable-image",
-                onClick: () => setPreviewImage(src),
-                ...props
+                onClick: (e) => {
+                  e.stopPropagation();
+                  setPreviewImage(src);
+                },
+                onLoad: (e) => {
+                  if (typeof onLoad === "function") {
+                    onLoad(e);
+                  }
+                  const img = e.target;
+                  img.style.opacity = "1";
+                },
+                ...props,
+                loading: "lazy"
               }
             );
           }
@@ -84430,7 +84482,7 @@ function CozeNodeSdk({ propData, propState, event }) {
         ] }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-content", children: [
           !cozeApiClientRef.current.isAnswerStreaming && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-bubble loading", children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { className: "loading-icon", viewBox: "0 0 24 24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" }) }) }),
-          cozeApiClientRef.current.isFollowUpStreaming && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "recommend-questions", children: [1, 2, 3].map((key) => /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "recommend-question-skeleton", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "skeleton-content" }) }, key)) })
+          cozeApiClientRef.current.isFollowUpStreaming && cozeApiClientRef.current.suggestions?.length == 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "recommend-questions", children: [1, 2, 3].map((key) => /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "recommend-question-skeleton", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "skeleton-content" }) }, key)) })
         ] })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: messagesEndRef })
@@ -84445,7 +84497,11 @@ function CozeNodeSdk({ propData, propState, event }) {
                 src: image.filePath || image.file_url,
                 alt: image.file?.name || "uploaded image",
                 className: "uploaded-image-preview clickable-image",
-                onClick: () => setPreviewImage(image.filePath || image.file_url)
+                onClick: () => setPreviewImage(image.filePath || image.file_url),
+                onLoad: (e) => {
+                  const img = e.target;
+                  img.style.opacity = "1";
+                }
               }
             ) }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "image-info", children: [
@@ -84493,14 +84549,17 @@ function CozeNodeSdk({ propData, propState, event }) {
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           "textarea",
           {
+            ref: textareaRef,
             value: cozeApiClientRef.current.input_text_message,
             onChange: (e) => {
               setForceUpdate((prev) => prev + 1);
               if (cozeApiClientRef.current) {
                 cozeApiClientRef.current.input_text_message = e.target.value;
               }
-              e.target.style.height = "auto";
-              e.target.style.height = `${Math.min(e.target.scrollHeight, 120)}px`;
+              if (textareaRef.current) {
+                textareaRef.current.style.height = "auto";
+                textareaRef.current.style.height = e.target.value ? `${Math.min(textareaRef.current.scrollHeight, 120)}px` : "auto";
+              }
             },
             onKeyPress: (e) => {
               if (e.key === "Enter" && !e.shiftKey) {
@@ -84610,7 +84669,14 @@ function CozeNodeSdk({ propData, propState, event }) {
             src: previewImage,
             alt: "preview",
             className: "preview-image",
-            onClick: (e) => e.stopPropagation()
+            onClick: () => setPreviewImage(null),
+            onLoad: (e) => {
+              const img = e.target;
+              if (img.naturalHeight > window.innerHeight * 0.9) {
+                img.style.height = "90vh";
+                img.style.width = "auto";
+              }
+            }
           }
         )
       }

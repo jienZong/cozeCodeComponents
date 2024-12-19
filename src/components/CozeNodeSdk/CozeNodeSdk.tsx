@@ -69,6 +69,26 @@ const DEFAULT_BOT_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
 const DEFAULT_USER_NICKNAME = "我";
 const DEFAULT_BOT_NICKNAME = "AI助手";
 
+// 在文件顶部添加配置对象
+const remarkMathOptions = {
+  singleDollar: true,
+  inlineMath: [
+    ['$', '$'],
+    ['\\(', '\\)']
+  ],
+  displayMath: [
+    ['$$', '$$'],
+    ['\\[', '\\]']
+  ]
+};
+
+const rehypeKatexOptions = {
+  strict: false,
+  trust: true,
+  throwOnError: false,
+  output: 'html'
+};
+
 export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
   const [forceUpdate, setForceUpdate] = useState(0);
   if (forceUpdate < 0) {
@@ -240,9 +260,12 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
     };
   }, [isInitialized, scrollToBottom, conversations_create, onChatCreated]);
 
+  // 添加输入框的 ref
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // 修改 handleSendMessage 函数
   const handleSendMessage = async () => {
     const client = cozeApiClientRef.current;
-    // 是否存在内容
     const hasContent = client.input_text_message || client.input_file_messages.length > 0 || client.input_image_messages.length > 0;
     if (!client || !hasContent || client.isStreaming) return;
 
@@ -250,11 +273,17 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
       requestAnimationFrame(() => {
         scrollToBottom(false);
       });
+      setForceUpdate(prev => prev + 1);
+      // 使用 ref 重置输入框高度
+      if (textareaRef.current) {
+        textareaRef.current.style.height = 'auto';
+      }
       await client.chat_stream();
     } catch (error: any) {
       console.error('发送消息失败:', error);
       showToast(error.message || '发送失败');
     }
+    setForceUpdate(prev => prev + 1);
   };
 
   // 格式化文件大小
@@ -295,8 +324,8 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
           {textContents.map((item: any, index: number) => (
             <ReactMarkdown
               key={`text-${index}`}
-              remarkPlugins={[remarkMath]}
-              rehypePlugins={[rehypeKatex, rehypeRaw]}
+              remarkPlugins={[[remarkMath, remarkMathOptions]]}
+              rehypePlugins={[[rehypeKatex, rehypeKatexOptions], rehypeRaw]}
               components={{
                 code({ node, inline, className, children, ...props }: any) {
                   const match = /language-(\w+)/.exec(className || '');
@@ -329,14 +358,28 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
                     </code>
                   );
                 },
-                img({ src, alt, ...props }: any) {
+                img({ src, alt, onLoad, ...props }: any) {
                   return (
                     <img
                       src={src}
                       alt={alt}
                       className="clickable-image"
-                      onClick={() => setPreviewImage(src)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setPreviewImage(src);
+                      }}
+                      onLoad={(e) => {
+                        // 处理原始的 onLoad 事件（如果存在）
+                        if (typeof onLoad === 'function') {
+                          onLoad(e);
+                        }
+                        // 添加我们自己的处理逻辑
+                        const img = e.target as HTMLImageElement;
+                        img.style.opacity = '1';
+                      }}
                       {...props}
+                      // 移除可能导致问题的属性
+                      loading="lazy"
                     />
                   );
                 }
@@ -355,7 +398,14 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
                     src={item.file_url}
                     alt={item.name || 'image'}
                     className="message-image-content clickable-image"
-                    onClick={() => setPreviewImage(item.file_url)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setPreviewImage(item.file_url);
+                    }}
+                    onLoad={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      img.style.opacity = '1';
+                    }}
                   />
                 </div>
               ))}
@@ -383,8 +433,8 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
     // 处理普通文本消息
     return (
       <ReactMarkdown
-        remarkPlugins={[remarkMath]}
-        rehypePlugins={[rehypeKatex, rehypeRaw]}
+        remarkPlugins={[[remarkMath, remarkMathOptions]]}
+        rehypePlugins={[[rehypeKatex, rehypeKatexOptions], rehypeRaw]}
         components={{
           code({ node, inline, className, children, ...props }: any) {
             const match = /language-(\w+)/.exec(className || '');
@@ -417,14 +467,28 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
               </code>
             );
           },
-          img({ src, alt, ...props }: any) {
+          img({ src, alt, onLoad, ...props }: any) {
             return (
               <img
                 src={src}
                 alt={alt}
                 className="clickable-image"
-                onClick={() => setPreviewImage(src)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setPreviewImage(src);
+                }}
+                onLoad={(e) => {
+                  // 处理原始的 onLoad 事件（如果存在）
+                  if (typeof onLoad === 'function') {
+                    onLoad(e);
+                  }
+                  // 添加我们自己的处理逻辑
+                  const img = e.target as HTMLImageElement;
+                  img.style.opacity = '1';
+                }}
                 {...props}
+                // 移除可能导致问题的属性
+                loading="lazy"
               />
             );
           }
@@ -478,7 +542,7 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
     });
   };
 
-  // 在 parseMessageContent 函数中���改文件渲染部分
+  // 在 parseMessageContent 函数中改文件渲染部分
   const renderFile = (file: any) => {
     return (
       <div className="message-file">
@@ -540,7 +604,7 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
 
       {/* 消息列表区域 */}
       <div className="message-list" ref={messageListRef}>
-        {/* 当消息为空且没有更多消息时显示初始内容 */}
+        {/* 当消息为空且有更多消息时显示初始内容 */}
         {cozeApiClientRef.current.messages.length === 0 && !cozeApiClientRef.current.messages_has_more && (
           <div className="message-item">
             <div className="message-avatar">
@@ -685,7 +749,7 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
                 </div>
               )}
               {/* 推荐问题的骨架屏 */}
-              {cozeApiClientRef.current.isFollowUpStreaming && (
+              {cozeApiClientRef.current.isFollowUpStreaming && cozeApiClientRef.current.suggestions?.length == 0 && (
                 <div className="recommend-questions">
                   {[1, 2, 3].map((key) => (
                     <div key={key} className="recommend-question-skeleton">
@@ -718,6 +782,10 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
                           alt={image.file?.name || 'uploaded image'}
                           className="uploaded-image-preview clickable-image"
                           onClick={() => setPreviewImage(image.filePath || image.file_url)}
+                          onLoad={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            img.style.opacity = '1';
+                          }}
                         />
                       </div>
                       <div className="image-info">
@@ -793,14 +861,20 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
 
           <div className="input-area">
             <textarea
+              ref={textareaRef}
               value={cozeApiClientRef.current.input_text_message}
               onChange={(e) => {
                 setForceUpdate(prev => prev + 1);
                 if (cozeApiClientRef.current) {
                   cozeApiClientRef.current.input_text_message = e.target.value;
                 }
-                e.target.style.height = 'auto';
-                e.target.style.height = `${Math.min(e.target.scrollHeight, 120)}px`;
+                // 自动调整高度
+                if (textareaRef.current) {
+                  textareaRef.current.style.height = 'auto';
+                  textareaRef.current.style.height = e.target.value
+                    ? `${Math.min(textareaRef.current.scrollHeight, 120)}px`
+                    : 'auto';
+                }
               }}
               onKeyPress={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
@@ -868,7 +942,7 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
                           // 设置正在上传的是文件
                           cozeApiClientRef.current.uploadingFileType = 'file';
 
-                          // 检查是否已经存在相同的文件
+                          // 检查否已经存在相同的文件
                           const isDuplicate = cozeApiClientRef.current.input_file_messages.some(
                             f => f.file?.name === file.name && f.file?.size === file.size
                           );
@@ -942,7 +1016,14 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
             src={previewImage}
             alt="preview"
             className="preview-image"
-            onClick={(e) => e.stopPropagation()}
+            onClick={() => setPreviewImage(null)}
+            onLoad={(e) => {
+              const img = e.target as HTMLImageElement;
+              if (img.naturalHeight > window.innerHeight * 0.9) {
+                img.style.height = '90vh';
+                img.style.width = 'auto';
+              }
+            }}
           />
         </div>
       )}

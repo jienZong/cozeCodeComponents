@@ -2,16 +2,16 @@
 .coze-container {
     display: flex;
     flex-direction: column;
-    height: 100%;
     width: 100%;
-    position: relative;
+    height: 100%;
+    min-height: 0;
     background: transparent;
     overflow: hidden;
-  }
-  
-  .chat-header {
-    height: 80px;
-    min-height: 80px;
+}
+
+.chat-header {
+    height: 56px;
+    min-height: 56px;
     padding: 0 24px;
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
@@ -126,8 +126,7 @@
   
   .message-content {
     flex: 0 1 auto;
-    min-width: 0;
-    max-width: calc(100% - 44px);
+    width: calc(100% - 88px);
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -471,7 +470,7 @@
     box-sizing: border-box;
   }
   
-  /* 输入框样式 */
+  /* 输��框样式 */
   .chat-input {
     flex: 1;
     border: none;
@@ -820,7 +819,7 @@
     pointer-events: none;
   }
   
-  /* 传中的加载状 */
+  /* 传中的加���� */
   .uploading-overlay {
     position: absolute;
     top: 0;
@@ -947,7 +946,7 @@
   
   /* 单个图片容器样式 */
   .message-image {
-    width: fit-content; /* 改为��应内容宽度 */
+    width: fit-content; /* 改为适应内容宽度 */
     max-width: 100%; /* 最大不超过容器宽度 */
     position: relative;
     overflow: hidden;
@@ -1014,7 +1013,7 @@
     max-height: 90vh;
     object-fit: contain;
     border-radius: 8px;
-    cursor: default;
+    cursor: zoom-out;
     animation: zoom-in 0.2s ease;
   }
   
@@ -1062,7 +1061,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
     animation: zoom-in 0.2s ease-out;
-    cursor: default; /* 预览图片使用默认指针 */
+    cursor: default; /* 预览片使用默认指针 */
   }
   
   /* 消息气泡内的文本样式 */
@@ -1138,7 +1137,7 @@
     font-size: 13px !important;
   }
   
-  /* 行内代码样��� */
+  /* 行内代码样式 */
   .message-bubble code:not([class*="language-"]) {
     font-family: monospace;
     font-size: 13px;
@@ -1326,15 +1325,37 @@
     margin: 1em 0;
     overflow-x: auto;
     overflow-y: hidden;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
   }
   
   .katex {
     font-size: 1.1em;
     line-height: 1.2;
+    text-indent: 0;
   }
   
   .katex-html {
     white-space: nowrap;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  
+  /* 处理长公式的滚动 */
+  .katex-display > .katex {
+    display: inline-block;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow-x: auto;
+    text-align: initial;
+  }
+  
+  /* 优化公式与文本的间距 */
+  .message-bubble .katex-display {
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    padding: 8px;
   }
   
   /* 复合消息样式优化 */
@@ -1462,8 +1483,8 @@
   /* 移动端适配 */
   @media screen and (max-width: 768px) {
     .coze-container .chat-header {
-      height: 64px;
-      min-height: 64px;
+      height: 56px;
+      min-height: 56px;
       padding: 0 16px;
     }
     
@@ -1535,8 +1556,7 @@
   /* 消息内容区域 */
   .message-content {
     flex: 0 1 auto;
-    min-width: 0;
-    max-width: calc(100% - 44px);
+    width: calc(100% - 88px);
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -1598,7 +1618,7 @@
     background: rgba(0, 0, 0, 0.2); /* 悬浮时稍微加深 */
   }
 
-  /* Firefox 滚���条样式 */
+  /* Firefox 滚动条样式 */
   .message-list {
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
@@ -2058,7 +2078,7 @@
     max-height: 90vh;
     object-fit: contain;
     border-radius: 8px;
-    cursor: default;
+    cursor: zoom-out;
     animation: zoom-in 0.2s ease;
   }
   
