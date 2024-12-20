@@ -327,6 +327,9 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
               remarkPlugins={[[remarkMath, remarkMathOptions]]}
               rehypePlugins={[[rehypeKatex, rehypeKatexOptions], rehypeRaw]}
               components={{
+                p: ({ children }) => {
+                  return <p style={{ whiteSpace: 'pre-wrap' }}>{children}</p>
+                },
                 code({ node, inline, className, children, ...props }: any) {
                   const match = /language-(\w+)/.exec(className || '');
                   return !inline && match ? (
@@ -436,6 +439,9 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
         remarkPlugins={[[remarkMath, remarkMathOptions]]}
         rehypePlugins={[[rehypeKatex, rehypeKatexOptions], rehypeRaw]}
         components={{
+          p: ({ children }) => {
+            return <p style={{ whiteSpace: 'pre-wrap' }}>{children}</p>
+          },
           code({ node, inline, className, children, ...props }: any) {
             const match = /language-(\w+)/.exec(className || '');
             return !inline && match ? (
@@ -877,7 +883,11 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
                 }
               }}
               onKeyPress={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
+                // 检查是否在移动设备上
+                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                
+                // 在非移动设备上才启用回车发送
+                if (e.key === 'Enter' && !e.shiftKey && !isMobile) {
                   e.preventDefault();
                   handleSendMessage();
                 }

@@ -84166,6 +84166,9 @@ function CozeNodeSdk({ propData, propState, event }) {
             remarkPlugins: [[remarkMath, remarkMathOptions]],
             rehypePlugins: [[rehypeKatex, rehypeKatexOptions], rehypeRaw],
             components: {
+              p: ({ children }) => {
+                return /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { whiteSpace: "pre-wrap" }, children });
+              },
               code({ node, inline, className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || "");
                 return !inline && match ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "code-block-wrapper", children: [
@@ -84252,6 +84255,9 @@ function CozeNodeSdk({ propData, propState, event }) {
         remarkPlugins: [[remarkMath, remarkMathOptions]],
         rehypePlugins: [[rehypeKatex, rehypeKatexOptions], rehypeRaw],
         components: {
+          p: ({ children }) => {
+            return /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { whiteSpace: "pre-wrap" }, children });
+          },
           code({ node, inline, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
             return !inline && match ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "code-block-wrapper", children: [
@@ -84562,7 +84568,8 @@ function CozeNodeSdk({ propData, propState, event }) {
               }
             },
             onKeyPress: (e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
+              const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+              if (e.key === "Enter" && !e.shiftKey && !isMobile) {
                 e.preventDefault();
                 handleSendMessage();
               }
