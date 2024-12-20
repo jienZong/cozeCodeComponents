@@ -84122,11 +84122,12 @@ function CozeNodeSdk({ propData, propState, event }) {
     const client = cozeApiClientRef.current;
     const hasContent = client.input_text_message || client.input_file_messages.length > 0 || client.input_image_messages.length > 0;
     if (!client || !hasContent || client.isStreaming) return;
+    setForceUpdate((prev) => prev + 1);
     try {
-      requestAnimationFrame(() => {
-        scrollToBottom(false);
-      });
-      setForceUpdate((prev) => prev + 1);
+      scrollToBottom(true);
+      setTimeout(() => {
+        scrollToBottom(true);
+      }, 150);
       if (textareaRef.current) {
         textareaRef.current.style.height = "auto";
       }
@@ -84160,7 +84161,7 @@ function CozeNodeSdk({ propData, propState, event }) {
       const imageContents = message.content_data.filter((item) => item.type === "image");
       const fileContents = message.content_data.filter((item) => item.type === "file");
       return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-content-wrapper", children: [
-        textContents.map((item, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        message.role === chat_RoleType.User ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-content-wrapper", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { whiteSpace: "pre-wrap" }, children: textContents.map((item) => item.content).join("\n") || "" }) }) : textContents.map((item, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(
           Markdown,
           {
             remarkPlugins: [[remarkMath, remarkMathOptions]],
@@ -84248,6 +84249,9 @@ function CozeNodeSdk({ propData, propState, event }) {
           size: item.size
         }) }, `file-${item.file_id || index}`)) })
       ] });
+    }
+    if (message.role === chat_RoleType.User) {
+      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-content-wrapper", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { whiteSpace: "pre-wrap" }, children: message.content || "" }) });
     }
     return /* @__PURE__ */ jsxRuntimeExports.jsx(
       Markdown,
@@ -84407,7 +84411,7 @@ function CozeNodeSdk({ propData, propState, event }) {
     if (!messageList) return;
     const handleScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } = messageList;
-      setShowScrollButton(scrollHeight - scrollTop - clientHeight > 200);
+      setShowScrollButton(scrollHeight - scrollTop - clientHeight > 100);
     };
     messageList.addEventListener("scroll", handleScroll);
     return () => messageList.removeEventListener("scroll", handleScroll);
@@ -84424,110 +84428,120 @@ function CozeNodeSdk({ propData, propState, event }) {
       ),
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "header-title", children: propData.ui_base_title || DEFAULT_BOT_NICKNAME })
     ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-list", ref: messageListRef, children: [
-      cozeApiClientRef.current.messages.length === 0 && !cozeApiClientRef.current.messages_has_more && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-item", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-avatar", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "img",
-            {
-              src: propData.botInfo_url || propData.ui_base_icon || DEFAULT_BOT_AVATAR,
-              alt: "AI助手"
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "message-nickname", children: propData.botInfo_nickname || DEFAULT_BOT_NICKNAME })
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-list-wrapper", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-list", ref: messageListRef, children: [
+        cozeApiClientRef.current.messages.length === 0 && !cozeApiClientRef.current.messages_has_more && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-item", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-avatar", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                src: propData.botInfo_url || propData.ui_base_icon || DEFAULT_BOT_AVATAR,
+                alt: "AI助手"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "message-nickname", children: propData.botInfo_nickname || DEFAULT_BOT_NICKNAME })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-content", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-bubble", children: propData.conversation_initContent || /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+            "👋 你好！我是 ",
+            propData.botInfo_nickname || propData.ui_base_title || DEFAULT_BOT_NICKNAME,
+            "， 很高兴见到你！你可以问我任何问题。"
+          ] }) }) })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-content", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-bubble", children: propData.conversation_initContent || /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-          "👋 你好！我是 ",
-          propData.botInfo_nickname || propData.ui_base_title || DEFAULT_BOT_NICKNAME,
-          "， 很高兴见到你！你可以问我任何问题。"
-        ] }) }) })
-      ] }),
-      cozeApiClientRef.current.messages_has_more && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-item", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-content loading", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-bubble loading", children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { className: "loading-icon", viewBox: "0 0 24 24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" }) }) }) }) }),
-      cozeApiClientRef.current.messages.map((message, index) => {
-        const messageKey = `${message.id}-${message.type}-${message.role}-${index}`;
-        const isLastAIMessage = index === cozeApiClientRef.current.messages.length - 1 && message.role !== chat_RoleType.User;
-        return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          "div",
-          {
-            className: `message-item ${message.role === chat_RoleType.User ? "user" : ""}`,
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-avatar", children: message.role === chat_RoleType.User ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "img",
-                  {
-                    src: propData.userInfo_url || DEFAULT_USER_AVATAR,
-                    alt: "用户"
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "message-nickname", children: propData.userInfo_nickname || DEFAULT_USER_NICKNAME })
-              ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "img",
-                  {
-                    src: propData.botInfo_url || propData.ui_base_icon || DEFAULT_BOT_AVATAR,
-                    alt: "AI助手"
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "message-nickname", children: propData.botInfo_nickname || propData.ui_base_title || DEFAULT_BOT_NICKNAME })
-              ] }) }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-content", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-bubble", children: [
-                  parseMessageContent(message),
-                  message.role !== chat_RoleType.User && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-actions", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        cozeApiClientRef.current.messages_has_more && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-item", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-content loading", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-bubble loading", children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { className: "loading-icon", viewBox: "0 0 24 24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" }) }) }) }) }),
+        cozeApiClientRef.current.messages.map((message, index) => {
+          const messageKey = `${message.id}-${message.type}-${message.role}-${index}`;
+          const isLastAIMessage = index === cozeApiClientRef.current.messages.length - 1 && message.role !== chat_RoleType.User;
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "div",
+            {
+              className: `message-item ${message.role === chat_RoleType.User ? "user" : ""}`,
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-avatar", children: message.role === chat_RoleType.User ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "img",
+                    {
+                      src: propData.userInfo_url || DEFAULT_USER_AVATAR,
+                      alt: "用户"
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "message-nickname", children: propData.userInfo_nickname || DEFAULT_USER_NICKNAME })
+                ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "img",
+                    {
+                      src: propData.botInfo_url || propData.ui_base_icon || DEFAULT_BOT_AVATAR,
+                      alt: "AI助手"
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "message-nickname", children: propData.botInfo_nickname || propData.ui_base_title || DEFAULT_BOT_NICKNAME })
+                ] }) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-content", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-bubble", children: [
+                    parseMessageContent(message),
+                    message.role !== chat_RoleType.User && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-actions", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                      "button",
+                      {
+                        className: "copy-message-btn",
+                        onClick: () => copyMessage(message),
+                        title: "复制消息",
+                        children: [
+                          /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { viewBox: "0 0 24 24", width: "16", height: "16", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { fill: "currentColor", d: "M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" }) }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "复制" })
+                        ]
+                      }
+                    ) })
+                  ] }),
+                  isLastAIMessage && cozeApiClientRef.current.suggestions?.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "recommend-questions", children: cozeApiClientRef.current.suggestions?.map((question, index2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
                     "button",
                     {
-                      className: "copy-message-btn",
-                      onClick: () => copyMessage(message),
-                      title: "复制消息",
-                      children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { viewBox: "0 0 24 24", width: "16", height: "16", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { fill: "currentColor", d: "M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" }) }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "复制" })
-                      ]
-                    }
-                  ) })
-                ] }),
-                isLastAIMessage && cozeApiClientRef.current.suggestions?.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "recommend-questions", children: cozeApiClientRef.current.suggestions?.map((question, index2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "button",
-                  {
-                    className: "recommend-question-btn",
-                    onClick: async () => {
-                      const client = cozeApiClientRef.current;
-                      if (!client) return;
-                      client.input_text_message = question.content || "";
-                      try {
-                        await client.chat_stream();
-                      } catch (error) {
-                        console.error("发送推荐问题失败:", error);
-                        showToast(error.message || "发送失败");
-                      }
+                      className: "recommend-question-btn",
+                      onClick: async () => {
+                        const client = cozeApiClientRef.current;
+                        if (!client) return;
+                        client.input_text_message = question.content || "";
+                        try {
+                          await client.chat_stream();
+                        } catch (error) {
+                          console.error("发送推荐问题失败:", error);
+                          showToast(error.message || "发送失败");
+                        }
+                      },
+                      children: question.content
                     },
-                    children: question.content
-                  },
-                  index2
-                )) })
-              ] })
-            ]
-          },
-          messageKey
-        );
-      }),
-      cozeApiClientRef.current.isStreaming && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-item", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-avatar", children: !cozeApiClientRef.current.isAnswerStreaming && !cozeApiClientRef.current.isFollowUpStreaming && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "img",
-            {
-              src: propData.botInfo_url || propData.ui_base_icon || DEFAULT_BOT_AVATAR,
-              alt: "AI助手"
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "message-nickname", children: propData.botInfo_nickname || DEFAULT_BOT_NICKNAME })
-        ] }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-content", children: [
-          !cozeApiClientRef.current.isAnswerStreaming && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-bubble loading", children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { className: "loading-icon", viewBox: "0 0 24 24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" }) }) }),
-          cozeApiClientRef.current.isFollowUpStreaming && cozeApiClientRef.current.suggestions?.length == 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "recommend-questions", children: [1, 2, 3].map((key) => /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "recommend-question-skeleton", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "skeleton-content" }) }, key)) })
-        ] })
+                    index2
+                  )) })
+                ] })
+              ]
+            },
+            messageKey
+          );
+        }),
+        cozeApiClientRef.current.isStreaming && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-item", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-avatar", children: !cozeApiClientRef.current.isAnswerStreaming && !cozeApiClientRef.current.isFollowUpStreaming && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                src: propData.botInfo_url || propData.ui_base_icon || DEFAULT_BOT_AVATAR,
+                alt: "AI助手"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "message-nickname", children: propData.botInfo_nickname || DEFAULT_BOT_NICKNAME })
+          ] }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-content", children: [
+            !cozeApiClientRef.current.isAnswerStreaming && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "message-bubble loading", children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { className: "loading-icon", viewBox: "0 0 24 24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" }) }) }),
+            cozeApiClientRef.current.isFollowUpStreaming && cozeApiClientRef.current.suggestions?.length == 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "recommend-questions", children: [1, 2, 3].map((key) => /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "recommend-question-skeleton", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "skeleton-content" }) }, key)) })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: messagesEndRef })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: messagesEndRef })
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "div",
+        {
+          className: `scroll-to-bottom ${showScrollButton ? "visible" : ""}`,
+          onClick: () => scrollToBottom(false),
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { viewBox: "0 0 24 24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { fill: "currentColor", d: "M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" }) })
+        }
+      )
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bottom-area", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "input-container", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
@@ -84587,117 +84601,115 @@ function CozeNodeSdk({ propData, propState, event }) {
           cozeApiClientRef.current.isUploading && cozeApiClientRef.current.uploadingFileType === "file" && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "uploaded-file-item uploading", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "uploading-overlay", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "uploading-spinner" }) }) })
         ] })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "input-area", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "input-area", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "textarea",
+        {
+          ref: textareaRef,
+          value: cozeApiClientRef.current.input_text_message,
+          onChange: (e) => {
+            setForceUpdate((prev) => prev + 1);
+            if (cozeApiClientRef.current) {
+              cozeApiClientRef.current.input_text_message = e.target.value;
+            }
+            if (textareaRef.current) {
+              textareaRef.current.style.height = "auto";
+              textareaRef.current.style.height = e.target.value ? `${Math.min(textareaRef.current.scrollHeight, 120)}px` : "auto";
+            }
+          },
+          onKeyPress: (e) => {
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (e.key === "Enter" && !e.shiftKey && !isMobile) {
+              e.preventDefault();
+              handleSendMessage();
+            }
+          },
+          placeholder: propData.ui_input_placeholder || "请输入内容...",
+          className: "chat-input",
+          rows: 1
+        }
+      ) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "input-actions", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "textarea",
+          "button",
           {
-            ref: textareaRef,
-            value: cozeApiClientRef.current.input_text_message,
-            onChange: (e) => {
-              setForceUpdate((prev) => prev + 1);
-              if (cozeApiClientRef.current) {
-                cozeApiClientRef.current.input_text_message = e.target.value;
-              }
-              if (textareaRef.current) {
-                textareaRef.current.style.height = "auto";
-                textareaRef.current.style.height = e.target.value ? `${Math.min(textareaRef.current.scrollHeight, 120)}px` : "auto";
+            className: `new-chat-btn ${cozeApiClientRef.current.isStreaming ? "disabled" : ""}`,
+            onClick: async () => {
+              try {
+                await cozeApiClientRef.current?.chat_stream(void 0, true);
+              } catch (error) {
+                console.error("创建新会话失败:", error);
+                showToast(error.message || "创建失败");
               }
             },
-            onKeyPress: (e) => {
-              const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-              if (e.key === "Enter" && !e.shiftKey && !isMobile) {
-                e.preventDefault();
-                handleSendMessage();
-              }
-            },
-            placeholder: propData.ui_input_placeholder || "请输入内容...",
-            className: "chat-input",
-            rows: 1
+            disabled: cozeApiClientRef.current.isStreaming,
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { viewBox: "0 0 24 24", width: "20", height: "20", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { fill: "currentColor", d: "M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" }) })
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "input-actions", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `upload-btn ${cozeApiClientRef.current.isUploading ? "disabled" : ""}`, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "button",
+            "input",
             {
-              className: `new-chat-btn ${cozeApiClientRef.current.isStreaming ? "disabled" : ""}`,
-              onClick: async () => {
-                try {
-                  await cozeApiClientRef.current?.chat_stream(void 0, true);
-                } catch (error) {
-                  console.error("创建新会话失败:", error);
-                  showToast(error.message || "创建失败");
+              type: "file",
+              hidden: true,
+              disabled: cozeApiClientRef.current.isUploading,
+              onChange: async (e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  try {
+                    if (file.type.startsWith("image/")) {
+                      if (cozeApiClientRef.current.input_image_messages.length >= 4) {
+                        showToast("最多只能上传4张图");
+                        return;
+                      }
+                      cozeApiClientRef.current.uploadingFileType = "image";
+                      const isDuplicate = cozeApiClientRef.current.input_image_messages.some(
+                        (img) => img.file?.name === file.name && img.file?.size === file.size
+                      );
+                      if (isDuplicate) {
+                        showToast("该图片已经上传过了");
+                        return;
+                      }
+                    } else {
+                      if (cozeApiClientRef.current.input_file_messages.length >= 4) {
+                        showToast("最多只能上传4个文件");
+                        return;
+                      }
+                      cozeApiClientRef.current.uploadingFileType = "file";
+                      const isDuplicate = cozeApiClientRef.current.input_file_messages.some(
+                        (f) => f.file?.name === file.name && f.file?.size === file.size
+                      );
+                      if (isDuplicate) {
+                        showToast("该文件已经上传过了");
+                        return;
+                      }
+                    }
+                    setForceUpdate((prev) => prev + 1);
+                    await cozeApiClientRef.current?.files_upload(file);
+                    setForceUpdate((prev) => prev + 1);
+                    cozeApiClientRef.current.uploadingFileType = void 0;
+                  } catch (error) {
+                    console.error("文件上传失败:", error);
+                    showToast(error?.message || "文件上传失败");
+                    setForceUpdate((prev) => prev + 1);
+                    cozeApiClientRef.current.uploadingFileType = void 0;
+                  }
                 }
+                e.target.value = "";
               },
-              disabled: cozeApiClientRef.current.isStreaming,
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { viewBox: "0 0 24 24", width: "20", height: "20", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { fill: "currentColor", d: "M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" }) })
+              accept: "image/*,.pdf,.doc,.docx,.txt"
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `upload-btn ${cozeApiClientRef.current.isUploading ? "disabled" : ""}`, children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "input",
-              {
-                type: "file",
-                hidden: true,
-                disabled: cozeApiClientRef.current.isUploading,
-                onChange: async (e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    try {
-                      if (file.type.startsWith("image/")) {
-                        if (cozeApiClientRef.current.input_image_messages.length >= 4) {
-                          showToast("最多只能上传4张图");
-                          return;
-                        }
-                        cozeApiClientRef.current.uploadingFileType = "image";
-                        const isDuplicate = cozeApiClientRef.current.input_image_messages.some(
-                          (img) => img.file?.name === file.name && img.file?.size === file.size
-                        );
-                        if (isDuplicate) {
-                          showToast("该图片已经上传过了");
-                          return;
-                        }
-                      } else {
-                        if (cozeApiClientRef.current.input_file_messages.length >= 4) {
-                          showToast("最多只能上传4个文件");
-                          return;
-                        }
-                        cozeApiClientRef.current.uploadingFileType = "file";
-                        const isDuplicate = cozeApiClientRef.current.input_file_messages.some(
-                          (f) => f.file?.name === file.name && f.file?.size === file.size
-                        );
-                        if (isDuplicate) {
-                          showToast("该文件已经上传过了");
-                          return;
-                        }
-                      }
-                      setForceUpdate((prev) => prev + 1);
-                      await cozeApiClientRef.current?.files_upload(file);
-                      setForceUpdate((prev) => prev + 1);
-                      cozeApiClientRef.current.uploadingFileType = void 0;
-                    } catch (error) {
-                      console.error("文件上传失败:", error);
-                      showToast(error?.message || "文件上传失败");
-                      setForceUpdate((prev) => prev + 1);
-                      cozeApiClientRef.current.uploadingFileType = void 0;
-                    }
-                  }
-                  e.target.value = "";
-                },
-                accept: "image/*,.pdf,.doc,.docx,.txt"
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { viewBox: "0 0 24 24", width: "20", height: "20", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { fill: "currentColor", d: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" }) })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "button",
-            {
-              className: `send-btn ${(cozeApiClientRef.current.input_text_message || cozeApiClientRef.current.input_file_messages.length > 0 || cozeApiClientRef.current.input_image_messages.length > 0) && !cozeApiClientRef.current.isStreaming ? "active" : ""}`,
-              onClick: handleSendMessage,
-              disabled: !cozeApiClientRef.current.input_text_message && cozeApiClientRef.current.input_file_messages.length == 0 && cozeApiClientRef.current.input_image_messages.length == 0 || cozeApiClientRef.current.isStreaming,
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { viewBox: "0 0 24 24", className: "send-icon", children: cozeApiClientRef.current.isStreaming ? /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M6 19h4V5H6v14zm8-14v14h4V5h-4z" }) : /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" }) })
-            }
-          )
-        ] })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { viewBox: "0 0 24 24", width: "20", height: "20", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { fill: "currentColor", d: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" }) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            className: `send-btn ${(cozeApiClientRef.current.input_text_message || cozeApiClientRef.current.input_file_messages.length > 0 || cozeApiClientRef.current.input_image_messages.length > 0) && !cozeApiClientRef.current.isStreaming ? "active" : ""}`,
+            onClick: handleSendMessage,
+            disabled: !cozeApiClientRef.current.input_text_message && cozeApiClientRef.current.input_file_messages.length == 0 && cozeApiClientRef.current.input_image_messages.length == 0 || cozeApiClientRef.current.isStreaming,
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { viewBox: "0 0 24 24", className: "send-icon", children: cozeApiClientRef.current.isStreaming ? /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M6 19h4V5H6v14zm8-14v14h4V5h-4z" }) : /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" }) })
+          }
+        )
       ] })
     ] }) }),
     propData.ui_footer_expressionText && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "footer-tip", children: propData.ui_footer_expressionText }),
@@ -84724,15 +84736,7 @@ function CozeNodeSdk({ propData, propState, event }) {
         )
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "toast-container", children: toasts.map((message, index) => /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "toast-message", children: message }, index)) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      "div",
-      {
-        className: `scroll-to-bottom ${showScrollButton ? "visible" : ""}`,
-        onClick: () => scrollToBottom(false),
-        children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { viewBox: "0 0 24 24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { fill: "currentColor", d: "M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" }) })
-      }
-    )
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "toast-container", children: toasts.map((message, index) => /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "toast-message", children: message }, index)) })
   ] });
 }
 

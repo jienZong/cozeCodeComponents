@@ -2,6 +2,7 @@
 .coze-container {
   display: flex;
   flex-direction: column;
+  flex: 1;
   width: 100%;
   height: 100%;
   min-height: 0;
@@ -66,15 +67,7 @@
   line-height: normal;
 }
 
-.message-list {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 20px;
-  box-sizing: border-box;
-  width: 100%;
-  background: transparent;
-}
+
 
 .message-item {
   display: flex;
@@ -144,7 +137,7 @@
   width: fit-content;
   max-width: 75%;
   word-break: break-word;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.6;
   color: #1f2329;
   position: relative;
@@ -242,13 +235,6 @@
   overflow: hidden;
 }
 
-.input-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: 8px;
-}
-
 .input-actions>button,
 .input-actions>label {
   width: 32px;
@@ -264,30 +250,6 @@
   flex-shrink: 0;
 }
 
-.new-chat-btn {
-  background: none;
-  color: #4e5969;
-}
-
-.new-chat-btn:hover {
-  background: #e5e6eb;
-  color: #4c6fff;
-}
-
-.upload-btn {
-  background: none;
-  color: #4e5969;
-}
-
-.upload-btn:hover:not(.disabled) {
-  background: #e5e6eb;
-  color: #4c6fff;
-}
-
-.upload-btn.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
 
 .send-btn {
   background: #4c6fff;
@@ -336,7 +298,8 @@
   width: fit-content;
   max-width: 75%;
   display: block;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  font-family: "PingFang SC", "Microsoft YaHei", SimHei;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: normal;
@@ -464,15 +427,14 @@
 .input-area {
   display: flex;
   align-items: flex-end;
-  gap: 8px;
   width: 100%;
   background: #f7f8fa;
   border-radius: 8px;
-  padding: 12px;
   box-sizing: border-box;
 }
 
-/* 输��框样式 */
+
+/* 输框样式 */
 .chat-input {
   flex: 1;
   border: none;
@@ -480,8 +442,7 @@
   background: transparent;
   font-size: 14px;
   color: #1f2329;
-  padding: 4px 0;
-  min-height: 24px;
+  min-height: 45px;
   max-height: 120px;
   line-height: 20px;
   resize: none;
@@ -494,22 +455,13 @@
   color: #86909c;
 }
 
-/* 右侧按钮组 */
-.input-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: 8px;
-  height: 32px;
-  /* 确保按钮组高度固定 */
-}
 
 /* 按钮基础样式 */
 .input-actions>button,
 .input-actions>label {
   width: 32px;
   height: 32px;
-  padding: 6px;
+  padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -518,6 +470,8 @@
   cursor: pointer;
   transition: all 0.2s ease;
   flex-shrink: 0;
+  box-sizing: border-box;
+
 }
 
 /* 移动端适配 */
@@ -526,43 +480,11 @@
     padding: 12px;
   }
 
-  .input-area {
-    padding: 8px;
-  }
-
   .input-actions {
     height: 28px;
   }
-
-  .input-actions>button,
-  .input-actions>label {
-    width: 28px;
-    height: 28px;
-    padding: 4px;
-  }
 }
 
-/* 新建会话按钮样式 */
-.new-chat-btn {
-  width: 32px;
-  height: 32px;
-  padding: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #4e5969;
-  border-radius: 4px;
-  transition: all 0.2s;
-  flex-shrink: 0;
-  margin-top: 4px;
-}
-
-.new-chat-btn:hover {
-  background: #e5e6eb;
-}
 
 /* 上传文件预览区域 */
 .uploaded-files {
@@ -658,34 +580,16 @@
 .input-area {
   display: flex;
   align-items: flex-end;
-  gap: 8px;
   width: 100%;
 }
 
-/* 输入框样式 */
-.chat-input {
-  flex: 1;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 14px;
-  color: #1f2329;
-  padding: 4px 0;
-  min-height: 24px;
-  max-height: 120px;
-  line-height: 20px;
-  resize: none;
-  overflow-y: auto;
-  word-break: break-word;
-  white-space: pre-wrap;
-}
+
 
 /* 按钮组样式 */
 .input-actions {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-left: auto;
   /* 确保按钮靠右 */
 }
 
@@ -693,6 +597,8 @@
 .uploaded-files {
   display: flex;
   flex-wrap: wrap;
+  /* 加一个底部边框 */
+  border-bottom: .1px solid rgba(76, 111, 255, 0.3);
   gap: 8px;
   width: 100%;
   box-sizing: border-box;
@@ -826,14 +732,8 @@
   opacity: 1;
 }
 
-/* 上传按钮禁用 */
-.upload-btn.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none;
-}
 
-/* 传中的加���� */
+/* 传中的加载状态 */
 .uploading-overlay {
   position: absolute;
   top: 0;
@@ -1151,13 +1051,13 @@
   padding: 12px !important;
   background: #f7f8fa !important;
   border-radius: 8px !important;
-  font-size: 13px !important;
+  font-size: 12px !important;
 }
 
 /* 行内代码样式 */
 .message-bubble code:not([class*="language-"]) {
   font-family: monospace;
-  font-size: 13px;
+  font-size: 12px;
   padding: 2px 4px;
   background: #f7f8fa;
   border-radius: 4px;
@@ -1478,7 +1378,7 @@
 
 .message-item.user .message-file:hover {
   background: rgba(76, 111, 255, 0.15);
-  /* 用户消息中文悬浮时的背景色 */
+  /* 用户消息中悬浮时的背景色 */
 }
 
 .message-item.user .file-name {
@@ -1566,16 +1466,6 @@
   }
 }
 
-/* 移动端适配 */
-@media screen and (max-width: 768px) {
-
-  .input-actions>button,
-  .input-actions>label {
-    width: 28px;
-    height: 28px;
-    padding: 4px;
-  }
-}
 
 /* 消息内容区域 */
 .message-content {
@@ -1599,7 +1489,7 @@
   width: fit-content;
   max-width: 75%;
   word-break: break-word;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.6;
   color: #1f2329;
   position: relative;
@@ -1622,6 +1512,28 @@
   overflow-x: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.message-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  min-height: 0;
+}
+
+.message-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 /* 滚动条样式优化 */
@@ -1877,32 +1789,32 @@
 
 /* 富文本题样式优化 */
 .message-bubble h1 {
-  font-size: 20px;
+  font-size: 18px;
   margin: 16px 0 12px;
   line-height: 1.4;
 }
 
 .message-bubble h2 {
-  font-size: 18px;
+  font-size: 16px;
   margin: 14px 0 10px;
   line-height: 1.4;
 }
 
 .message-bubble h3 {
-  font-size: 16px;
+  font-size: 15px;
   margin: 12px 0 8px;
   line-height: 1.4;
 }
 
 .message-bubble h4 {
-  font-size: 15px;
+  font-size: 14px;
   margin: 10px 0 8px;
   line-height: 1.4;
 }
 
 .message-bubble h5,
 .message-bubble h6 {
-  font-size: 14px;
+  font-size: 13px;
   margin: 8px 0 6px;
   line-height: 1.4;
 }
@@ -1951,12 +1863,11 @@
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* 滚动到底部按钮样式 */
+/* 修改滚动到底部按钮样式 */
 .scroll-to-bottom {
-  position: fixed;
-  right: 20px;
-  /* 调整为与头像对齐 */
-  bottom: 200px;
+  position: absolute;
+  right: 12px;
+  bottom: 90px;
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -1967,16 +1878,14 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.1s ease;
   opacity: 0;
-  transform: translateY(20px);
   pointer-events: none;
   z-index: 100;
 }
 
 .scroll-to-bottom.visible {
   opacity: 1;
-  transform: translateY(0);
   pointer-events: auto;
 }
 
@@ -1984,42 +1893,16 @@
   background: #fff;
   border-color: #4c6fff;
   color: #4c6fff;
-  transform: translateY(-2px);
-}
-
-.scroll-to-bottom svg {
-  width: 20px;
-  height: 20px;
-  color: #4e5969;
-  transition: color 0.2s;
-}
-
-.scroll-to-bottom:hover svg {
-  color: #4c6fff;
+  transform: translateY(-1px) translateX(-2px);
 }
 
 /* 移动端适配 */
 @media screen and (max-width: 768px) {
   .scroll-to-bottom {
     right: 12px;
-    /* 移动端也相应调整 */
-    bottom: 160px;
     width: 36px;
     height: 36px;
   }
-}
-
-/* 新建会话按钮禁用状态 */
-.new-chat-btn.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background: none;
-  color: #86909c;
-}
-
-.new-chat-btn.disabled:hover {
-  background: none;
-  color: #86909c;
 }
 
 /* 富文本中的图片样式控制 */
@@ -2154,4 +2037,62 @@
   to {
     transform: scale(1);
   }
+}
+
+/* 新建会话按钮和上传文件按钮的基础样式 */
+.new-chat-btn {
+  margin-right: auto;
+}
+
+.new-chat-btn,
+.upload-btn {
+  background: rgba(76, 111, 255, 0.1);
+  /* 使用半透明的主题色 */
+  color: #4c6fff;
+  /* 文字使用题色 */
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(76, 111, 255, 0.15);
+  /* 添加淡淡的边框 */
+}
+
+/* 悬浮效果 */
+.new-chat-btn:hover:not(.disabled),
+.upload-btn:hover:not(.disabled) {
+  background: rgba(76, 111, 255, 0.15);
+  /* 稍微加深背景 */
+  color: #4c6fff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(76, 111, 255, 0.1);
+  border-color: rgba(76, 111, 255, 0.3);
+}
+
+/* 点击效果 */
+.new-chat-btn:active:not(.disabled),
+.upload-btn:active:not(.disabled) {
+  background: rgba(76, 111, 255, 0.2);
+  /* 点击时更深 */
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(76, 111, 255, 0.1);
+}
+
+/* 禁用状态 */
+.new-chat-btn.disabled,
+.upload-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #f5f6f7;
+  color: #a9aeb8;
+  transform: none;
+  box-shadow: none;
+  border-color: transparent;
+}
+
+/* 图标颜色 */
+.new-chat-btn svg,
+.upload-btn svg {
+  transition: transform 0.3s ease;
+  fill: currentColor;
 }

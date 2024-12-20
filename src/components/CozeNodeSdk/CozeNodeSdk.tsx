@@ -268,12 +268,14 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
     const client = cozeApiClientRef.current;
     const hasContent = client.input_text_message || client.input_file_messages.length > 0 || client.input_image_messages.length > 0;
     if (!client || !hasContent || client.isStreaming) return;
-
+    setForceUpdate(prev => prev + 1);
     try {
-      requestAnimationFrame(() => {
-        scrollToBottom(false);
-      });
-      setForceUpdate(prev => prev + 1);
+      scrollToBottom(true);
+      // 延时150ms后再次滚动
+      setTimeout(() => {
+        scrollToBottom(true);
+      }, 150);
+
       // 使用 ref 重置输入框高度
       if (textareaRef.current) {
         textareaRef.current.style.height = 'auto';
@@ -321,7 +323,13 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
       return (
         <div className="message-content-wrapper">
           {/* 先渲染文本内容 */}
-          {textContents.map((item: any, index: number) => (
+          {message.role === RoleType.User ? (
+            <div className="message-content-wrapper">
+              <div style={{ whiteSpace: 'pre-wrap' }}>
+                {textContents.map((item: any) => item.content).join('\n') || ''}
+              </div>
+            </div>
+          ) : textContents.map((item: any, index: number) => (
             <ReactMarkdown
               key={`text-${index}`}
               remarkPlugins={[[remarkMath, remarkMathOptions]]}
@@ -432,7 +440,16 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
         </div>
       );
     }
-
+    // 用户消息直接显示原文
+    if (message.role === RoleType.User) {
+      return (
+        <div className="message-content-wrapper">
+          <div style={{ whiteSpace: 'pre-wrap' }}>
+            {message.content || ''}
+          </div>
+        </div>
+      );
+    }
     // 处理普通文本消息
     return (
       <ReactMarkdown
@@ -631,7 +648,7 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
     const handleScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } = messageList;
       // 当距离底部超过 200px 时显示按钮
-      setShowScrollButton(scrollHeight - scrollTop - clientHeight > 200);
+      setShowScrollButton(scrollHeight - scrollTop - clientHeight > 100);
     };
 
     messageList.addEventListener('scroll', handleScroll);
@@ -655,166 +672,178 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
       </div>
 
       {/* 消息列表区域 */}
-      <div className="message-list" ref={messageListRef}>
-        {/* 当消息为空且有更多消息时显示初始内容 */}
-        {cozeApiClientRef.current.messages.length === 0 && !cozeApiClientRef.current.messages_has_more && (
-          <div className="message-item">
-            <div className="message-avatar">
-              <img
-                src={propData.botInfo_url || propData.ui_base_icon || DEFAULT_BOT_AVATAR}
-                alt="AI助手"
-              />
-              <span className="message-nickname">
-                {propData.botInfo_nickname || DEFAULT_BOT_NICKNAME}
-              </span>
-            </div>
-            <div className="message-content">
-              <div className="message-bubble">
-                {propData.conversation_initContent || (
-                  <>
-                    👋 你好！我是 {propData.botInfo_nickname || propData.ui_base_title || DEFAULT_BOT_NICKNAME}，
-                    很高兴见到你！你可以问我任何问题。
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {cozeApiClientRef.current.messages_has_more && (
-          <div className="message-item">
-            <div className="message-content loading">
-              <div className="message-bubble loading">
-                <svg className="loading-icon" viewBox="0 0 24 24">
-                  <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        )}
-        {cozeApiClientRef.current.messages.map((message, index) => {
-          // 使用消息 ID、类型、角色和索引的组合来生成唯一的 key
-          const messageKey = `${message.id}-${message.type}-${message.role}-${index}`;
-          const isLastAIMessage = index === cozeApiClientRef.current.messages.length - 1 && message.role !== RoleType.User;
-
-          return (
-            <div
-              key={messageKey}
-              className={`message-item ${message.role === RoleType.User ? 'user' : ''}`}
-            >
+      <div className="message-list-wrapper">
+        <div className="message-list" ref={messageListRef}>
+          {/* 当消息为空且有更多消息时显示初始内容 */}
+          {cozeApiClientRef.current.messages.length === 0 && !cozeApiClientRef.current.messages_has_more && (
+            <div className="message-item">
               <div className="message-avatar">
-                {message.role === RoleType.User ? (
-                  <>
-                    <img
-                      src={propData.userInfo_url || DEFAULT_USER_AVATAR}
-                      alt="用户"
-                    />
-                    <span className="message-nickname">
-                      {propData.userInfo_nickname || DEFAULT_USER_NICKNAME}
-                    </span>
-                  </>
-                ) : (
+                <img
+                  src={propData.botInfo_url || propData.ui_base_icon || DEFAULT_BOT_AVATAR}
+                  alt="AI助手"
+                />
+                <span className="message-nickname">
+                  {propData.botInfo_nickname || DEFAULT_BOT_NICKNAME}
+                </span>
+              </div>
+              <div className="message-content">
+                <div className="message-bubble">
+                  {propData.conversation_initContent || (
+                    <>
+                      👋 你好！我是 {propData.botInfo_nickname || propData.ui_base_title || DEFAULT_BOT_NICKNAME}，
+                      很高兴见到你！你可以问我任何问题。
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {cozeApiClientRef.current.messages_has_more && (
+            <div className="message-item">
+              <div className="message-content loading">
+                <div className="message-bubble loading">
+                  <svg className="loading-icon" viewBox="0 0 24 24">
+                    <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          )}
+          {cozeApiClientRef.current.messages.map((message, index) => {
+            // 使用消息 ID、类型、角色和索引的组合来生成唯一的 key
+            const messageKey = `${message.id}-${message.type}-${message.role}-${index}`;
+            const isLastAIMessage = index === cozeApiClientRef.current.messages.length - 1 && message.role !== RoleType.User;
+
+            return (
+              <div
+                key={messageKey}
+                className={`message-item ${message.role === RoleType.User ? 'user' : ''}`}
+              >
+                <div className="message-avatar">
+                  {message.role === RoleType.User ? (
+                    <>
+                      <img
+                        src={propData.userInfo_url || DEFAULT_USER_AVATAR}
+                        alt="用户"
+                      />
+                      <span className="message-nickname">
+                        {propData.userInfo_nickname || DEFAULT_USER_NICKNAME}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <img
+                        src={propData.botInfo_url || propData.ui_base_icon || DEFAULT_BOT_AVATAR}
+                        alt="AI助手"
+                      />
+                      <span className="message-nickname">
+                        {propData.botInfo_nickname || propData.ui_base_title || DEFAULT_BOT_NICKNAME}
+                      </span>
+                    </>
+                  )}
+                </div>
+                <div className="message-content">
+                  <div className="message-bubble">
+                    {parseMessageContent(message)}
+                    {/* 只在非用户消息中显示复制按钮 */}
+                    {message.role !== RoleType.User && (
+                      <div className="message-actions">
+                        <button
+                          className="copy-message-btn"
+                          onClick={() => copyMessage(message)}
+                          title="复制消息"
+                        >
+                          <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                          </svg>
+                          <span>复制</span>
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                  {/* 只在最后一条 AI 消息后显示推荐问题 */}
+                  {isLastAIMessage && cozeApiClientRef.current.suggestions?.length > 0 && (
+                    <div className="recommend-questions">
+                      {cozeApiClientRef.current.suggestions?.map((question, index) => (
+                        <button
+                          key={index}
+                          className="recommend-question-btn"
+                          onClick={async () => {
+                            const client = cozeApiClientRef.current;
+                            if (!client) return;
+
+                            client.input_text_message = question.content || '';
+                            try {
+                              await client.chat_stream();
+                            } catch (error: any) {
+                              console.error('发送推荐问题失败:', error);
+                              showToast(error.message || '发送失败');
+                            }
+                          }}
+                        >
+                          {question.content}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+
+          {/* 在消息列表的最后添加加载动画和骨架屏 */}
+          {cozeApiClientRef.current.isStreaming && (
+            <div className="message-item">
+              {/* 只在显示加载动时显示头像和昵称 */}
+              <div className="message-avatar">
+                {!cozeApiClientRef.current.isAnswerStreaming && !cozeApiClientRef.current.isFollowUpStreaming && (
                   <>
                     <img
                       src={propData.botInfo_url || propData.ui_base_icon || DEFAULT_BOT_AVATAR}
                       alt="AI助手"
                     />
                     <span className="message-nickname">
-                      {propData.botInfo_nickname || propData.ui_base_title || DEFAULT_BOT_NICKNAME}
+                      {propData.botInfo_nickname || DEFAULT_BOT_NICKNAME}
                     </span>
                   </>
                 )}
               </div>
-              <div className="message-content">
-                <div className="message-bubble">
-                  {parseMessageContent(message)}
-                  {/* 只在非用户消息中显示复制按钮 */}
-                  {message.role !== RoleType.User && (
-                    <div className="message-actions">
-                      <button
-                        className="copy-message-btn"
-                        onClick={() => copyMessage(message)}
-                        title="复制消息"
-                      >
-                        <svg viewBox="0 0 24 24" width="16" height="16">
-                          <path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
-                        </svg>
-                        <span>复制</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
-                {/* 只在最后一条 AI 消息后显示推荐问题 */}
-                {isLastAIMessage && cozeApiClientRef.current.suggestions?.length > 0 && (
-                  <div className="recommend-questions">
-                    {cozeApiClientRef.current.suggestions?.map((question, index) => (
-                      <button
-                        key={index}
-                        className="recommend-question-btn"
-                        onClick={async () => {
-                          const client = cozeApiClientRef.current;
-                          if (!client) return;
 
-                          client.input_text_message = question.content || '';
-                          try {
-                            await client.chat_stream();
-                          } catch (error: any) {
-                            console.error('发送推荐问题失败:', error);
-                            showToast(error.message || '发送失败');
-                          }
-                        }}
-                      >
-                        {question.content}
-                      </button>
+              <div className="message-content">
+                {!cozeApiClientRef.current.isAnswerStreaming && (
+                  <div className="message-bubble loading">
+                    <svg className="loading-icon" viewBox="0 0 24 24">
+                      <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
+                    </svg>
+                  </div>
+                )}
+                {/* 推荐问题的骨架屏 */}
+                {cozeApiClientRef.current.isFollowUpStreaming && cozeApiClientRef.current.suggestions?.length == 0 && (
+                  <div className="recommend-questions">
+                    {[1, 2, 3].map((key) => (
+                      <div key={key} className="recommend-question-skeleton">
+                        <div className="skeleton-content" />
+                      </div>
                     ))}
                   </div>
                 )}
               </div>
             </div>
-          );
-        })}
+          )}
 
-        {/* 在消息列表的最后添加加载动画和骨架屏 */}
-        {cozeApiClientRef.current.isStreaming && (
-          <div className="message-item">
-            {/* 只在显示加载动时显示头像和昵称 */}
-            <div className="message-avatar">
-              {!cozeApiClientRef.current.isAnswerStreaming && !cozeApiClientRef.current.isFollowUpStreaming && (
-                <>
-                  <img
-                    src={propData.botInfo_url || propData.ui_base_icon || DEFAULT_BOT_AVATAR}
-                    alt="AI助手"
-                  />
-                  <span className="message-nickname">
-                    {propData.botInfo_nickname || DEFAULT_BOT_NICKNAME}
-                  </span>
-                </>
-              )}
-            </div>
+          <div ref={messagesEndRef} />
+        </div>
 
-            <div className="message-content">
-              {!cozeApiClientRef.current.isAnswerStreaming && (
-                <div className="message-bubble loading">
-                  <svg className="loading-icon" viewBox="0 0 24 24">
-                    <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
-                  </svg>
-                </div>
-              )}
-              {/* 推荐问题的骨架屏 */}
-              {cozeApiClientRef.current.isFollowUpStreaming && cozeApiClientRef.current.suggestions?.length == 0 && (
-                <div className="recommend-questions">
-                  {[1, 2, 3].map((key) => (
-                    <div key={key} className="recommend-question-skeleton">
-                      <div className="skeleton-content" />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        <div ref={messagesEndRef} />
+        {/* 滚动到底部按钮 */}
+        <div
+          className={`scroll-to-bottom ${showScrollButton ? 'visible' : ''}`}
+          onClick={() => scrollToBottom(false)}
+        >
+          <svg viewBox="0 0 24 24">
+            <path fill="currentColor" d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+          </svg>
+        </div>
       </div>
 
       {/* 底部输入区域 */}
@@ -931,7 +960,7 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
               onKeyPress={(e) => {
                 // 检查是否在移动设备上
                 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-                
+
                 // 在非移动设备上才启用回车发送
                 if (e.key === 'Enter' && !e.shiftKey && !isMobile) {
                   e.preventDefault();
@@ -943,114 +972,115 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
               rows={1}
             />
 
-            {/* 右侧按钮组 */}
-            <div className="input-actions">
-              {/* 新建会话按钮 */}
-              <button
-                className={`new-chat-btn ${cozeApiClientRef.current.isStreaming ? 'disabled' : ''}`}
-                onClick={async () => {
-                  try {
-                    await cozeApiClientRef.current?.chat_stream(undefined, true);
-                  } catch (error: any) {
-                    console.error('创建新会话失败:', error);
-                    showToast(error.message || '创建失败');
-                  }
-                }}
-                disabled={cozeApiClientRef.current.isStreaming}
-              >
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path fill="currentColor" d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
-                </svg>
-              </button>
-
-              {/* 上传文件按钮 */}
-              <label className={`upload-btn ${cozeApiClientRef.current.isUploading ? 'disabled' : ''}`}>
-                <input
-                  type="file"
-                  hidden
-                  disabled={cozeApiClientRef.current.isUploading}
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      try {
-                        // 检查文件类型和数量制
-                        if (file.type.startsWith('image/')) {
-                          if (cozeApiClientRef.current.input_image_messages.length >= 4) {
-                            showToast('最多只能上传4张图');
-                            return;
-                          }
-                          // 设置正在上传的是图片
-                          cozeApiClientRef.current.uploadingFileType = 'image';
-
-                          // 检查是否已经存在相同的文件
-                          const isDuplicate = cozeApiClientRef.current.input_image_messages.some(
-                            img => img.file?.name === file.name && img.file?.size === file.size
-                          );
-                          if (isDuplicate) {
-                            showToast('该图片已经上传过了');
-                            return;
-                          }
-                        } else {
-                          if (cozeApiClientRef.current.input_file_messages.length >= 4) {
-                            showToast('最多只能上传4个文件');
-                            return;
-                          }
-                          // 设置正在上传的是文件
-                          cozeApiClientRef.current.uploadingFileType = 'file';
-
-                          // 检查否已经存在相同的文件
-                          const isDuplicate = cozeApiClientRef.current.input_file_messages.some(
-                            f => f.file?.name === file.name && f.file?.size === file.size
-                          );
-                          if (isDuplicate) {
-                            showToast('该文件已经上传过了');
-                            return;
-                          }
-                        }
-
-                        // 开始上传前触发更新
-                        setForceUpdate(prev => prev + 1);
-                        await cozeApiClientRef.current?.files_upload(file);
-                        // 上传完成后再次触发更新
-                        setForceUpdate(prev => prev + 1);
-                        // 清除上传文件类型
-                        cozeApiClientRef.current.uploadingFileType = undefined;
-                      } catch (error: any) {
-                        console.error('文件上传失败:', error);
-                        showToast(error?.message || '文件上传失败');
-                        // 上传失败也触发更新
-                        setForceUpdate(prev => prev + 1);
-                        // 清除上传文件类型
-                        cozeApiClientRef.current.uploadingFileType = undefined;
-                      }
-                    }
-                    // 清空 input 的值，确保相同文件可以重复选择
-                    e.target.value = '';
-                  }}
-                  accept="image/*,.pdf,.doc,.docx,.txt"
-                />
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-                </svg>
-              </label>
-
-              {/* 发送按钮 */}
-              <button
-                className={
-                  `send-btn ${(cozeApiClientRef.current.input_text_message || cozeApiClientRef.current.input_file_messages.length > 0 || cozeApiClientRef.current.input_image_messages.length > 0) && !cozeApiClientRef.current.isStreaming ? 'active' : ''}`
+          </div>
+          {/* 右侧按钮组 */}
+          <div className="input-actions">
+            {/* 新建会话按钮 */}
+            <button
+              className={`new-chat-btn ${cozeApiClientRef.current.isStreaming ? 'disabled' : ''}`}
+              onClick={async () => {
+                try {
+                  await cozeApiClientRef.current?.chat_stream(undefined, true);
+                } catch (error: any) {
+                  console.error('创建新会话失败:', error);
+                  showToast(error.message || '创建失败');
                 }
-                onClick={handleSendMessage}
-                disabled={(!cozeApiClientRef.current.input_text_message && cozeApiClientRef.current.input_file_messages.length == 0 && cozeApiClientRef.current.input_image_messages.length == 0) || cozeApiClientRef.current.isStreaming}
-              >
-                <svg viewBox="0 0 24 24" className="send-icon">
-                  {cozeApiClientRef.current.isStreaming ? (
-                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-                  ) : (
-                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                  )}
-                </svg>
-              </button>
-            </div>
+              }}
+              disabled={cozeApiClientRef.current.isStreaming}
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20">
+                <path fill="currentColor" d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+              </svg>
+            </button>
+
+            {/* 上传文件按钮 */}
+            <label className={`upload-btn ${cozeApiClientRef.current.isUploading ? 'disabled' : ''}`}>
+              <input
+                type="file"
+                hidden
+                disabled={cozeApiClientRef.current.isUploading}
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    try {
+                      // 检查文件类型和数量制
+                      if (file.type.startsWith('image/')) {
+                        if (cozeApiClientRef.current.input_image_messages.length >= 4) {
+                          showToast('最多只能上传4张图');
+                          return;
+                        }
+                        // 设置正在上传的是图片
+                        cozeApiClientRef.current.uploadingFileType = 'image';
+
+                        // 检查是否已经存在相同的文件
+                        const isDuplicate = cozeApiClientRef.current.input_image_messages.some(
+                          img => img.file?.name === file.name && img.file?.size === file.size
+                        );
+                        if (isDuplicate) {
+                          showToast('该图片已经上传过了');
+                          return;
+                        }
+                      } else {
+                        if (cozeApiClientRef.current.input_file_messages.length >= 4) {
+                          showToast('最多只能上传4个文件');
+                          return;
+                        }
+                        // 设置正在上传的是文件
+                        cozeApiClientRef.current.uploadingFileType = 'file';
+
+                        // 检查否已经存在相同的文件
+                        const isDuplicate = cozeApiClientRef.current.input_file_messages.some(
+                          f => f.file?.name === file.name && f.file?.size === file.size
+                        );
+                        if (isDuplicate) {
+                          showToast('该文件已经上传过了');
+                          return;
+                        }
+                      }
+
+                      // 开始上传前触发更新
+                      setForceUpdate(prev => prev + 1);
+                      await cozeApiClientRef.current?.files_upload(file);
+                      // 上传完成后再次触发更新
+                      setForceUpdate(prev => prev + 1);
+                      // 清除上传文件类型
+                      cozeApiClientRef.current.uploadingFileType = undefined;
+                    } catch (error: any) {
+                      console.error('文件上传失败:', error);
+                      showToast(error?.message || '文件上传失败');
+                      // 上传失败也触发更新
+                      setForceUpdate(prev => prev + 1);
+                      // 清除上传文件类型
+                      cozeApiClientRef.current.uploadingFileType = undefined;
+                    }
+                  }
+                  // 清空 input 的值，确保相同文件可以重复选择
+                  e.target.value = '';
+                }}
+                accept="image/*,.pdf,.doc,.docx,.txt"
+              />
+              <svg viewBox="0 0 24 24" width="20" height="20">
+                <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+              </svg>
+            </label>
+
+            {/* 发送按钮 */}
+            <button
+              className={
+                `send-btn ${(cozeApiClientRef.current.input_text_message || cozeApiClientRef.current.input_file_messages.length > 0 || cozeApiClientRef.current.input_image_messages.length > 0) && !cozeApiClientRef.current.isStreaming ? 'active' : ''}`
+              }
+              onClick={handleSendMessage}
+              disabled={(!cozeApiClientRef.current.input_text_message && cozeApiClientRef.current.input_file_messages.length == 0 && cozeApiClientRef.current.input_image_messages.length == 0) || cozeApiClientRef.current.isStreaming}
+            >
+              <svg viewBox="0 0 24 24" className="send-icon">
+                {cozeApiClientRef.current.isStreaming ? (
+                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                ) : (
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                )}
+              </svg>
+            </button>
+
           </div>
         </div>
       </div>
@@ -1091,16 +1121,6 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
             {message}
           </div>
         ))}
-      </div>
-
-      {/* 滚动到底部按钮 */}
-      <div
-        className={`scroll-to-bottom ${showScrollButton ? 'visible' : ''}`}
-        onClick={() => scrollToBottom(false)}
-      >
-        <svg viewBox="0 0 24 24">
-          <path fill="currentColor" d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
-        </svg>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { importShared } from './__federation_fn_import-lyDSGtOx.js';
-import Components, { j as jsxRuntimeExports } from './__federation_expose_Main-DnHqEKnO.js';
+import Components, { j as jsxRuntimeExports } from './__federation_expose_Main-DYm4yabU.js';
 import { r as reactDomExports } from './__federation_shared_react-dom-ChyTJqHm.js';
 
 var client = {};
@@ -16,11 +16,7 @@ const {
   //  CozeWebSdk
 } = Components;
 function App() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { height: "100%", display: "flex", flexDirection: "column", width: "100%", backgroundColor: "#f5f8fa" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: {
-    flex: 5,
-    overflow: "hidden"
-    // position: 'relative'
-  }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { border: "1px solid #fe0", boxSizing: "border-box", maxWidth: "800px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "100%", margin: "0 auto" }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     CozeNodeSdk,
     {
       propData: {
@@ -47,7 +43,7 @@ function App() {
         }
       }
     }
-  ) }) }) });
+  ) }) });
 }
 
 const React = await importShared('react');
