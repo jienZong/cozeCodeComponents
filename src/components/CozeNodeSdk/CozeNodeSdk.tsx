@@ -311,7 +311,7 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
 
   // 添加一个解析消息内容的函数
   const parseMessageContent = (message: MessageObject) => {
-    // 处理复合消息类型
+    // 处理复合消��类型
     if (message.content_type === 'object_string' && message.content_data) {
       // 分类处理不同类型的内容
       const textContents = message.content_data.filter((item: any) => item.type === 'text');
@@ -516,7 +516,7 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
     }, 2000);
   };
 
-  // 改复制息的函数
+  // 修改复制消息的函数
   const copyMessage = (message: MessageObject) => {
     let textToCopy = '';
 
@@ -530,22 +530,68 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
       textToCopy = message.content || '';
     }
 
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      showToast('复制成功');
-    }).catch(err => {
-      console.error('复制失败:', err);
-      showToast('复制失败');
-    });
+    // 尝试使用 clipboard API，如果失败则使用传统方法
+    const copyText = async (text: string) => {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('复制成功');
+      } catch (err) {
+        // 后备方案：创建临时文本区域
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+          document.execCommand('copy');
+          showToast('复制成功');
+        } catch (err) {
+          showToast('复制失败');
+          console.error('复制失败:', err);
+        }
+
+        document.body.removeChild(textArea);
+      }
+    };
+
+    copyText(textToCopy);
   };
 
   // 修改复制代码的函数
   const copyCode = (code: string) => {
-    navigator.clipboard.writeText(code).then(() => {
-      showToast('代码已复制');
-    }).catch(err => {
-      console.error('复制失败:', err);
-      showToast('复制失败');
-    });
+    // 尝试使用 clipboard API，如果失败则使用传统方法
+    const copyText = async (text: string) => {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('代码已复制');
+      } catch (err) {
+        // 后备方案：创建临时文本区域
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+          document.execCommand('copy');
+          showToast('代码已复制');
+        } catch (err) {
+          showToast('复制失败');
+          console.error('复制失败:', err);
+        }
+
+        document.body.removeChild(textArea);
+      }
+    };
+
+    copyText(code);
   };
 
   // 在 parseMessageContent 函数中改文件渲染部分
@@ -930,7 +976,7 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
                         // 检查文件类型和数量制
                         if (file.type.startsWith('image/')) {
                           if (cozeApiClientRef.current.input_image_messages.length >= 4) {
-                            alert('最多只能上传4张图');
+                            showToast('最多只能上传4张图');
                             return;
                           }
                           // 设置正在上传的是图片
@@ -946,7 +992,7 @@ export function CozeNodeSdk({ propData, propState, event }: CozeNodeSdkProps) {
                           }
                         } else {
                           if (cozeApiClientRef.current.input_file_messages.length >= 4) {
-                            alert('最多只能上传4个文件');
+                            showToast('最多只能上传4个文件');
                             return;
                           }
                           // 设置正在上传的是文件

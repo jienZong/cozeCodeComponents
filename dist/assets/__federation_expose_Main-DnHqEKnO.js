@@ -84330,20 +84330,56 @@ function CozeNodeSdk({ propData, propState, event }) {
     } else {
       textToCopy = message.content || "";
     }
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      showToast("复制成功");
-    }).catch((err) => {
-      console.error("复制失败:", err);
-      showToast("复制失败");
-    });
+    const copyText = async (text) => {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("复制成功");
+      } catch (err) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        textArea.style.top = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand("copy");
+          showToast("复制成功");
+        } catch (err2) {
+          showToast("复制失败");
+          console.error("复制失败:", err2);
+        }
+        document.body.removeChild(textArea);
+      }
+    };
+    copyText(textToCopy);
   };
   const copyCode = (code) => {
-    navigator.clipboard.writeText(code).then(() => {
-      showToast("代码已复制");
-    }).catch((err) => {
-      console.error("复制失败:", err);
-      showToast("复制失败");
-    });
+    const copyText = async (text) => {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("代码已复制");
+      } catch (err) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        textArea.style.top = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand("copy");
+          showToast("代码已复制");
+        } catch (err2) {
+          showToast("复制失败");
+          console.error("复制失败:", err2);
+        }
+        document.body.removeChild(textArea);
+      }
+    };
+    copyText(code);
   };
   const renderFile = (file) => {
     return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "message-file", children: [
@@ -84609,7 +84645,7 @@ function CozeNodeSdk({ propData, propState, event }) {
                     try {
                       if (file.type.startsWith("image/")) {
                         if (cozeApiClientRef.current.input_image_messages.length >= 4) {
-                          alert("最多只能上传4张图");
+                          showToast("最多只能上传4张图");
                           return;
                         }
                         cozeApiClientRef.current.uploadingFileType = "image";
@@ -84622,7 +84658,7 @@ function CozeNodeSdk({ propData, propState, event }) {
                         }
                       } else {
                         if (cozeApiClientRef.current.input_file_messages.length >= 4) {
-                          alert("最多只能上传4个文件");
+                          showToast("最多只能上传4个文件");
                           return;
                         }
                         cozeApiClientRef.current.uploadingFileType = "file";

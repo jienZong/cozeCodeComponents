@@ -1,5 +1,5 @@
 import { importShared } from './__federation_fn_import-lyDSGtOx.js';
-import Components, { j as jsxRuntimeExports } from './__federation_expose_Main-BAVAlbhs.js';
+import Components, { j as jsxRuntimeExports } from './__federation_expose_Main-DnHqEKnO.js';
 import { r as reactDomExports } from './__federation_shared_react-dom-ChyTJqHm.js';
 
 var client = {};

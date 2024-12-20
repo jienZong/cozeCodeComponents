@@ -96,5 +96,5 @@ export interface CozeNodeSdkPropData {
 ```
 
 # 更新日志
-
-2024-12-18【v1.0.2】 新增 CozeNodeSdk 组件，CozeWebSdk 组件更新到 Coze 官方最新版本 1.1.0-beta.0
+2024-12-20【v0.0.10】 优化CozeNodeSdk组件，解决一些样式兼容的bug
+2024-12-18【v0.0.2】 新增 CozeNodeSdk 组件，CozeWebSdk 组件更新到 Coze 官方最新版本 1.1.0-beta.0
