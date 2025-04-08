@@ -1,4 +1,4 @@
-import { importShared } from './__federation_fn_import-lyDSGtOx.js';
+import { importShared } from './__federation_fn_import-DlqBeFYU.js';
 
 const {useContext,createElement,createContext} = await importShared('react');
 

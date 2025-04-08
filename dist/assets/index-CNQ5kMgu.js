@@ -1,6 +1,6 @@
-import { importShared } from './__federation_fn_import-lyDSGtOx.js';
-import Components, { j as jsxRuntimeExports } from './__federation_expose_Main-DYm4yabU.js';
-import { r as reactDomExports } from './__federation_shared_react-dom-ChyTJqHm.js';
+import { importShared } from './__federation_fn_import-DlqBeFYU.js';
+import Components, { j as jsxRuntimeExports } from './__federation_expose_Main-CR8chZM2.js';
+import { r as reactDomExports } from './index-BDy7Zqw8.js';
 
 var client = {};
 

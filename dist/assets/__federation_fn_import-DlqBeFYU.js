@@ -308,7 +308,6 @@ function satisfy(version, range) {
     versionPreRelease
   ] = extractedVersion;
   const versionAtom = {
-    operator: versionOperator,
     version: combineVersion(
       versionMajor,
       versionMinor,
@@ -357,7 +356,7 @@ function satisfy(version, range) {
 const currentImports = {};
 
 // eslint-disable-next-line no-undef
-const moduleMap = {'classnames':{get:()=>()=>__federation_import(new URL('__federation_shared_classnames-DNBU_3PZ.js', import.meta.url).href),import:true},'constate':{get:()=>()=>__federation_import(new URL('__federation_shared_constate-BXZUjDp9.js', import.meta.url).href),import:true},'lodash':{get:()=>()=>__federation_import(new URL('__federation_shared_lodash-CMjxsLue.js', import.meta.url).href),import:true},'moment':{get:()=>()=>__federation_import(new URL('__federation_shared_moment-CEY8C7XE.js', import.meta.url).href),import:true},'react':{get:()=>()=>__federation_import(new URL('__federation_shared_react-DO25RkNm.js', import.meta.url).href),import:true},'react-dom':{get:()=>()=>__federation_import(new URL('__federation_shared_react-dom-ChyTJqHm.js', import.meta.url).href),import:true},'react-router-dom':{get:()=>()=>__federation_import(new URL('__federation_shared_react-router-dom-BwChNopu.js', import.meta.url).href),import:true},'zvm-code-context':{get:()=>()=>__federation_import(new URL('__federation_shared_zvm-code-context-DJ2L4k_6.js', import.meta.url).href),import:true}};
+const moduleMap = {'classnames':{get:()=>()=>__federation_import(new URL('__federation_shared_classnames-DNBU_3PZ.js', import.meta.url).href),import:true},'constate':{get:()=>()=>__federation_import(new URL('__federation_shared_constate-BwLCvUXu.js', import.meta.url).href),import:true},'lodash':{get:()=>()=>__federation_import(new URL('__federation_shared_lodash-Cj4l3VQo.js', import.meta.url).href),import:true},'moment':{get:()=>()=>__federation_import(new URL('__federation_shared_moment-BAVSxgEa.js', import.meta.url).href),import:true},'react':{get:()=>()=>__federation_import(new URL('__federation_shared_react-C3qqueWT.js', import.meta.url).href),import:true},'react-dom':{get:()=>()=>__federation_import(new URL('__federation_shared_react-dom-DJkTNiiG.js', import.meta.url).href),import:true},'react-router-dom':{get:()=>()=>__federation_import(new URL('__federation_shared_react-router-dom-C6XbWrep.js', import.meta.url).href),import:true},'zvm-code-context':{get:()=>()=>__federation_import(new URL('__federation_shared_zvm-code-context-Do-5q8k-.js', import.meta.url).href),import:true}};
 const moduleCache = Object.create(null);
 async function importShared(name, shareScope = 'default') {
   return moduleCache[name]
@@ -373,11 +372,14 @@ async function getSharedFromRuntime(name, shareScope) {
   let module = null;
   if (globalThis?.__federation_shared__?.[shareScope]?.[name]) {
     const versionObj = globalThis.__federation_shared__[shareScope][name];
-    const versionKey = Object.keys(versionObj)[0];
-    const versionValue = Object.values(versionObj)[0];
-    if (moduleMap[name]?.requiredVersion) {
-      // judge version satisfy
-      if (satisfy(versionKey, moduleMap[name].requiredVersion)) {
+    const requiredVersion = moduleMap[name]?.requiredVersion;
+    const hasRequiredVersion = !!requiredVersion;
+    if (hasRequiredVersion) {
+      const versionKey = Object.keys(versionObj).find((version) =>
+        satisfy(version, requiredVersion)
+      );
+      if (versionKey) {
+        const versionValue = versionObj[versionKey];
         module = await (await versionValue.get())();
       } else {
         console.log(
@@ -385,6 +387,8 @@ async function getSharedFromRuntime(name, shareScope) {
         );
       }
     } else {
+      const versionKey = Object.keys(versionObj)[0];
+      const versionValue = versionObj[versionKey];
       module = await (await versionValue.get())();
     }
   }

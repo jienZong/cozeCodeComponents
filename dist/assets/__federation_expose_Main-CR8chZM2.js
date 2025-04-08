@@ -1,7 +1,7 @@
-import { importShared } from './__federation_fn_import-lyDSGtOx.js';
-import { r as reactExports } from './__federation_shared_react-DO25RkNm.js';
-import 'https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.1.0-beta.0/libs/cn/index.js';
-import { c as commonjsGlobal, g as getDefaultExportFromCjs } from './_commonjsHelpers-BFTU3MAI.js';
+import { importShared } from './__federation_fn_import-DlqBeFYU.js';
+import { r as reactExports } from './index-m30PtBJO.js';
+import 'https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.6/libs/cn/index.js';
+import { g as getDefaultExportFromCjs, c as commonjsGlobal } from './_commonjsHelpers-BFTU3MAI.js';
 
 var jsxRuntime = {exports: {}};
 
@@ -16,8 +16,8 @@ var reactJsxRuntime_production_min = {};
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var f=reactExports,k=Symbol.for("react.element"),l=Symbol.for("react.fragment"),m=Object.prototype.hasOwnProperty,n=f.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,p$1={key:!0,ref:!0,__self:!0,__source:!0};
-function q(c,a,g){var b,d={},e=null,h=null;void 0!==g&&(e=""+g);void 0!==a.key&&(e=""+a.key);void 0!==a.ref&&(h=a.ref);for(b in a)m.call(a,b)&&!p$1.hasOwnProperty(b)&&(d[b]=a[b]);if(c&&c.defaultProps)for(b in a=c.defaultProps,a)void 0===d[b]&&(d[b]=a[b]);return {$$typeof:k,type:c,key:e,ref:h,props:d,_owner:n.current}}reactJsxRuntime_production_min.Fragment=l;reactJsxRuntime_production_min.jsx=q;reactJsxRuntime_production_min.jsxs=q;
+var f=reactExports,k=Symbol.for("react.element"),l=Symbol.for("react.fragment"),m=Object.prototype.hasOwnProperty,n=f.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,p$1={key:true,ref:true,__self:true,__source:true};
+function q(c,a,g){var b,d={},e=null,h=null;void 0!==g&&(e=""+g);void 0!==a.key&&(e=""+a.key);void 0!==a.ref&&(h=a.ref);for(b in a)m.call(a,b)&&!p$1.hasOwnProperty(b)&&(d[b]=a[b]);if(c&&c.defaultProps)for(b in a=c.defaultProps,a) void 0===d[b]&&(d[b]=a[b]);return {$$typeof:k,type:c,key:e,ref:h,props:d,_owner:n.current}}reactJsxRuntime_production_min.Fragment=l;reactJsxRuntime_production_min.jsx=q;reactJsxRuntime_production_min.jsxs=q;
 
 {
   jsxRuntime.exports = reactJsxRuntime_production_min;
@@ -25,7 +25,7 @@ function q(c,a,g){var b,d={},e=null,h=null;void 0!==g&&(e=""+g);void 0!==a.key&&
 
 var jsxRuntimeExports = jsxRuntime.exports;
 
-const {useRef: useRef$1,useEffect: useEffect$1,useState: useState$1} = await importShared('react');
+const {useRef: useRef$1,useEffect: useEffect$2,useState: useState$2} = await importShared('react');
 
 const { CozeWebSDK } = window;
 function CozeWebSdk({ propData, event, propState }) {
@@ -33,8 +33,8 @@ function CozeWebSdk({ propData, event, propState }) {
   const sdkRef = useRef$1(null);
   const initRef = useRef$1(false);
   const asstIconUrl = "https://lf-coze-web-cdn.coze.cn/obj/coze-web-cn/obric/coze/favicon.1970.png";
-  const [isVisible, setIsVisible] = useState$1(false);
-  useEffect$1(() => {
+  const [isVisible, setIsVisible] = useState$2(false);
+  useEffect$2(() => {
     if (!chatBotRef.current) {
       console.log("等待中渲染完成...");
       return;
@@ -459,15 +459,15 @@ const isContextDefined = (context) => !isUndefined(context) && context !== _glob
  *
  * @returns {Object} Result of all merge properties
  */
-function merge$3(/* obj1, obj2, obj3, ... */) {
+function merge$4(/* obj1, obj2, obj3, ... */) {
   const {caseless} = isContextDefined(this) && this || {};
   const result = {};
   const assignValue = (val, key) => {
     const targetKey = caseless && findKey(result, key) || key;
     if (isPlainObject$3(result[targetKey]) && isPlainObject$3(val)) {
-      result[targetKey] = merge$3(result[targetKey], val);
+      result[targetKey] = merge$4(result[targetKey], val);
     } else if (isPlainObject$3(val)) {
-      result[targetKey] = merge$3({}, val);
+      result[targetKey] = merge$4({}, val);
     } else if (isArray$1(val)) {
       result[targetKey] = val.slice();
     } else {
@@ -752,26 +752,6 @@ const toFiniteNumber = (value, defaultValue) => {
   return value != null && Number.isFinite(value = +value) ? value : defaultValue;
 };
 
-const ALPHA = 'abcdefghijklmnopqrstuvwxyz';
-
-const DIGIT = '0123456789';
-
-const ALPHABET = {
-  DIGIT,
-  ALPHA,
-  ALPHA_DIGIT: ALPHA + ALPHA.toUpperCase() + DIGIT
-};
-
-const generateString = (size = 16, alphabet = ALPHABET.ALPHA_DIGIT) => {
-  let str = '';
-  const {length} = alphabet;
-  while (size--) {
-    str += alphabet[Math.random() * length|0];
-  }
-
-  return str;
-};
-
 /**
  * If the thing is a FormData object, return true, otherwise return false.
  *
@@ -875,7 +855,7 @@ const utils$2 = {
   isTypedArray,
   isFileList,
   forEach,
-  merge: merge$3,
+  merge: merge$4,
   extend: extend$3,
   trim: trim$1,
   stripBOM,
@@ -899,8 +879,6 @@ const utils$2 = {
   findKey,
   global: _global,
   isContextDefined,
-  ALPHABET,
-  generateString,
   isSpecCompliantForm,
   toJSONObject,
   isAsyncFn,
@@ -1610,7 +1588,7 @@ function stringifySafely(rawValue, parser, encoder) {
     }
   }
 
-  return (0, JSON.stringify)(rawValue);
+  return (encoder || JSON.stringify)(rawValue);
 }
 
 const defaults$1 = {
@@ -2387,8 +2365,9 @@ function combineURLs(baseURL, relativeURL) {
  *
  * @returns {string} The combined full path
  */
-function buildFullPath(baseURL, requestedURL) {
-  if (baseURL && !isAbsoluteURL(requestedURL)) {
+function buildFullPath(baseURL, requestedURL, allowAbsoluteUrls) {
+  let isRelativeUrl = !isAbsoluteURL(requestedURL);
+  if (baseURL && (isRelativeUrl || allowAbsoluteUrls == false)) {
     return combineURLs(baseURL, requestedURL);
   }
   return requestedURL;
@@ -2503,7 +2482,7 @@ const resolveConfig = (config) => {
 
   newConfig.headers = headers = AxiosHeaders$1.from(headers);
 
-  newConfig.url = buildURL(buildFullPath(newConfig.baseURL, newConfig.url), config.params, config.paramsSerializer);
+  newConfig.url = buildURL(buildFullPath(newConfig.baseURL, newConfig.url, newConfig.allowAbsoluteUrls), config.params, config.paramsSerializer);
 
   // HTTP basic authentication
   if (auth) {
@@ -3226,7 +3205,7 @@ function dispatchRequest(config) {
   });
 }
 
-const VERSION$1 = "1.7.9";
+const VERSION$1 = "1.8.4";
 
 const validators$1 = {};
 
@@ -3411,6 +3390,13 @@ let Axios$1 = class Axios {
       }
     }
 
+    // Set config.allowAbsoluteUrls
+    if (config.allowAbsoluteUrls !== undefined) ; else if (this.defaults.allowAbsoluteUrls !== undefined) {
+      config.allowAbsoluteUrls = this.defaults.allowAbsoluteUrls;
+    } else {
+      config.allowAbsoluteUrls = true;
+    }
+
     validator.assertOptions(config, {
       baseUrl: validators.spelling('baseURL'),
       withXsrfToken: validators.spelling('withXSRFToken')
@@ -3506,7 +3492,7 @@ let Axios$1 = class Axios {
 
   getUri(config) {
     config = mergeConfig$2(this.defaults, config);
-    const fullPath = buildFullPath(config.baseURL, config.url);
+    const fullPath = buildFullPath(config.baseURL, config.url, config.allowAbsoluteUrls);
     return buildURL(fullPath, config.params, config.paramsSerializer);
   }
 };
@@ -3871,6 +3857,598 @@ const {
   mergeConfig: mergeConfig$1
 } = axios;
 
+var browser = function () {
+  throw new Error(
+    'ws does not work in the browser. Browser clients must use the native ' +
+      'WebSocket object'
+  );
+};
+
+const browser$1 = /*@__PURE__*/getDefaultExportFromCjs(browser);
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+function __values(o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+}
+
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+}
+
+function __spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+
+var Event = /** @class */ (function () {
+    function Event(type, target) {
+        this.target = target;
+        this.type = type;
+    }
+    return Event;
+}());
+var ErrorEvent = /** @class */ (function (_super) {
+    __extends(ErrorEvent, _super);
+    function ErrorEvent(error, target) {
+        var _this = _super.call(this, 'error', target) || this;
+        _this.message = error.message;
+        _this.error = error;
+        return _this;
+    }
+    return ErrorEvent;
+}(Event));
+var CloseEvent = /** @class */ (function (_super) {
+    __extends(CloseEvent, _super);
+    function CloseEvent(code, reason, target) {
+        if (code === void 0) { code = 1000; }
+        if (reason === void 0) { reason = ''; }
+        var _this = _super.call(this, 'close', target) || this;
+        _this.wasClean = true;
+        _this.code = code;
+        _this.reason = reason;
+        return _this;
+    }
+    return CloseEvent;
+}(Event));
+
+/*!
+ * Reconnecting WebSocket
+ * by Pedro Ladaria <pedro.ladaria@gmail.com>
+ * https://github.com/pladaria/reconnecting-websocket
+ * License MIT
+ */
+var getGlobalWebSocket = function () {
+    if (typeof WebSocket !== 'undefined') {
+        // @ts-ignore
+        return WebSocket;
+    }
+};
+/**
+ * Returns true if given argument looks like a WebSocket class
+ */
+var isWebSocket = function (w) { return typeof w !== 'undefined' && !!w && w.CLOSING === 2; };
+var DEFAULT = {
+    maxReconnectionDelay: 10000,
+    minReconnectionDelay: 1000 + Math.random() * 4000,
+    minUptime: 5000,
+    reconnectionDelayGrowFactor: 1.3,
+    connectionTimeout: 4000,
+    maxRetries: Infinity,
+    maxEnqueuedMessages: Infinity};
+var ReconnectingWebSocket = /** @class */ (function () {
+    function ReconnectingWebSocket(url, protocols, options) {
+        var _this = this;
+        if (options === void 0) { options = {}; }
+        this._listeners = {
+            error: [],
+            message: [],
+            open: [],
+            close: [],
+        };
+        this._retryCount = -1;
+        this._shouldReconnect = true;
+        this._connectLock = false;
+        this._binaryType = 'blob';
+        this._closeCalled = false;
+        this._messageQueue = [];
+        /**
+         * An event listener to be called when the WebSocket connection's readyState changes to CLOSED
+         */
+        this.onclose = null;
+        /**
+         * An event listener to be called when an error occurs
+         */
+        this.onerror = null;
+        /**
+         * An event listener to be called when a message is received from the server
+         */
+        this.onmessage = null;
+        /**
+         * An event listener to be called when the WebSocket connection's readyState changes to OPEN;
+         * this indicates that the connection is ready to send and receive data
+         */
+        this.onopen = null;
+        this._handleOpen = function (event) {
+            _this._debug('open event');
+            var _a = _this._options.minUptime, minUptime = _a === void 0 ? DEFAULT.minUptime : _a;
+            clearTimeout(_this._connectTimeout);
+            _this._uptimeTimeout = setTimeout(function () { return _this._acceptOpen(); }, minUptime);
+            _this._ws.binaryType = _this._binaryType;
+            // send enqueued messages (messages sent before websocket open event)
+            _this._messageQueue.forEach(function (message) { return _this._ws.send(message); });
+            _this._messageQueue = [];
+            if (_this.onopen) {
+                _this.onopen(event);
+            }
+            _this._listeners.open.forEach(function (listener) { return _this._callEventListener(event, listener); });
+        };
+        this._handleMessage = function (event) {
+            _this._debug('message event');
+            if (_this.onmessage) {
+                _this.onmessage(event);
+            }
+            _this._listeners.message.forEach(function (listener) { return _this._callEventListener(event, listener); });
+        };
+        this._handleError = function (event) {
+            _this._debug('error event', event.message);
+            _this._disconnect(undefined, event.message === 'TIMEOUT' ? 'timeout' : undefined);
+            if (_this.onerror) {
+                _this.onerror(event);
+            }
+            _this._debug('exec error listeners');
+            _this._listeners.error.forEach(function (listener) { return _this._callEventListener(event, listener); });
+            _this._connect();
+        };
+        this._handleClose = function (event) {
+            _this._debug('close event');
+            _this._clearTimeouts();
+            if (_this._shouldReconnect) {
+                _this._connect();
+            }
+            if (_this.onclose) {
+                _this.onclose(event);
+            }
+            _this._listeners.close.forEach(function (listener) { return _this._callEventListener(event, listener); });
+        };
+        this._url = url;
+        this._protocols = protocols;
+        this._options = options;
+        if (this._options.startClosed) {
+            this._shouldReconnect = false;
+        }
+        this._connect();
+    }
+    Object.defineProperty(ReconnectingWebSocket, "CONNECTING", {
+        get: function () {
+            return 0;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReconnectingWebSocket, "OPEN", {
+        get: function () {
+            return 1;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReconnectingWebSocket, "CLOSING", {
+        get: function () {
+            return 2;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReconnectingWebSocket, "CLOSED", {
+        get: function () {
+            return 3;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReconnectingWebSocket.prototype, "CONNECTING", {
+        get: function () {
+            return ReconnectingWebSocket.CONNECTING;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReconnectingWebSocket.prototype, "OPEN", {
+        get: function () {
+            return ReconnectingWebSocket.OPEN;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReconnectingWebSocket.prototype, "CLOSING", {
+        get: function () {
+            return ReconnectingWebSocket.CLOSING;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReconnectingWebSocket.prototype, "CLOSED", {
+        get: function () {
+            return ReconnectingWebSocket.CLOSED;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReconnectingWebSocket.prototype, "binaryType", {
+        get: function () {
+            return this._ws ? this._ws.binaryType : this._binaryType;
+        },
+        set: function (value) {
+            this._binaryType = value;
+            if (this._ws) {
+                this._ws.binaryType = value;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReconnectingWebSocket.prototype, "retryCount", {
+        /**
+         * Returns the number or connection retries
+         */
+        get: function () {
+            return Math.max(this._retryCount, 0);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReconnectingWebSocket.prototype, "bufferedAmount", {
+        /**
+         * The number of bytes of data that have been queued using calls to send() but not yet
+         * transmitted to the network. This value resets to zero once all queued data has been sent.
+         * This value does not reset to zero when the connection is closed; if you keep calling send(),
+         * this will continue to climb. Read only
+         */
+        get: function () {
+            var bytes = this._messageQueue.reduce(function (acc, message) {
+                if (typeof message === 'string') {
+                    acc += message.length; // not byte size
+                }
+                else if (message instanceof Blob) {
+                    acc += message.size;
+                }
+                else {
+                    acc += message.byteLength;
+                }
+                return acc;
+            }, 0);
+            return bytes + (this._ws ? this._ws.bufferedAmount : 0);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReconnectingWebSocket.prototype, "extensions", {
+        /**
+         * The extensions selected by the server. This is currently only the empty string or a list of
+         * extensions as negotiated by the connection
+         */
+        get: function () {
+            return this._ws ? this._ws.extensions : '';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReconnectingWebSocket.prototype, "protocol", {
+        /**
+         * A string indicating the name of the sub-protocol the server selected;
+         * this will be one of the strings specified in the protocols parameter when creating the
+         * WebSocket object
+         */
+        get: function () {
+            return this._ws ? this._ws.protocol : '';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReconnectingWebSocket.prototype, "readyState", {
+        /**
+         * The current state of the connection; this is one of the Ready state constants
+         */
+        get: function () {
+            if (this._ws) {
+                return this._ws.readyState;
+            }
+            return this._options.startClosed
+                ? ReconnectingWebSocket.CLOSED
+                : ReconnectingWebSocket.CONNECTING;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReconnectingWebSocket.prototype, "url", {
+        /**
+         * The URL as resolved by the constructor
+         */
+        get: function () {
+            return this._ws ? this._ws.url : '';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Closes the WebSocket connection or connection attempt, if any. If the connection is already
+     * CLOSED, this method does nothing
+     */
+    ReconnectingWebSocket.prototype.close = function (code, reason) {
+        if (code === void 0) { code = 1000; }
+        this._closeCalled = true;
+        this._shouldReconnect = false;
+        this._clearTimeouts();
+        if (!this._ws) {
+            this._debug('close enqueued: no ws instance');
+            return;
+        }
+        if (this._ws.readyState === this.CLOSED) {
+            this._debug('close: already closed');
+            return;
+        }
+        this._ws.close(code, reason);
+    };
+    /**
+     * Closes the WebSocket connection or connection attempt and connects again.
+     * Resets retry counter;
+     */
+    ReconnectingWebSocket.prototype.reconnect = function (code, reason) {
+        this._shouldReconnect = true;
+        this._closeCalled = false;
+        this._retryCount = -1;
+        if (!this._ws || this._ws.readyState === this.CLOSED) {
+            this._connect();
+        }
+        else {
+            this._disconnect(code, reason);
+            this._connect();
+        }
+    };
+    /**
+     * Enqueue specified data to be transmitted to the server over the WebSocket connection
+     */
+    ReconnectingWebSocket.prototype.send = function (data) {
+        if (this._ws && this._ws.readyState === this.OPEN) {
+            this._debug('send', data);
+            this._ws.send(data);
+        }
+        else {
+            var _a = this._options.maxEnqueuedMessages, maxEnqueuedMessages = _a === void 0 ? DEFAULT.maxEnqueuedMessages : _a;
+            if (this._messageQueue.length < maxEnqueuedMessages) {
+                this._debug('enqueue', data);
+                this._messageQueue.push(data);
+            }
+        }
+    };
+    /**
+     * Register an event handler of a specific event type
+     */
+    ReconnectingWebSocket.prototype.addEventListener = function (type, listener) {
+        if (this._listeners[type]) {
+            // @ts-ignore
+            this._listeners[type].push(listener);
+        }
+    };
+    ReconnectingWebSocket.prototype.dispatchEvent = function (event) {
+        var e_1, _a;
+        var listeners = this._listeners[event.type];
+        if (listeners) {
+            try {
+                for (var listeners_1 = __values(listeners), listeners_1_1 = listeners_1.next(); !listeners_1_1.done; listeners_1_1 = listeners_1.next()) {
+                    var listener = listeners_1_1.value;
+                    this._callEventListener(event, listener);
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (listeners_1_1 && !listeners_1_1.done && (_a = listeners_1.return)) _a.call(listeners_1);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
+        }
+        return true;
+    };
+    /**
+     * Removes an event listener
+     */
+    ReconnectingWebSocket.prototype.removeEventListener = function (type, listener) {
+        if (this._listeners[type]) {
+            // @ts-ignore
+            this._listeners[type] = this._listeners[type].filter(function (l) { return l !== listener; });
+        }
+    };
+    ReconnectingWebSocket.prototype._debug = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        if (this._options.debug) {
+            // not using spread because compiled version uses Symbols
+            // tslint:disable-next-line
+            console.log.apply(console, __spread(['RWS>'], args));
+        }
+    };
+    ReconnectingWebSocket.prototype._getNextDelay = function () {
+        var _a = this._options, _b = _a.reconnectionDelayGrowFactor, reconnectionDelayGrowFactor = _b === void 0 ? DEFAULT.reconnectionDelayGrowFactor : _b, _c = _a.minReconnectionDelay, minReconnectionDelay = _c === void 0 ? DEFAULT.minReconnectionDelay : _c, _d = _a.maxReconnectionDelay, maxReconnectionDelay = _d === void 0 ? DEFAULT.maxReconnectionDelay : _d;
+        var delay = 0;
+        if (this._retryCount > 0) {
+            delay =
+                minReconnectionDelay * Math.pow(reconnectionDelayGrowFactor, this._retryCount - 1);
+            if (delay > maxReconnectionDelay) {
+                delay = maxReconnectionDelay;
+            }
+        }
+        this._debug('next delay', delay);
+        return delay;
+    };
+    ReconnectingWebSocket.prototype._wait = function () {
+        var _this = this;
+        return new Promise(function (resolve) {
+            setTimeout(resolve, _this._getNextDelay());
+        });
+    };
+    ReconnectingWebSocket.prototype._getNextUrl = function (urlProvider) {
+        if (typeof urlProvider === 'string') {
+            return Promise.resolve(urlProvider);
+        }
+        if (typeof urlProvider === 'function') {
+            var url = urlProvider();
+            if (typeof url === 'string') {
+                return Promise.resolve(url);
+            }
+            if (!!url.then) {
+                return url;
+            }
+        }
+        throw Error('Invalid URL');
+    };
+    ReconnectingWebSocket.prototype._connect = function () {
+        var _this = this;
+        if (this._connectLock || !this._shouldReconnect) {
+            return;
+        }
+        this._connectLock = true;
+        var _a = this._options, _b = _a.maxRetries, maxRetries = _b === void 0 ? DEFAULT.maxRetries : _b, _c = _a.connectionTimeout, connectionTimeout = _c === void 0 ? DEFAULT.connectionTimeout : _c, _d = _a.WebSocket, WebSocket = _d === void 0 ? getGlobalWebSocket() : _d;
+        if (this._retryCount >= maxRetries) {
+            this._debug('max retries reached', this._retryCount, '>=', maxRetries);
+            return;
+        }
+        this._retryCount++;
+        this._debug('connect', this._retryCount);
+        this._removeListeners();
+        if (!isWebSocket(WebSocket)) {
+            throw Error('No valid WebSocket class provided');
+        }
+        this._wait()
+            .then(function () { return _this._getNextUrl(_this._url); })
+            .then(function (url) {
+            // close could be called before creating the ws
+            if (_this._closeCalled) {
+                return;
+            }
+            _this._debug('connect', { url: url, protocols: _this._protocols });
+            _this._ws = _this._protocols
+                ? new WebSocket(url, _this._protocols)
+                : new WebSocket(url);
+            _this._ws.binaryType = _this._binaryType;
+            _this._connectLock = false;
+            _this._addListeners();
+            _this._connectTimeout = setTimeout(function () { return _this._handleTimeout(); }, connectionTimeout);
+        });
+    };
+    ReconnectingWebSocket.prototype._handleTimeout = function () {
+        this._debug('timeout event');
+        this._handleError(new ErrorEvent(Error('TIMEOUT'), this));
+    };
+    ReconnectingWebSocket.prototype._disconnect = function (code, reason) {
+        if (code === void 0) { code = 1000; }
+        this._clearTimeouts();
+        if (!this._ws) {
+            return;
+        }
+        this._removeListeners();
+        try {
+            this._ws.close(code, reason);
+            this._handleClose(new CloseEvent(code, reason, this));
+        }
+        catch (error) {
+            // ignore
+        }
+    };
+    ReconnectingWebSocket.prototype._acceptOpen = function () {
+        this._debug('accept open');
+        this._retryCount = 0;
+    };
+    ReconnectingWebSocket.prototype._callEventListener = function (event, listener) {
+        if ('handleEvent' in listener) {
+            // @ts-ignore
+            listener.handleEvent(event);
+        }
+        else {
+            // @ts-ignore
+            listener(event);
+        }
+    };
+    ReconnectingWebSocket.prototype._removeListeners = function () {
+        if (!this._ws) {
+            return;
+        }
+        this._debug('removeListeners');
+        this._ws.removeEventListener('open', this._handleOpen);
+        this._ws.removeEventListener('close', this._handleClose);
+        this._ws.removeEventListener('message', this._handleMessage);
+        // @ts-ignore
+        this._ws.removeEventListener('error', this._handleError);
+    };
+    ReconnectingWebSocket.prototype._addListeners = function () {
+        if (!this._ws) {
+            return;
+        }
+        this._debug('addListeners');
+        this._ws.addEventListener('open', this._handleOpen);
+        this._ws.addEventListener('close', this._handleClose);
+        this._ws.addEventListener('message', this._handleMessage);
+        // @ts-ignore
+        this._ws.addEventListener('error', this._handleError);
+    };
+    ReconnectingWebSocket.prototype._clearTimeouts = function () {
+        clearTimeout(this._connectTimeout);
+        clearTimeout(this._uptimeTimeout);
+    };
+    return ReconnectingWebSocket;
+}());
+
 const __viteBrowserExternal = {};
 
 class APIResource {
@@ -4005,8 +4583,6 @@ class APIError extends CozeError {
             if ((null == error ? void 0 : error.detail) && msg !== error.detail) list.push(`detail: ${error.detail}`);
             const logId = (null == error ? void 0 : error.logid) || (null == headers ? void 0 : headers['x-tt-logid']);
             if (logId) list.push(`logid: ${logId}`);
-            const help_doc = null == error ? void 0 : error.help_doc;
-            if (help_doc) list.push(`help doc: ${help_doc}`);
             return list.join(', ');
         }
         if (status) return `http status code: ${status} (no body)`;
@@ -4029,21 +4605,20 @@ class APIError extends CozeError {
         return new APIError(status, error, message, headers);
     }
     constructor(status, error, message, headers){
-        var _error_error, _error_error1;
+        var _error_detail, _error_error;
         super(`${APIError.makeMessage(status, error, message, headers)}`);
         this.status = status;
         this.headers = headers;
-        this.logid = null == headers ? void 0 : headers['x-tt-logid'];
+        this.logid = (null == error ? void 0 : null === (_error_detail = error.detail) || void 0 === _error_detail ? void 0 : _error_detail.logid) || (null == headers ? void 0 : headers['x-tt-logid']);
         // this.error = error;
         this.code = null == error ? void 0 : error.code;
         this.msg = null == error ? void 0 : error.msg;
         this.detail = null == error ? void 0 : null === (_error_error = error.error) || void 0 === _error_error ? void 0 : _error_error.detail;
-        this.help_doc = null == error ? void 0 : null === (_error_error1 = error.error) || void 0 === _error_error1 ? void 0 : _error_error1.help_doc;
         this.rawError = error;
     }
 }
 class APIConnectionError extends APIError {
-    constructor({ message, cause }){
+    constructor({ message }){
         super(void 0, void 0, message || 'Connection error.', void 0), this.status = void 0;
     // if (cause) {
     //   this.cause = cause;
@@ -4118,6 +4693,12 @@ const handleAdditionalMessages = (additional_messages)=>null == additional_messa
             ...i,
             content: 'object' == typeof i.content ? JSON.stringify(i.content) : i.content
         }));
+const handleParameters = (parameters)=>{
+    if (parameters) {
+        for (const [key, value] of Object.entries(parameters))if ('object' == typeof value) parameters[key] = JSON.stringify(value);
+    }
+    return parameters;
+};
 class Chat extends APIResource {
     /**
    * Call the Chat API to send messages to a published Coze agent. | 调用此接口发起一次对话，支持添加上下文
@@ -4140,6 +4721,10 @@ class Chat extends APIResource {
         const payload = {
             ...rest,
             additional_messages: handleAdditionalMessages(params.additional_messages),
+            shortcut_command: params.shortcut_command ? {
+                ...params.shortcut_command,
+                parameters: handleParameters(params.shortcut_command.parameters)
+            } : void 0,
             stream: false
         };
         const result = await this._client.post(apiUrl, payload, false, options);
@@ -4166,6 +4751,10 @@ class Chat extends APIResource {
         const payload = {
             ...rest,
             additional_messages: handleAdditionalMessages(params.additional_messages),
+            shortcut_command: params.shortcut_command ? {
+                ...params.shortcut_command,
+                parameters: handleParameters(params.shortcut_command.parameters)
+            } : void 0,
             stream: false
         };
         const result = await this._client.post(apiUrl, payload, false, options);
@@ -4204,6 +4793,10 @@ class Chat extends APIResource {
         const payload = {
             ...rest,
             additional_messages: handleAdditionalMessages(params.additional_messages),
+            shortcut_command: params.shortcut_command ? {
+                ...params.shortcut_command,
+                parameters: handleParameters(params.shortcut_command.parameters)
+            } : void 0,
             stream: true
         };
         const result = await this._client.post(apiUrl, payload, true, options);
@@ -4518,6 +5111,17 @@ class Runs extends APIResource {
         const response = await this._client.post(apiUrl, params, false, options);
         return response;
     }
+    /**
+   * Get the workflow run history | 工作流异步运行后，查看执行结果
+   * @docs zh: https://www.coze.cn/open/docs/developer_guides/workflow_history
+   * @param workflowId - Required The ID of the workflow. | 必选 工作流 ID。
+   * @param executeId - Required The ID of the workflow execution. | 必选 工作流执行 ID。
+   * @returns WorkflowExecuteHistory[] | 工作流执行历史
+   */ async history(workflowId, executeId, options) {
+        const apiUrl = `/v1/workflows/${workflowId}/run_histories/${executeId}`;
+        const response = await this._client.get(apiUrl, void 0, false, options);
+        return response.data;
+    }
 }
 class WorkflowEvent {
     constructor(id, event, data){
@@ -4526,9 +5130,46 @@ class WorkflowEvent {
         this.data = data;
     }
 }
+class WorkflowChat extends APIResource {
+    /**
+   * Execute a chat workflow. | 执行对话流
+   * @docs en: https://www.coze.cn/docs/developer_guides/workflow_chat?_lang=en
+   * @docs zh: https://www.coze.cn/docs/developer_guides/workflow_chat?_lang=zh
+   * @param params.workflow_id - Required The ID of the workflow to chat with. | 必选 要对话的工作流 ID。
+   * @param params.additional_messages - Required Array of messages for the chat. | 必选 对话的消息数组。
+   * @param params.parameters - Required Parameters for the workflow execution. | 必选 工作流执行的参数。
+   * @param params.app_id - Optional The ID of the app. | 可选 应用 ID。
+   * @param params.bot_id - Optional The ID of the bot. | 可选 Bot ID。
+   * @param params.conversation_id - Optional The ID of the conversation. | 可选 会话 ID。
+   * @param params.ext - Optional Additional information for the chat. | 可选 对话的附加信息。
+   * @returns AsyncGenerator<StreamChatData> | 对话数据流
+   */ async *stream(params, options) {
+        const apiUrl = '/v1/workflows/chat';
+        const payload = {
+            ...params,
+            additional_messages: handleAdditionalMessages(params.additional_messages)
+        };
+        const result = await this._client.post(apiUrl, payload, true, options);
+        for await (const message of result)if (message.event === chat_ChatEventType.DONE) {
+            const ret = {
+                event: message.event,
+                data: '[DONE]'
+            };
+            yield ret;
+        } else try {
+            const ret = {
+                event: message.event,
+                data: JSON.parse(message.data)
+            };
+            yield ret;
+        } catch (error) {
+            throw new CozeError(`Could not parse message into JSON:${message.data}`);
+        }
+    }
+}
 class Workflows extends APIResource {
     constructor(...args){
-        super(...args), this.runs = new Runs(this._client);
+        super(...args), this.runs = new Runs(this._client), this.chat = new WorkflowChat(this._client);
     }
 }
 class WorkSpaces extends APIResource {
@@ -4552,6 +5193,8 @@ const documents_headers = {
 };
 class Documents extends APIResource {
     /**
+   * @deprecated  The method is deprecated and will be removed in a future version. Please use 'client.datasets.documents.list' instead.
+   *
    * View the file list of a specified knowledge base, which includes lists of documents, spreadsheets, or images.
    * | 调用接口查看指定知识库的内容列表，即文件、表格或图像列表。
    * @docs en: https://www.coze.com/docs/developer_guides/list_knowledge_files?_lang=en
@@ -4568,6 +5211,8 @@ class Documents extends APIResource {
         return response;
     }
     /**
+   * @deprecated  The method is deprecated and will be removed in a future version. Please use 'client.datasets.documents.create' instead.
+   *
    * Upload files to the specific knowledge. | 调用此接口向指定知识库中上传文件。
    * @docs en: https://www.coze.com/docs/developer_guides/create_knowledge_files?_lang=en
    * @docs zh: https://www.coze.cn/docs/developer_guides/create_knowledge_files?_lang=zh
@@ -4584,6 +5229,8 @@ class Documents extends APIResource {
         return response.document_infos;
     }
     /**
+   * @deprecated  The method is deprecated and will be removed in a future version. Please use 'client.datasets.documents.delete' instead.
+   *
    * Delete text, images, sheets, and other files in the knowledge base, supporting batch deletion.
    * | 删除知识库中的文本、图像、表格等文件，支持批量删除。
    * @docs en: https://www.coze.com/docs/developer_guides/delete_knowledge_files?_lang=en
@@ -4597,6 +5244,8 @@ class Documents extends APIResource {
         }));
     }
     /**
+   * @deprecated  The method is deprecated and will be removed in a future version. Please use 'client.datasets.documents.update' instead.
+   *
    * Modify the knowledge base file name and update strategy. | 调用接口修改知识库文件名称和更新策略。
    * @docs en: https://www.coze.com/docs/developer_guides/modify_knowledge_files?_lang=en
    * @docs zh: https://www.coze.cn/docs/developer_guides/modify_knowledge_files?_lang=zh
@@ -4613,7 +5262,174 @@ class Documents extends APIResource {
 }
 class Knowledge extends APIResource {
     constructor(...args){
-        super(...args), this.documents = new Documents(this._client);
+        super(...args), /**
+   * @deprecated
+   */ this.documents = new Documents(this._client);
+    }
+}
+// Required header for knowledge APIs
+const documents_documents_headers = {
+    'agw-js-conv': 'str'
+};
+class documents_Documents extends APIResource {
+    /**
+   * View the file list of a specified knowledge base, which includes lists of documents, spreadsheets, or images.
+   * | 调用接口查看指定知识库的内容列表，即文件、表格或图像列表。
+   * @docs en: https://www.coze.com/docs/developer_guides/list_knowledge_files?_lang=en
+   * @docs zh: https://www.coze.cn/docs/developer_guides/list_knowledge_files?_lang=zh
+   * @param params.dataset_id - Required The ID of the knowledge base. | 必选 待查看文件的知识库 ID。
+   * @param params.page - Optional The page number for paginated queries. Default is 1. | 可选 分页查询时的页码。默认为 1。
+   * @param params.page_size - Optional The size of pagination. Default is 10. | 可选 分页大小。默认为 10。
+   * @returns ListDocumentData | 知识库文件列表
+   */ async list(params, options) {
+        const apiUrl = '/open_api/knowledge/document/list';
+        const response = await this._client.post(apiUrl, params, false, mergeConfig(options, {
+            headers: documents_documents_headers
+        }));
+        return response;
+    }
+    /**
+   * Upload files to the specific knowledge. | 调用此接口向指定知识库中上传文件。
+   * @docs en: https://www.coze.com/docs/developer_guides/create_knowledge_files?_lang=en
+   * @docs zh: https://www.coze.cn/docs/developer_guides/create_knowledge_files?_lang=zh
+   * @param params.dataset_id - Required The ID of the knowledge. | 必选 知识库 ID。
+   * @param params.document_bases - Required The metadata information of the files awaiting upload. | 必选 待上传文件的元数据信息。
+   * @param params.chunk_strategy - Required when uploading files to a new knowledge for the first time. Chunk strategy.
+   * | 向新知识库首次上传文件时必选 分段规则。
+   * @returns DocumentInfo[] | 已上传文件的基本信息
+   */ async create(params, options) {
+        const apiUrl = '/open_api/knowledge/document/create';
+        const response = await this._client.post(apiUrl, params, false, mergeConfig(options, {
+            headers: documents_documents_headers
+        }));
+        return response.document_infos;
+    }
+    /**
+   * Delete text, images, sheets, and other files in the knowledge base, supporting batch deletion.
+   * | 删除知识库中的文本、图像、表格等文件，支持批量删除。
+   * @docs en: https://www.coze.com/docs/developer_guides/delete_knowledge_files?_lang=en
+   * @docs zh: https://www.coze.cn/docs/developer_guides/delete_knowledge_files?_lang=zh
+   * @param params.document_ids - Required The list of knowledge base files to be deleted. | 必选 待删除的文件 ID。
+   * @returns void | 无返回
+   */ async delete(params, options) {
+        const apiUrl = '/open_api/knowledge/document/delete';
+        await this._client.post(apiUrl, params, false, mergeConfig(options, {
+            headers: documents_documents_headers
+        }));
+    }
+    /**
+   * Modify the knowledge base file name and update strategy. | 调用接口修改知识库文件名称和更新策略。
+   * @docs en: https://www.coze.com/docs/developer_guides/modify_knowledge_files?_lang=en
+   * @docs zh: https://www.coze.cn/docs/developer_guides/modify_knowledge_files?_lang=zh
+   * @param params.document_id - Required The ID of the knowledge base file. | 必选 待修改的知识库文件 ID。
+   * @param params.document_name - Optional The new name of the knowledge base file. | 可选 知识库文件的新名称。
+   * @param params.update_rule - Optional The update strategy for online web pages. | 可选 在线网页更新策略。
+   * @returns void | 无返回
+   */ async update(params, options) {
+        const apiUrl = '/open_api/knowledge/document/update';
+        await this._client.post(apiUrl, params, false, mergeConfig(options, {
+            headers: documents_documents_headers
+        }));
+    }
+}
+class Images extends APIResource {
+    /**
+   * Update the description of an image in the knowledge base | 更新知识库中的图片描述
+   * @docs en: https://www.coze.com/docs/developer_guides/developer_guides/update_image_caption?_lang=en
+   * @docs zh: https://www.coze.cn/docs/developer_guides/developer_guides/update_image_caption?_lang=zh
+   * @param datasetId - The ID of the dataset | 必选 知识库 ID
+   * @param documentId - The ID of the document | 必选 知识库文件 ID
+   * @param params - The parameters for updating the image
+   * @param params.caption - Required. The description of the image | 必选 图片的描述信息
+   * @returns undefined
+   */ // eslint-disable-next-line max-params
+    async update(datasetId, documentId, params, options) {
+        const apiUrl = `/v1/datasets/${datasetId}/images/${documentId}`;
+        await this._client.put(apiUrl, params, false, options);
+    }
+    /**
+   * List images in the knowledge base | 列出知识库中的图片
+   * @docs en: https://www.coze.com/docs/developer_guides/developer_guides/get_images?_lang=en
+   * @docs zh: https://www.coze.cn/docs/developer_guides/developer_guides/get_images?_lang=zh
+   * @param datasetId - The ID of the dataset | 必选 知识库 ID
+   * @param params - The parameters for listing images
+   * @param params.page_num - Optional. Page number for pagination, minimum value is 1, defaults to 1 | 可选 分页查询时的页码。默认为 1。
+   * @param params.page_size - Optional. Number of items per page, range 1-299, defaults to 10 | 可选 分页大小。默认为 10。
+   * @param params.keyword - Optional. Search keyword for image descriptions | 可选 图片描述的搜索关键词。
+   * @param params.has_caption - Optional. Filter for images with/without captions | 可选 是否过滤有/无描述的图片。
+   */ async list(datasetId, params, options) {
+        const apiUrl = `/v1/datasets/${datasetId}/images`;
+        const response = await this._client.get(apiUrl, params, false, options);
+        return response.data;
+    }
+}
+class Datasets extends APIResource {
+    /**
+   * Creates a new dataset | 创建数据集
+   * @docs en: https://www.coze.com/docs/developer_guides/create_dataset?_lang=en
+   * @docs zh: https://www.coze.cn/docs/developer_guides/create_dataset?_lang=zh
+   * @param params - The parameters for creating a dataset
+   * @param {string} params.name - Required. Dataset name, maximum length of 100 characters | 必选 数据集名称，最大长度为 100 个字符
+   * @param {string} params.space_id - Required. Space ID where the dataset belongs | 必选 数据集所属的空间 ID
+   * @param {number} params.format_type - Required. Dataset type (0: Text type, 2: Image type) | 必选 数据集类型 (0: 文本类型, 2: 图片类型)
+   * @param {string} [params.description] - Optional. Dataset description | 可选 数据集描述
+   * @param {string} [params.file_id] - Optional. Dataset icon file ID from file upload
+   */ async create(params, options) {
+        const apiUrl = '/v1/datasets';
+        const response = await this._client.post(apiUrl, params, false, options);
+        return response.data;
+    }
+    /**
+   * Lists all datasets in a space | 列出空间中的所有数据集
+   * @docs en: https://www.coze.com/docs/developer_guides/list_dataset?_lang=en
+   * @docs zh: https://www.coze.cn/docs/developer_guides/list_dataset?_lang=zh
+   * @param params - The parameters for listing datasets | 列出数据集的参数
+   * @param {string} params.space_id - Required. Space ID where the datasets belong | 必选 数据集所属的空间 ID
+   * @param {string} [params.name] - Optional. Dataset name for fuzzy search | 可选 数据集名称用于模糊搜索
+   * @param {number} [params.format_type] - Optional. Dataset type (0: Text type, 2: Image type) | 可选 数据集类型 (0: 文本类型, 2: 图片类型)
+   * @param {number} [params.page_num] - Optional. Page number for pagination (default: 1) | 可选 分页查询时的页码。默认为 1。
+   * @param {number} [params.page_size] - Optional. Number of items per page (default: 10) | 可选 分页大小。默认为 10。
+   */ async list(params, options) {
+        const apiUrl = '/v1/datasets';
+        const response = await this._client.get(apiUrl, params, false, options);
+        return response.data;
+    }
+    /**
+   * Updates a dataset | 更新数据集
+   * @docs en: https://www.coze.com/docs/developer_guides/update_dataset?_lang=en
+   * @docs zh: https://www.coze.cn/docs/developer_guides/update_dataset?_lang=zh
+   * @param dataset_id - Required. The ID of the dataset to update | 必选 数据集 ID
+   * @param params - Required. The parameters for updating the dataset | 必选 更新数据集的参数
+   * @param params.name - Required. Dataset name, maximum length of 100 characters. | 必选 数据集名称，最大长度为 100 个字符。
+   * @param params.file_id - Optional. Dataset icon, should pass the file_id obtained from the file upload interface. | 可选 数据集图标，应传递从文件上传接口获取的 file_id。
+   * @param params.description - Optional. Dataset description. | 可选 数据集描述。
+   */ async update(dataset_id, params, options) {
+        const apiUrl = `/v1/datasets/${dataset_id}`;
+        await this._client.put(apiUrl, params, false, options);
+    }
+    /**
+   * Deletes a dataset | 删除数据集
+   * @docs en: https://www.coze.com/docs/developer_guides/delete_dataset?_lang=en
+   * @docs zh: https://www.coze.cn/docs/developer_guides/delete_dataset?_lang=zh
+   * @param dataset_id - Required. The ID of the dataset to delete | 必选 数据集 ID
+   */ async delete(dataset_id, options) {
+        const apiUrl = `/v1/datasets/${dataset_id}`;
+        await this._client.delete(apiUrl, false, options);
+    }
+    /**
+   * Views the progress of dataset upload | 查看数据集上传进度
+   * @docs en: https://www.coze.com/docs/developer_guides/get_dataset_progress?_lang=en
+   * @docs zh: https://www.coze.cn/docs/developer_guides/get_dataset_progress?_lang=zh
+   * @param dataset_id - Required. The ID of the dataset to process | 必选 数据集 ID
+   * @param params - Required. The parameters for processing the dataset | 必选 处理数据集的参数
+   * @param params.dataset_ids - Required. List of dataset IDs | 必选 数据集 ID 列表
+   */ async process(dataset_id, params, options) {
+        const apiUrl = `/v1/datasets/${dataset_id}/process`;
+        const response = await this._client.post(apiUrl, params, false, options);
+        return response.data;
+    }
+    constructor(...args){
+        super(...args), this.documents = new documents_Documents(this._client), this.images = new Images(this._client);
     }
 }
 class Voices extends APIResource {
@@ -4633,6 +5449,8 @@ class Voices extends APIResource {
    * | 如果传入会基于该文本生成预览音频，否则使用默认的文本
    * @param params.text - Optional. Users can read this text, service will compare audio with text. Returns error if difference is too large
    * | 可以让用户按照该文本念诵，服务会对比音频与该文本的差异。若差异过大会返回错误
+   * @param params.space_id - Optional.  The space id of the voice. | 空间ID
+   * @param params.description- Optional. The description of the voice. | 音色描述
    * @param options - Request options
    * @returns Clone voice data
    */ async clone(params, options) {
@@ -4657,6 +5475,17 @@ class Voices extends APIResource {
         return response.data;
     }
 }
+class Transcriptions extends APIResource {
+    /**
+   * ASR voice to text | ASR 语音转文本
+   * @param params - Required The parameters for file upload | 上传文件所需的参数
+   * @param params.file - Required The audio file to be uploaded. | 需要上传的音频文件。
+   */ async create(params, options) {
+        const apiUrl = '/v1/audio/transcriptions';
+        const response = await this._client.post(apiUrl, (0, toFormData)(params), false, options);
+        return response.data;
+    }
+}
 class Speech extends APIResource {
     /**
    * @description Speech synthesis | 语音合成
@@ -4670,7 +5499,10 @@ class Speech extends APIResource {
    * @returns Speech synthesis data
    */ async create(params, options) {
         const apiUrl = '/v1/audio/speech';
-        const response = await this._client.post(apiUrl, params, false, mergeConfig(options, {
+        const response = await this._client.post(apiUrl, {
+            ...params,
+            sample_rate: params.sample_rate || 24000
+        }, false, mergeConfig(options, {
             responseType: 'arraybuffer'
         }));
         return response;
@@ -4685,11 +5517,191 @@ class Rooms extends APIResource {
 }
 class Audio extends APIResource {
     constructor(...args){
-        super(...args), this.rooms = new Rooms(this._client), this.voices = new Voices(this._client), this.speech = new Speech(this._client);
+        super(...args), this.rooms = new Rooms(this._client), this.voices = new Voices(this._client), this.speech = new Speech(this._client), this.transcriptions = new Transcriptions(this._client);
     }
 }
-var package_namespaceObject = JSON.parse('{"name":"@coze/api","version":"1.0.14","description":"Official Coze Node.js SDK for seamless AI integration into your applications | 扣子官方 Node.js SDK，助您轻松集成 AI 能力到应用中","keywords":["coze","ai","nodejs","sdk","chatbot","typescript"],"homepage":"https://github.com/coze-dev/coze-js/tree/main/packages/coze-js","bugs":{"url":"https://github.com/coze-dev/coze-js/issues"},"repository":{"type":"git","url":"https://github.com/coze-dev/coze-js.git","directory":"packages/coze-js"},"license":"MIT","author":"Leeight <leeight@gmail.com>","type":"module","exports":{".":{"require":"./dist/cjs/index.cjs","import":"./dist/esm/index.js","types":"./dist/types/index.d.ts"}},"main":"dist/cjs/index.cjs","module":"dist/esm/index.js","browser":{"crypto":false,"os":false,"jsonwebtoken":false},"types":"dist/types/index.d.ts","files":["dist","LICENSE","README.md","!**/*.tsbuildinfo"],"scripts":{"build":"rm -rf dist && rslib build","format":"prettier --write .","lint":"eslint ./ --cache --quiet","prepublishOnly":"npm run build","start":"rm -rf dist && rslib build -w","test":"vitest","test:cov":"vitest --coverage --run"},"dependencies":{"jsonwebtoken":"^9.0.2"},"devDependencies":{"@coze-infra/eslint-config":"workspace:*","@coze-infra/ts-config":"workspace:*","@coze-infra/vitest-config":"workspace:*","@rslib/core":"0.0.18","@swc/core":"^1.3.14","@types/jsonwebtoken":"^9.0.0","@types/node":"^20","@types/uuid":"^9.0.1","@types/whatwg-fetch":"^0.0.33","@vitest/coverage-v8":"~2.1.4","axios":"^1.7.7","typescript":"^5.5.3","vitest":"~2.1.4"},"peerDependencies":{"axios":"^1.7.1"}}'); // CONCATENATED MODULE: ./src/version.ts
-const { version } = package_namespaceObject;
+class Templates extends APIResource {
+    /**
+   * Duplicate a template. | 复制一个模板。
+   * @param templateId - Required. The ID of the template to duplicate. | 要复制的模板的 ID。
+   * @param params - Optional. The parameters for the duplicate operation. | 可选参数，用于复制操作。
+   * @param params.workspace_id - Required. The ID of the workspace to duplicate the template into. | 要复制到的目标工作空间的 ID。
+   * @param params.name - Optional. The name of the new template. | 新模板的名称。
+   * @returns TemplateDuplicateRes | 复制模板结果
+   */ async duplicate(templateId, params, options) {
+        const apiUrl = `/v1/templates/${templateId}/duplicate`;
+        const response = await this._client.post(apiUrl, params, false, options);
+        return response.data;
+    }
+}
+class chat_Chat extends APIResource {
+    async create(botId, options) {
+        const apiUrl = `/v1/chat?bot_id=${botId}`;
+        return await this._client.makeWebsocket(apiUrl, options);
+    }
+}
+class transcriptions_Transcriptions extends APIResource {
+    async create(options) {
+        const apiUrl = '/v1/audio/transcriptions';
+        return await this._client.makeWebsocket(apiUrl, options);
+    }
+}
+class speech_Speech extends APIResource {
+    async create(options) {
+        const apiUrl = '/v1/audio/speech';
+        return await this._client.makeWebsocket(apiUrl, options);
+    }
+}
+class audio_Audio extends APIResource {
+    constructor(...args){
+        super(...args), this.speech = new speech_Speech(this._client), this.transcriptions = new transcriptions_Transcriptions(this._client);
+    }
+}
+// Common types (not exported)
+// Keep all existing exports but use the base types where applicable
+var types_WebsocketsEventType = /*#__PURE__*/ function(WebsocketsEventType) {
+    // Common
+    /** SDK error */ WebsocketsEventType["CLIENT_ERROR"] = "client_error";
+    /** Connection closed */ WebsocketsEventType["CLOSED"] = "closed";
+    // Error
+    /** Received error event */ WebsocketsEventType["ERROR"] = "error";
+    // v1/audio/speech
+    /** Send text to server */ WebsocketsEventType["INPUT_TEXT_BUFFER_APPEND"] = "input_text_buffer.append";
+    /** No text to send, after audio all received, can close connection */ WebsocketsEventType["INPUT_TEXT_BUFFER_COMPLETE"] = "input_text_buffer.complete";
+    /** Send speech config to server */ WebsocketsEventType["SPEECH_UPDATE"] = "speech.update";
+    /** Received `speech.updated` event */ WebsocketsEventType["SPEECH_UPDATED"] = "speech.updated";
+    /** After speech created */ WebsocketsEventType["SPEECH_CREATED"] = "speech.created";
+    /** Received `input_text_buffer.complete` event */ WebsocketsEventType["INPUT_TEXT_BUFFER_COMPLETED"] = "input_text_buffer.completed";
+    /** Received `speech.update` event */ WebsocketsEventType["SPEECH_AUDIO_UPDATE"] = "speech.audio.update";
+    /** All audio received, can close connection */ WebsocketsEventType["SPEECH_AUDIO_COMPLETED"] = "speech.audio.completed";
+    // v1/audio/transcriptions
+    /** Send audio to server */ WebsocketsEventType["INPUT_AUDIO_BUFFER_APPEND"] = "input_audio_buffer.append";
+    /** No audio to send, after text all received, can close connection */ WebsocketsEventType["INPUT_AUDIO_BUFFER_COMPLETE"] = "input_audio_buffer.complete";
+    /** Send transcriptions config to server */ WebsocketsEventType["TRANSCRIPTIONS_UPDATE"] = "transcriptions.update";
+    /** Send `input_audio_buffer.clear` event */ WebsocketsEventType["INPUT_AUDIO_BUFFER_CLEAR"] = "input_audio_buffer.clear";
+    /** After transcriptions created */ WebsocketsEventType["TRANSCRIPTIONS_CREATED"] = "transcriptions.created";
+    /** Received `input_audio_buffer.complete` event */ WebsocketsEventType["INPUT_AUDIO_BUFFER_COMPLETED"] = "input_audio_buffer.completed";
+    /** Received `transcriptions.update` event */ WebsocketsEventType["TRANSCRIPTIONS_MESSAGE_UPDATE"] = "transcriptions.message.update";
+    /** All audio received, can close connection */ WebsocketsEventType["TRANSCRIPTIONS_MESSAGE_COMPLETED"] = "transcriptions.message.completed";
+    /** Received `input_audio_buffer.cleared` event */ WebsocketsEventType["INPUT_AUDIO_BUFFER_CLEARED"] = "input_audio_buffer.cleared";
+    /** Received `transcriptions.updated` event */ WebsocketsEventType["TRANSCRIPTIONS_UPDATED"] = "transcriptions.updated";
+    // v1/chat
+    /** Send chat config to server */ WebsocketsEventType["CHAT_UPDATE"] = "chat.update";
+    /** Send tool outputs to server */ WebsocketsEventType["CONVERSATION_CHAT_SUBMIT_TOOL_OUTPUTS"] = "conversation.chat.submit_tool_outputs";
+    /** After chat created */ WebsocketsEventType["CHAT_CREATED"] = "chat.created";
+    /** After chat updated */ WebsocketsEventType["CHAT_UPDATED"] = "chat.updated";
+    /** Audio AST completed, chat started */ WebsocketsEventType["CONVERSATION_CHAT_CREATED"] = "conversation.chat.created";
+    /** Message created */ WebsocketsEventType["CONVERSATION_MESSAGE_CREATE"] = "conversation.message.create";
+    /** Clear conversation */ WebsocketsEventType["CONVERSATION_CLEAR"] = "conversation.clear";
+    /** Chat in progress */ WebsocketsEventType["CONVERSATION_CHAT_IN_PROGRESS"] = "conversation.chat.in_progress";
+    /** Get agent text message update */ WebsocketsEventType["CONVERSATION_MESSAGE_DELTA"] = "conversation.message.delta";
+    /** Need plugin submit */ WebsocketsEventType["CONVERSATION_CHAT_REQUIRES_ACTION"] = "conversation.chat.requires_action";
+    /** Message completed */ WebsocketsEventType["CONVERSATION_MESSAGE_COMPLETED"] = "conversation.message.completed";
+    /** Get agent audio message update */ WebsocketsEventType["CONVERSATION_AUDIO_DELTA"] = "conversation.audio.delta";
+    /** Audio message completed */ WebsocketsEventType["CONVERSATION_AUDIO_COMPLETED"] = "conversation.audio.completed";
+    /** All message received, can close connection */ WebsocketsEventType["CONVERSATION_CHAT_COMPLETED"] = "conversation.chat.completed";
+    /** Chat failed */ WebsocketsEventType["CONVERSATION_CHAT_FAILED"] = "conversation.chat.failed";
+    /** Received `conversation.cleared` event */ WebsocketsEventType["CONVERSATION_CLEARED"] = "conversation.cleared";
+    return WebsocketsEventType;
+}({});
+class Websockets extends APIResource {
+    constructor(...args){
+        super(...args), this.audio = new audio_Audio(this._client), this.chat = new chat_Chat(this._client);
+    }
+}
+class WebSocketAPI {
+    // Standard WebSocket properties
+    get readyState() {
+        return this.rws.readyState;
+    }
+    // Standard WebSocket methods
+    send(data) {
+        return this.rws.send(JSON.stringify(data));
+    }
+    close(code, reason) {
+        return this.rws.close(code, reason);
+    }
+    reconnect(code, reason) {
+        return this.rws.reconnect(code, reason);
+    }
+    // Event listener methods
+    addEventListener(type, listener) {
+        this.rws.addEventListener(type, listener);
+    }
+    removeEventListener(type, listener) {
+        this.rws.removeEventListener(type, listener);
+    }
+    constructor(url, options = {}){
+        // Event handler methods
+        this.onmessage = null;
+        this.onopen = null;
+        this.onclose = null;
+        this.onerror = null;
+        const separator = url.includes('?') ? '&' : '?';
+        const { authorization } = options.headers || {};
+        this.rws = new ReconnectingWebSocket(`${url}${separator}authorization=${authorization}`, [], {
+            WebSocket: isBrowser() ? window.WebSocket : class extends browser$1 {
+                constructor(url2, protocols){
+                    super(url2, protocols, {
+                        headers: options.headers
+                    });
+                }
+            },
+            ...options
+        });
+        this.rws.addEventListener('message', (event)=>{
+            try {
+                var _this_onmessage, _this;
+                const data = JSON.parse(event.data);
+                null === (_this_onmessage = (_this = this).onmessage) || void 0 === _this_onmessage || _this_onmessage.call(_this, data, event);
+            } catch (error) {
+                console.error('WebSocketAPI onmessage error', error);
+            }
+        });
+        this.rws.addEventListener('open', (event)=>{
+            var _this_onopen, _this;
+            null === (_this_onopen = (_this = this).onopen) || void 0 === _this_onopen || _this_onopen.call(_this, event);
+        });
+        this.rws.addEventListener('close', (event)=>{
+            var _this_onclose, _this;
+            null === (_this_onclose = (_this = this).onclose) || void 0 === _this_onclose || _this_onclose.call(_this, event);
+        });
+        this.rws.addEventListener('error', (event)=>{
+            var _event_target__req_res, _event_target__req, _event_target, _event_target__req_res1, _event_target__req1, _event_target1, _this_onerror, _this;
+            const { readyState } = this.rws;
+            if (3 === readyState) return;
+            const statusCode = null === (_event_target = event.target) || void 0 === _event_target ? void 0 : null === (_event_target__req = _event_target._req) || void 0 === _event_target__req ? void 0 : null === (_event_target__req_res = _event_target__req.res) || void 0 === _event_target__req_res ? void 0 : _event_target__req_res.statusCode;
+            const rawHeaders = (null === (_event_target1 = event.target) || void 0 === _event_target1 ? void 0 : null === (_event_target__req1 = _event_target1._req) || void 0 === _event_target__req1 ? void 0 : null === (_event_target__req_res1 = _event_target__req1.res) || void 0 === _event_target__req_res1 ? void 0 : _event_target__req_res1.rawHeaders) || [];
+            const logidIndex = rawHeaders.findIndex((header)=>'X-Tt-Logid' === header);
+            const logid = -1 !== logidIndex ? rawHeaders[logidIndex + 1] : void 0;
+            const error = {
+                id: '0',
+                event_type: types_WebsocketsEventType.ERROR,
+                data: {
+                    code: -1,
+                    msg: 'WebSocket error'
+                },
+                detail: {
+                    logid
+                }
+            };
+            if (401 === statusCode) {
+                error.data.code = 401;
+                error.data.msg = 'Unauthorized';
+            } else if (403 === statusCode) {
+                error.data.code = 403;
+                error.data.msg = 'Forbidden';
+            } else {
+                error.data.code = 500;
+                var _event_error;
+                error.data.msg = String(null !== (_event_error = null == event ? void 0 : event.error) && void 0 !== _event_error ? _event_error : '') || 'WebSocket error';
+            }
+            null === (_this_onerror = (_this = this).onerror) || void 0 === _this_onerror || _this_onerror.call(_this, error, event);
+        });
+    }
+}
+var package_namespaceObject = JSON.parse('{"name":"@coze/api","version":"1.1.1","description":"Official Coze Node.js SDK for seamless AI integration into your applications | 扣子官方 Node.js SDK，助您轻松集成 AI 能力到应用中","keywords":["coze","ai","nodejs","sdk","chatbot","typescript"],"homepage":"https://github.com/coze-dev/coze-js/tree/main/packages/coze-js","bugs":{"url":"https://github.com/coze-dev/coze-js/issues"},"repository":{"type":"git","url":"https://github.com/coze-dev/coze-js.git","directory":"packages/coze-js"},"license":"MIT","author":"Leeight <leeight@gmail.com>","exports":{".":"./src/index.ts","./ws-tools":"./src/ws-tools/index.ts"},"main":"src/index.ts","module":"src/index.ts","browser":{"crypto":false,"os":false,"jsonwebtoken":false,"node-fetch":false},"typesVersions":{"*":{".":["dist/types/index.d.ts"],"ws-tools":["dist/types/ws-tools/ws-tools/index.d.ts"]}},"files":["dist","LICENSE","README.md","README.zh-CN.md"],"scripts":{"build":"rslib build","format":"prettier --write .","lint":"eslint ./ --cache --quiet","start":"rslib build -w","test":"vitest","test:cov":"vitest --coverage --run"},"dependencies":{"jsonwebtoken":"^9.0.2","node-fetch":"^2.x","reconnecting-websocket":"^4.4.0","uuid":"^10.0.0","ws":"^8.11.0"},"devDependencies":{"@coze-infra/eslint-config":"workspace:*","@coze-infra/ts-config":"workspace:*","@coze-infra/vitest-config":"workspace:*","@rslib/core":"0.0.18","@swc/core":"^1.3.14","@types/jsonwebtoken":"^9.0.0","@types/node":"^20","@types/node-fetch":"^2.x","@types/uuid":"^9.0.1","@types/whatwg-fetch":"^0.0.33","@types/ws":"^8.5.1","@vitest/coverage-v8":"~2.1.4","axios":"^1.7.7","typescript":"^5.5.3","vitest":"~2.1.4"},"peerDependencies":{"axios":"^1.7.1"},"cozePublishConfig":{"exports":{".":{"require":"./dist/cjs/index.js","import":"./dist/esm/index.js","types":"./dist/types/index.d.ts"},"./ws-tools":{"require":"./dist/cjs/ws-tools/index.js","import":"./dist/esm/ws-tools/index.js","types":"./dist/types/ws-tools/ws-tools/index.d.ts"}},"main":"dist/cjs/index.js","module":"dist/esm/index.js","types":"dist/types/index.d.ts"}}'); // CONCATENATED MODULE: ./src/version.ts
+const { version: version_version } = package_namespaceObject;
 const getEnv = ()=>{
     const nodeVersion = process.version.slice(1); // Remove 'v' prefix
     const { platform } = process;
@@ -4725,16 +5737,65 @@ const getEnv = ()=>{
 };
 const getUserAgent = ()=>{
     const { nodeVersion, osName, osVersion } = getEnv();
-    return `coze-js/${version} node/${nodeVersion} ${osName}/${osVersion}`.toLowerCase();
+    return `coze-js/${version_version} node/${nodeVersion} ${osName}/${osVersion}`.toLowerCase();
 };
 const getNodeClientUserAgent = ()=>{
     const { osVersion, nodeVersion, osName } = getEnv();
     const ua = {
-        version,
+        version: version_version,
         lang: 'node',
         lang_version: nodeVersion,
         os_name: osName,
         os_version: osVersion
+    };
+    return JSON.stringify(ua);
+};
+const getBrowserClientUserAgent = ()=>{
+    const browserInfo = {
+        name: 'unknown',
+        version: 'unknown'
+    };
+    const osInfo = {
+        name: 'unknown',
+        version: 'unknown'
+    };
+    const { userAgent } = navigator;
+    // 检测操作系统及版本
+    if (userAgent.indexOf('Windows') > -1) {
+        var _userAgent_match;
+        osInfo.name = 'windows';
+        const windowsVersion = (null === (_userAgent_match = userAgent.match(/Windows NT ([0-9.]+)/)) || void 0 === _userAgent_match ? void 0 : _userAgent_match[1]) || 'unknown';
+        osInfo.version = windowsVersion;
+    } else if (userAgent.indexOf('Mac OS X') > -1) {
+        var _userAgent_match1;
+        osInfo.name = 'macos';
+        // 将 10_15_7 格式转换为 10.15.7
+        osInfo.version = ((null === (_userAgent_match1 = userAgent.match(/Mac OS X ([0-9_]+)/)) || void 0 === _userAgent_match1 ? void 0 : _userAgent_match1[1]) || 'unknown').replace(/_/g, '.');
+    } else if (userAgent.indexOf('Linux') > -1) {
+        var _userAgent_match2;
+        osInfo.name = 'linux';
+        osInfo.version = (null === (_userAgent_match2 = userAgent.match(/Linux ([0-9.]+)/)) || void 0 === _userAgent_match2 ? void 0 : _userAgent_match2[1]) || 'unknown';
+    }
+    // 检测浏览器及版本
+    if (userAgent.indexOf('Chrome') > -1) {
+        var _userAgent_match3;
+        browserInfo.name = 'chrome';
+        browserInfo.version = (null === (_userAgent_match3 = userAgent.match(/Chrome\/([0-9.]+)/)) || void 0 === _userAgent_match3 ? void 0 : _userAgent_match3[1]) || 'unknown';
+    } else if (userAgent.indexOf('Firefox') > -1) {
+        var _userAgent_match4;
+        browserInfo.name = 'firefox';
+        browserInfo.version = (null === (_userAgent_match4 = userAgent.match(/Firefox\/([0-9.]+)/)) || void 0 === _userAgent_match4 ? void 0 : _userAgent_match4[1]) || 'unknown';
+    } else if (userAgent.indexOf('Safari') > -1) {
+        var _userAgent_match5;
+        browserInfo.name = 'safari';
+        browserInfo.version = (null === (_userAgent_match5 = userAgent.match(/Version\/([0-9.]+)/)) || void 0 === _userAgent_match5 ? void 0 : _userAgent_match5[1]) || 'unknown';
+    }
+    const ua = {
+        version: version_version,
+        browser: browserInfo.name,
+        browser_version: browserInfo.version,
+        os_name: osInfo.name,
+        os_version: osInfo.version
     };
     return JSON.stringify(ua);
 };
@@ -4750,6 +5811,23 @@ const getNodeClientUserAgent = ()=>{
         return APIError.generate((null === (_error_response1 = error.response) || void 0 === _error_response1 ? void 0 : _error_response1.status) || 500, null === (_error_response2 = error.response) || void 0 === _error_response2 ? void 0 : _error_response2.data, error.message, null === (_error_response3 = error.response) || void 0 === _error_response3 ? void 0 : _error_response3.headers);
     }
 };
+// node-fetch is used for streaming requests
+const adapterFetch = async (options)=>{
+    const response = await (0, __viteBrowserExternal)(options.url, {
+        body: options.data,
+        ...options
+    });
+    return {
+        data: response.body,
+        ...response
+    };
+};
+const isSupportNativeFetch = ()=>{
+    if (isBrowser()) return true;
+    // native fetch is supported in node 18.0.0 or higher
+    const version = process.version.slice(1);
+    return compareVersions(version, '18.0.0') >= 0;
+};
 async function fetchAPI(url) {
     let options = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
     const axiosInstance = options.axiosInstance || axios;
@@ -4761,7 +5839,7 @@ async function fetchAPI(url) {
     const response = await axiosInstance({
         url,
         responseType: options.isStreaming ? 'stream' : 'json',
-        adapter: options.isStreaming ? 'fetch' : void 0,
+        adapter: options.isStreaming ? isSupportNativeFetch() ? 'fetch' : adapterFetch : void 0,
         ...options
     }).catch((error)=>{
         throw handleError(error);
@@ -4830,32 +5908,63 @@ function isAxiosStatic(instance) {
 /**
  * change to api.coze.cn if you use https://coze.cn
  */ const COZE_CN_BASE_URL = 'https://api.coze.cn';
+/**
+ * default base websocket URL is wss://ws.coze.com
+ */ const COZE_COM_BASE_WS_URL = 'wss://ws.coze.com';
 /* eslint-disable max-params */ class APIClient {
-    buildOptions(method, body, options) {
+    async getToken() {
+        if ('function' == typeof this.token) return await this.token();
+        return this.token;
+    }
+    async buildOptions(method, body, options) {
+        const token = await this.getToken();
         const headers = {
-            authorization: `Bearer ${this.token}`
+            authorization: `Bearer ${token}`
         };
-        if (!isBrowser()) {
+        if (isBrowser()) headers['X-Coze-Client-User-Agent'] = getBrowserClientUserAgent();
+        else {
             headers['User-Agent'] = getUserAgent();
             headers['X-Coze-Client-User-Agent'] = getNodeClientUserAgent();
         }
         const config = mergeConfig(this.axiosOptions, options, {
             headers
+        }, {
+            headers: this.headers || {}
         });
         config.method = method;
         config.data = body;
         return config;
     }
+    async buildWebsocketOptions(options) {
+        const token = await this.getToken();
+        const headers = {
+            authorization: `Bearer ${token}`
+        };
+        if (isBrowser()) headers['X-Coze-Client-User-Agent'] = getBrowserClientUserAgent();
+        else {
+            headers['User-Agent'] = getUserAgent();
+            headers['X-Coze-Client-User-Agent'] = getNodeClientUserAgent();
+        }
+        var _this__config_debug;
+        const config = mergeConfig({
+            debug: null !== (_this__config_debug = this._config.debug) && void 0 !== _this__config_debug && _this__config_debug
+        }, this._config.websocketOptions, options, {
+            headers
+        }, {
+            headers: this.headers || {}
+        });
+        return config;
+    }
     async makeRequest(apiUrl, method, body, isStream, options) {
         const fullUrl = `${this.baseURL}${apiUrl}`;
-        const fetchOptions = this.buildOptions(method, body, options);
+        const fetchOptions = await this.buildOptions(method, body, options);
         fetchOptions.isStreaming = isStream;
         fetchOptions.axiosInstance = this.axiosInstance;
-        this.debugLog(`--- request url: ${fullUrl}`);
-        this.debugLog('--- request options:', fetchOptions);
+        this.debugLog(null == options ? void 0 : options.debug, `--- request url: ${fullUrl}`);
+        this.debugLog(null == options ? void 0 : options.debug, '--- request options:', fetchOptions);
         const { response, stream, json } = await fetchAPI(fullUrl, fetchOptions);
-        this.debugLog(`--- response status: ${response.status}`);
-        this.debugLog('--- response headers: ', response.headers);
+        this.debugLog(null == options ? void 0 : options.debug, `--- response status: ${response.status}`);
+        this.debugLog(null == options ? void 0 : options.debug, '--- response headers: ', response.headers);
         var _response_headers;
         // Taro use `header`
         const contentType = (null !== (_response_headers = response.headers) && void 0 !== _response_headers ? _response_headers : response.header)['content-type'];
@@ -4893,24 +6002,34 @@ function isAxiosStatic(instance) {
     async delete(apiUrl, isStream, options) {
         return this.makeRequest(apiUrl, 'DELETE', void 0, isStream, options);
     }
+    async makeWebsocket(apiUrl, options) {
+        const fullUrl = `${this.baseWsURL}${apiUrl}`;
+        const websocketOptions = await this.buildWebsocketOptions(options);
+        this.debugLog(null == options ? void 0 : options.debug, `--- websocket url: ${fullUrl}`);
+        this.debugLog(null == options ? void 0 : options.debug, '--- websocket options:', websocketOptions);
+        const ws = new WebSocketAPI(fullUrl, websocketOptions);
+        return ws;
+    }
     getConfig() {
         return this._config;
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     debugLog() {
-        for(var _len = arguments.length, msgs = new Array(_len), _key = 0; _key < _len; _key++)msgs[_key] = arguments[_key];
-        if (this.debug) console.debug(...msgs);
+        let forceDebug = arguments.length > 0 && void 0 !== arguments[0] && arguments[0];
+        for(var _len = arguments.length, msgs = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++)msgs[_key - 1] = arguments[_key];
+        if (this.debug || forceDebug) console.debug(...msgs);
     }
     constructor(config){
         this._config = config;
         this.baseURL = config.baseURL || COZE_COM_BASE_URL;
+        this.baseWsURL = config.baseWsURL || COZE_COM_BASE_WS_URL;
         this.token = config.token;
         this.axiosOptions = config.axiosOptions || {};
         this.axiosInstance = config.axiosInstance;
         this.debug = config.debug || false;
         this.allowPersonalAccessTokenInBrowser = config.allowPersonalAccessTokenInBrowser || false;
         this.headers = config.headers;
-        if (isBrowser() && isPersonalAccessToken(this.token) && !this.allowPersonalAccessTokenInBrowser) throw new CozeError('Browser environments do not support authentication using Personal Access Token (PAT) by default.\nas it may expose secret API keys. \n\nPlease use OAuth2.0 authentication mechanism. see:\nhttps://www.coze.com/docs/developer_guides/oauth_apps?_lang=en \n\nIf you need to force use, please set the `allowPersonalAccessTokenInBrowser` option to `true`. \n\ne.g new CozeAPI({ token, allowPersonalAccessTokenInBrowser: true });\n\n');
+        if (isBrowser() && 'function' != typeof this.token && isPersonalAccessToken(this.token) && !this.allowPersonalAccessTokenInBrowser) throw new CozeError('Browser environments do not support authentication using Personal Access Token (PAT) by default.\nas it may expose secret API keys. \n\nPlease use OAuth2.0 authentication mechanism. see:\nhttps://www.coze.com/docs/developer_guides/oauth_apps?_lang=en \n\nIf you need to force use, please set the `allowPersonalAccessTokenInBrowser` option to `true`. \n\ne.g new CozeAPI({ token, allowPersonalAccessTokenInBrowser: true });\n\n');
     }
 }
 APIClient.APIError = APIError;
@@ -4925,7 +6044,9 @@ APIClient.TimeoutError = TimeoutError;
 APIClient.UserAbortError = APIUserAbortError;
 class CozeAPI extends APIClient {
     constructor(...args){
-        super(...args), this.bots = new Bots(this), this.chat = new Chat(this), this.conversations = new Conversations(this), this.files = new Files(this), this.knowledge = new Knowledge(this), this.workflows = new Workflows(this), this.workspaces = new WorkSpaces(this), this.audio = new Audio(this);
+        super(...args), this.bots = new Bots(this), this.chat = new Chat(this), this.conversations = new Conversations(this), this.files = new Files(this), /**
+   * @deprecated
+   */ this.knowledge = new Knowledge(this), this.datasets = new Datasets(this), this.workflows = new Workflows(this), this.workspaces = new WorkSpaces(this), this.audio = new Audio(this), this.templates = new Templates(this), this.websockets = new Websockets(this);
     }
 }
 
@@ -5592,375 +6713,366 @@ function empty$3(value) {
 }
 
 /**
- * @typedef {import('./info.js').Info} Info
- * @typedef {Record<string, Info>} Properties
- * @typedef {Record<string, string>} Normal
+ * @import {Schema as SchemaType, Space} from 'property-information'
  */
 
-let Schema$3 = class Schema {
+/** @type {SchemaType} */
+let Schema$4 = class Schema {
   /**
-   * @constructor
-   * @param {Properties} property
-   * @param {Normal} normal
-   * @param {string} [space]
+   * @param {SchemaType['property']} property
+   *   Property.
+   * @param {SchemaType['normal']} normal
+   *   Normal.
+   * @param {Space | undefined} [space]
+   *   Space.
+   * @returns
+   *   Schema.
    */
   constructor(property, normal, space) {
-    this.property = property;
     this.normal = normal;
+    this.property = property;
+
     if (space) {
       this.space = space;
     }
   }
 };
 
-/** @type {Properties} */
-Schema$3.prototype.property = {};
-/** @type {Normal} */
-Schema$3.prototype.normal = {};
-/** @type {string|null} */
-Schema$3.prototype.space = null;
+Schema$4.prototype.normal = {};
+Schema$4.prototype.property = {};
+Schema$4.prototype.space = undefined;
 
 /**
- * @typedef {import('./schema.js').Properties} Properties
- * @typedef {import('./schema.js').Normal} Normal
+ * @import {Info, Space} from 'property-information'
  */
 
 
 /**
- * @param {Schema[]} definitions
- * @param {string} [space]
+ * @param {ReadonlyArray<Schema>} definitions
+ *   Definitions.
+ * @param {Space | undefined} [space]
+ *   Space.
  * @returns {Schema}
+ *   Schema.
  */
-function merge$2(definitions, space) {
-  /** @type {Properties} */
+function merge$3(definitions, space) {
+  /** @type {Record<string, Info>} */
   const property = {};
-  /** @type {Normal} */
+  /** @type {Record<string, string>} */
   const normal = {};
-  let index = -1;
 
-  while (++index < definitions.length) {
-    Object.assign(property, definitions[index].property);
-    Object.assign(normal, definitions[index].normal);
+  for (const definition of definitions) {
+    Object.assign(property, definition.property);
+    Object.assign(normal, definition.normal);
   }
 
-  return new Schema$3(property, normal, space)
+  return new Schema$4(property, normal, space)
 }
 
 /**
+ * Get the cleaned case insensitive form of an attribute or property.
+ *
  * @param {string} value
+ *   An attribute-like or property-like name.
  * @returns {string}
+ *   Value that can be used to look up the properly cased property on a
+ *   `Schema`.
  */
-function normalize$5(value) {
+function normalize$6(value) {
   return value.toLowerCase()
 }
 
-let Info$3 = class Info {
+/**
+ * @import {Info as InfoType} from 'property-information'
+ */
+
+/** @type {InfoType} */
+let Info$4 = class Info {
   /**
-   * @constructor
    * @param {string} property
+   *   Property.
    * @param {string} attribute
+   *   Attribute.
+   * @returns
+   *   Info.
    */
   constructor(property, attribute) {
-    /** @type {string} */
-    this.property = property;
-    /** @type {string} */
     this.attribute = attribute;
+    this.property = property;
   }
 };
 
-/** @type {string|null} */
-Info$3.prototype.space = null;
-Info$3.prototype.boolean = false;
-Info$3.prototype.booleanish = false;
-Info$3.prototype.overloadedBoolean = false;
-Info$3.prototype.number = false;
-Info$3.prototype.commaSeparated = false;
-Info$3.prototype.spaceSeparated = false;
-Info$3.prototype.commaOrSpaceSeparated = false;
-Info$3.prototype.mustUseProperty = false;
-Info$3.prototype.defined = false;
+Info$4.prototype.attribute = '';
+Info$4.prototype.booleanish = false;
+Info$4.prototype.boolean = false;
+Info$4.prototype.commaOrSpaceSeparated = false;
+Info$4.prototype.commaSeparated = false;
+Info$4.prototype.defined = false;
+Info$4.prototype.mustUseProperty = false;
+Info$4.prototype.number = false;
+Info$4.prototype.overloadedBoolean = false;
+Info$4.prototype.property = '';
+Info$4.prototype.spaceSeparated = false;
+Info$4.prototype.space = undefined;
 
-let powers$1 = 0;
+let powers$2 = 0;
 
-const boolean$1 = increment$1();
-const booleanish$2 = increment$1();
-const overloadedBoolean$1 = increment$1();
-const number$2 = increment$1();
-const spaceSeparated$2 = increment$1();
-const commaSeparated$1 = increment$1();
-const commaOrSpaceSeparated = increment$1();
+const boolean$2 = increment$2();
+const booleanish$3 = increment$2();
+const overloadedBoolean$2 = increment$2();
+const number$3 = increment$2();
+const spaceSeparated$3 = increment$2();
+const commaSeparated$2 = increment$2();
+const commaOrSpaceSeparated$1 = increment$2();
 
-function increment$1() {
-  return 2 ** ++powers$1
+function increment$2() {
+  return 2 ** ++powers$2
 }
 
-const types$4 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+const types$5 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
-  boolean: boolean$1,
-  booleanish: booleanish$2,
-  commaOrSpaceSeparated,
-  commaSeparated: commaSeparated$1,
-  number: number$2,
-  overloadedBoolean: overloadedBoolean$1,
-  spaceSeparated: spaceSeparated$2
+  boolean: boolean$2,
+  booleanish: booleanish$3,
+  commaOrSpaceSeparated: commaOrSpaceSeparated$1,
+  commaSeparated: commaSeparated$2,
+  number: number$3,
+  overloadedBoolean: overloadedBoolean$2,
+  spaceSeparated: spaceSeparated$3
 }, Symbol.toStringTag, { value: 'Module' }));
 
-/** @type {Array<keyof types>} */
-// @ts-expect-error: hush.
-const checks$1 = Object.keys(types$4);
+/**
+ * @import {Space} from 'property-information'
+ */
 
-let DefinedInfo$3 = class DefinedInfo extends Info$3 {
+
+const checks$2 = /** @type {ReadonlyArray<keyof typeof types>} */ (
+  Object.keys(types$5)
+);
+
+let DefinedInfo$4 = class DefinedInfo extends Info$4 {
   /**
    * @constructor
    * @param {string} property
+   *   Property.
    * @param {string} attribute
-   * @param {number|null} [mask]
-   * @param {string} [space]
+   *   Attribute.
+   * @param {number | null | undefined} [mask]
+   *   Mask.
+   * @param {Space | undefined} [space]
+   *   Space.
+   * @returns
+   *   Info.
    */
   constructor(property, attribute, mask, space) {
     let index = -1;
 
     super(property, attribute);
 
-    mark$1(this, 'space', space);
+    mark$2(this, 'space', space);
 
     if (typeof mask === 'number') {
-      while (++index < checks$1.length) {
-        const check = checks$1[index];
-        mark$1(this, checks$1[index], (mask & types$4[check]) === types$4[check]);
+      while (++index < checks$2.length) {
+        const check = checks$2[index];
+        mark$2(this, checks$2[index], (mask & types$5[check]) === types$5[check]);
       }
     }
   }
 };
 
-DefinedInfo$3.prototype.defined = true;
+DefinedInfo$4.prototype.defined = true;
 
 /**
+ * @template {keyof DefinedInfo} Key
+ *   Key type.
  * @param {DefinedInfo} values
- * @param {string} key
- * @param {unknown} value
+ *   Info.
+ * @param {Key} key
+ *   Key.
+ * @param {DefinedInfo[Key]} value
+ *   Value.
+ * @returns {undefined}
+ *   Nothing.
  */
-function mark$1(values, key, value) {
+function mark$2(values, key, value) {
   if (value) {
-    // @ts-expect-error: assume `value` matches the expected value of `key`.
     values[key] = value;
   }
 }
 
 /**
- * @typedef {import('./schema.js').Properties} Properties
- * @typedef {import('./schema.js').Normal} Normal
- *
- * @typedef {Record<string, string>} Attributes
- *
- * @typedef {Object} Definition
- * @property {Record<string, number|null>} properties
- * @property {(attributes: Attributes, property: string) => string} transform
- * @property {string} [space]
- * @property {Attributes} [attributes]
- * @property {Array<string>} [mustUseProperty]
+ * @import {Info, Space} from 'property-information'
  */
 
-
-const own$c = {}.hasOwnProperty;
 
 /**
  * @param {Definition} definition
+ *   Definition.
  * @returns {Schema}
+ *   Schema.
  */
-function create$6(definition) {
-  /** @type {Properties} */
-  const property = {};
-  /** @type {Normal} */
-  const normal = {};
-  /** @type {string} */
-  let prop;
+function create$7(definition) {
+  /** @type {Record<string, Info>} */
+  const properties = {};
+  /** @type {Record<string, string>} */
+  const normals = {};
 
-  for (prop in definition.properties) {
-    if (own$c.call(definition.properties, prop)) {
-      const value = definition.properties[prop];
-      const info = new DefinedInfo$3(
-        prop,
-        definition.transform(definition.attributes || {}, prop),
-        value,
-        definition.space
-      );
+  for (const [property, value] of Object.entries(definition.properties)) {
+    const info = new DefinedInfo$4(
+      property,
+      definition.transform(definition.attributes || {}, property),
+      value,
+      definition.space
+    );
 
-      if (
-        definition.mustUseProperty &&
-        definition.mustUseProperty.includes(prop)
-      ) {
-        info.mustUseProperty = true;
-      }
-
-      property[prop] = info;
-
-      normal[normalize$5(prop)] = prop;
-      normal[normalize$5(info.attribute)] = prop;
+    if (
+      definition.mustUseProperty &&
+      definition.mustUseProperty.includes(property)
+    ) {
+      info.mustUseProperty = true;
     }
+
+    properties[property] = info;
+
+    normals[normalize$6(property)] = property;
+    normals[normalize$6(info.attribute)] = property;
   }
 
-  return new Schema$3(property, normal, definition.space)
+  return new Schema$4(properties, normals, definition.space)
 }
 
-const xlink$2 = create$6({
-  space: 'xlink',
-  transform(_, prop) {
-    return 'xlink:' + prop.slice(5).toLowerCase()
-  },
+const aria$3 = create$7({
   properties: {
-    xLinkActuate: null,
-    xLinkArcRole: null,
-    xLinkHref: null,
-    xLinkRole: null,
-    xLinkShow: null,
-    xLinkTitle: null,
-    xLinkType: null
-  }
-});
-
-const xml$2 = create$6({
-  space: 'xml',
-  transform(_, prop) {
-    return 'xml:' + prop.slice(3).toLowerCase()
+    ariaActiveDescendant: null,
+    ariaAtomic: booleanish$3,
+    ariaAutoComplete: null,
+    ariaBusy: booleanish$3,
+    ariaChecked: booleanish$3,
+    ariaColCount: number$3,
+    ariaColIndex: number$3,
+    ariaColSpan: number$3,
+    ariaControls: spaceSeparated$3,
+    ariaCurrent: null,
+    ariaDescribedBy: spaceSeparated$3,
+    ariaDetails: null,
+    ariaDisabled: booleanish$3,
+    ariaDropEffect: spaceSeparated$3,
+    ariaErrorMessage: null,
+    ariaExpanded: booleanish$3,
+    ariaFlowTo: spaceSeparated$3,
+    ariaGrabbed: booleanish$3,
+    ariaHasPopup: null,
+    ariaHidden: booleanish$3,
+    ariaInvalid: null,
+    ariaKeyShortcuts: null,
+    ariaLabel: null,
+    ariaLabelledBy: spaceSeparated$3,
+    ariaLevel: number$3,
+    ariaLive: null,
+    ariaModal: booleanish$3,
+    ariaMultiLine: booleanish$3,
+    ariaMultiSelectable: booleanish$3,
+    ariaOrientation: null,
+    ariaOwns: spaceSeparated$3,
+    ariaPlaceholder: null,
+    ariaPosInSet: number$3,
+    ariaPressed: booleanish$3,
+    ariaReadOnly: booleanish$3,
+    ariaRelevant: null,
+    ariaRequired: booleanish$3,
+    ariaRoleDescription: spaceSeparated$3,
+    ariaRowCount: number$3,
+    ariaRowIndex: number$3,
+    ariaRowSpan: number$3,
+    ariaSelected: booleanish$3,
+    ariaSetSize: number$3,
+    ariaSort: null,
+    ariaValueMax: number$3,
+    ariaValueMin: number$3,
+    ariaValueNow: number$3,
+    ariaValueText: null,
+    role: null
   },
-  properties: {xmlLang: null, xmlBase: null, xmlSpace: null}
+  transform(_, property) {
+    return property === 'role'
+      ? property
+      : 'aria-' + property.slice(4).toLowerCase()
+  }
 });
 
 /**
  * @param {Record<string, string>} attributes
+ *   Attributes.
  * @param {string} attribute
+ *   Attribute.
  * @returns {string}
+ *   Transformed attribute.
  */
-function caseSensitiveTransform$2(attributes, attribute) {
+function caseSensitiveTransform$3(attributes, attribute) {
   return attribute in attributes ? attributes[attribute] : attribute
 }
 
 /**
  * @param {Record<string, string>} attributes
+ *   Attributes.
  * @param {string} property
+ *   Property.
  * @returns {string}
+ *   Transformed property.
  */
-function caseInsensitiveTransform$3(attributes, property) {
-  return caseSensitiveTransform$2(attributes, property.toLowerCase())
+function caseInsensitiveTransform$4(attributes, property) {
+  return caseSensitiveTransform$3(attributes, property.toLowerCase())
 }
 
-const xmlns$2 = create$6({
-  space: 'xmlns',
-  attributes: {xmlnsxlink: 'xmlns:xlink'},
-  transform: caseInsensitiveTransform$3,
-  properties: {xmlns: null, xmlnsXLink: null}
-});
-
-const aria$2 = create$6({
-  transform(_, prop) {
-    return prop === 'role' ? prop : 'aria-' + prop.slice(4).toLowerCase()
-  },
-  properties: {
-    ariaActiveDescendant: null,
-    ariaAtomic: booleanish$2,
-    ariaAutoComplete: null,
-    ariaBusy: booleanish$2,
-    ariaChecked: booleanish$2,
-    ariaColCount: number$2,
-    ariaColIndex: number$2,
-    ariaColSpan: number$2,
-    ariaControls: spaceSeparated$2,
-    ariaCurrent: null,
-    ariaDescribedBy: spaceSeparated$2,
-    ariaDetails: null,
-    ariaDisabled: booleanish$2,
-    ariaDropEffect: spaceSeparated$2,
-    ariaErrorMessage: null,
-    ariaExpanded: booleanish$2,
-    ariaFlowTo: spaceSeparated$2,
-    ariaGrabbed: booleanish$2,
-    ariaHasPopup: null,
-    ariaHidden: booleanish$2,
-    ariaInvalid: null,
-    ariaKeyShortcuts: null,
-    ariaLabel: null,
-    ariaLabelledBy: spaceSeparated$2,
-    ariaLevel: number$2,
-    ariaLive: null,
-    ariaModal: booleanish$2,
-    ariaMultiLine: booleanish$2,
-    ariaMultiSelectable: booleanish$2,
-    ariaOrientation: null,
-    ariaOwns: spaceSeparated$2,
-    ariaPlaceholder: null,
-    ariaPosInSet: number$2,
-    ariaPressed: booleanish$2,
-    ariaReadOnly: booleanish$2,
-    ariaRelevant: null,
-    ariaRequired: booleanish$2,
-    ariaRoleDescription: spaceSeparated$2,
-    ariaRowCount: number$2,
-    ariaRowIndex: number$2,
-    ariaRowSpan: number$2,
-    ariaSelected: booleanish$2,
-    ariaSetSize: number$2,
-    ariaSort: null,
-    ariaValueMax: number$2,
-    ariaValueMin: number$2,
-    ariaValueNow: number$2,
-    ariaValueText: null,
-    role: null
-  }
-});
-
-const html$5 = create$6({
-  space: 'html',
+const html$7 = create$7({
   attributes: {
     acceptcharset: 'accept-charset',
     classname: 'class',
     htmlfor: 'for',
     httpequiv: 'http-equiv'
   },
-  transform: caseInsensitiveTransform$3,
   mustUseProperty: ['checked', 'multiple', 'muted', 'selected'],
   properties: {
     // Standard Properties.
     abbr: null,
-    accept: commaSeparated$1,
-    acceptCharset: spaceSeparated$2,
-    accessKey: spaceSeparated$2,
+    accept: commaSeparated$2,
+    acceptCharset: spaceSeparated$3,
+    accessKey: spaceSeparated$3,
     action: null,
     allow: null,
-    allowFullScreen: boolean$1,
-    allowPaymentRequest: boolean$1,
-    allowUserMedia: boolean$1,
+    allowFullScreen: boolean$2,
+    allowPaymentRequest: boolean$2,
+    allowUserMedia: boolean$2,
     alt: null,
     as: null,
-    async: boolean$1,
+    async: boolean$2,
     autoCapitalize: null,
-    autoComplete: spaceSeparated$2,
-    autoFocus: boolean$1,
-    autoPlay: boolean$1,
-    blocking: spaceSeparated$2,
+    autoComplete: spaceSeparated$3,
+    autoFocus: boolean$2,
+    autoPlay: boolean$2,
+    blocking: spaceSeparated$3,
     capture: null,
     charSet: null,
-    checked: boolean$1,
+    checked: boolean$2,
     cite: null,
-    className: spaceSeparated$2,
-    cols: number$2,
+    className: spaceSeparated$3,
+    cols: number$3,
     colSpan: null,
     content: null,
-    contentEditable: booleanish$2,
-    controls: boolean$1,
-    controlsList: spaceSeparated$2,
-    coords: number$2 | commaSeparated$1,
+    contentEditable: booleanish$3,
+    controls: boolean$2,
+    controlsList: spaceSeparated$3,
+    coords: number$3 | commaSeparated$2,
     crossOrigin: null,
     data: null,
     dateTime: null,
     decoding: null,
-    default: boolean$1,
-    defer: boolean$1,
+    default: boolean$2,
+    defer: boolean$2,
     dir: null,
     dirName: null,
-    disabled: boolean$1,
-    download: overloadedBoolean$1,
-    draggable: booleanish$2,
+    disabled: boolean$2,
+    download: overloadedBoolean$2,
+    draggable: booleanish$3,
     encType: null,
     enterKeyHint: null,
     fetchPriority: null,
@@ -5968,50 +7080,50 @@ const html$5 = create$6({
     formAction: null,
     formEncType: null,
     formMethod: null,
-    formNoValidate: boolean$1,
+    formNoValidate: boolean$2,
     formTarget: null,
-    headers: spaceSeparated$2,
-    height: number$2,
-    hidden: boolean$1,
-    high: number$2,
+    headers: spaceSeparated$3,
+    height: number$3,
+    hidden: boolean$2,
+    high: number$3,
     href: null,
     hrefLang: null,
-    htmlFor: spaceSeparated$2,
-    httpEquiv: spaceSeparated$2,
+    htmlFor: spaceSeparated$3,
+    httpEquiv: spaceSeparated$3,
     id: null,
     imageSizes: null,
     imageSrcSet: null,
-    inert: boolean$1,
+    inert: boolean$2,
     inputMode: null,
     integrity: null,
     is: null,
-    isMap: boolean$1,
+    isMap: boolean$2,
     itemId: null,
-    itemProp: spaceSeparated$2,
-    itemRef: spaceSeparated$2,
-    itemScope: boolean$1,
-    itemType: spaceSeparated$2,
+    itemProp: spaceSeparated$3,
+    itemRef: spaceSeparated$3,
+    itemScope: boolean$2,
+    itemType: spaceSeparated$3,
     kind: null,
     label: null,
     lang: null,
     language: null,
     list: null,
     loading: null,
-    loop: boolean$1,
-    low: number$2,
+    loop: boolean$2,
+    low: number$3,
     manifest: null,
     max: null,
-    maxLength: number$2,
+    maxLength: number$3,
     media: null,
     method: null,
     min: null,
-    minLength: number$2,
-    multiple: boolean$1,
-    muted: boolean$1,
+    minLength: number$3,
+    multiple: boolean$2,
+    muted: boolean$2,
     name: null,
     nonce: null,
-    noModule: boolean$1,
-    noValidate: boolean$1,
+    noModule: boolean$2,
+    noValidate: boolean$2,
     onAbort: null,
     onAfterPrint: null,
     onAuxClick: null,
@@ -6100,54 +7212,54 @@ const html$5 = create$6({
     onVolumeChange: null,
     onWaiting: null,
     onWheel: null,
-    open: boolean$1,
-    optimum: number$2,
+    open: boolean$2,
+    optimum: number$3,
     pattern: null,
-    ping: spaceSeparated$2,
+    ping: spaceSeparated$3,
     placeholder: null,
-    playsInline: boolean$1,
+    playsInline: boolean$2,
     popover: null,
     popoverTarget: null,
     popoverTargetAction: null,
     poster: null,
     preload: null,
-    readOnly: boolean$1,
+    readOnly: boolean$2,
     referrerPolicy: null,
-    rel: spaceSeparated$2,
-    required: boolean$1,
-    reversed: boolean$1,
-    rows: number$2,
-    rowSpan: number$2,
-    sandbox: spaceSeparated$2,
+    rel: spaceSeparated$3,
+    required: boolean$2,
+    reversed: boolean$2,
+    rows: number$3,
+    rowSpan: number$3,
+    sandbox: spaceSeparated$3,
     scope: null,
-    scoped: boolean$1,
-    seamless: boolean$1,
-    selected: boolean$1,
-    shadowRootClonable: boolean$1,
-    shadowRootDelegatesFocus: boolean$1,
+    scoped: boolean$2,
+    seamless: boolean$2,
+    selected: boolean$2,
+    shadowRootClonable: boolean$2,
+    shadowRootDelegatesFocus: boolean$2,
     shadowRootMode: null,
     shape: null,
-    size: number$2,
+    size: number$3,
     sizes: null,
     slot: null,
-    span: number$2,
-    spellCheck: booleanish$2,
+    span: number$3,
+    spellCheck: booleanish$3,
     src: null,
     srcDoc: null,
     srcLang: null,
     srcSet: null,
-    start: number$2,
+    start: number$3,
     step: null,
     style: null,
-    tabIndex: number$2,
+    tabIndex: number$3,
     target: null,
     title: null,
     translate: null,
     type: null,
-    typeMustMatch: boolean$1,
+    typeMustMatch: boolean$2,
     useMap: null,
-    value: booleanish$2,
-    width: number$2,
+    value: booleanish$3,
+    width: number$3,
     wrap: null,
     writingSuggestions: null,
 
@@ -6155,13 +7267,13 @@ const html$5 = create$6({
     // See: https://html.spec.whatwg.org/#other-elements,-attributes-and-apis
     align: null, // Several. Use CSS `text-align` instead,
     aLink: null, // `<body>`. Use CSS `a:active {color}` instead
-    archive: spaceSeparated$2, // `<object>`. List of URIs to archives
+    archive: spaceSeparated$3, // `<object>`. List of URIs to archives
     axis: null, // `<td>` and `<th>`. Use `scope` on `<th>`
     background: null, // `<body>`. Use CSS `background-image` instead
     bgColor: null, // `<body>` and table elements. Use CSS `background-color` instead
-    border: number$2, // `<table>`. Use CSS `border-width` instead,
+    border: number$3, // `<table>`. Use CSS `border-width` instead,
     borderColor: null, // `<table>`. Use CSS `border-color` instead,
-    bottomMargin: number$2, // `<body>`
+    bottomMargin: number$3, // `<body>`
     cellPadding: null, // `<table>`
     cellSpacing: null, // `<table>`
     char: null, // Several table elements. When `align=char`, sets the character to align on
@@ -6172,57 +7284,58 @@ const html$5 = create$6({
     codeBase: null, // `<object>`
     codeType: null, // `<object>`
     color: null, // `<font>` and `<hr>`. Use CSS instead
-    compact: boolean$1, // Lists. Use CSS to reduce space between items instead
-    declare: boolean$1, // `<object>`
+    compact: boolean$2, // Lists. Use CSS to reduce space between items instead
+    declare: boolean$2, // `<object>`
     event: null, // `<script>`
     face: null, // `<font>`. Use CSS instead
     frame: null, // `<table>`
     frameBorder: null, // `<iframe>`. Use CSS `border` instead
-    hSpace: number$2, // `<img>` and `<object>`
-    leftMargin: number$2, // `<body>`
+    hSpace: number$3, // `<img>` and `<object>`
+    leftMargin: number$3, // `<body>`
     link: null, // `<body>`. Use CSS `a:link {color: *}` instead
     longDesc: null, // `<frame>`, `<iframe>`, and `<img>`. Use an `<a>`
     lowSrc: null, // `<img>`. Use a `<picture>`
-    marginHeight: number$2, // `<body>`
-    marginWidth: number$2, // `<body>`
-    noResize: boolean$1, // `<frame>`
-    noHref: boolean$1, // `<area>`. Use no href instead of an explicit `nohref`
-    noShade: boolean$1, // `<hr>`. Use background-color and height instead of borders
-    noWrap: boolean$1, // `<td>` and `<th>`
+    marginHeight: number$3, // `<body>`
+    marginWidth: number$3, // `<body>`
+    noResize: boolean$2, // `<frame>`
+    noHref: boolean$2, // `<area>`. Use no href instead of an explicit `nohref`
+    noShade: boolean$2, // `<hr>`. Use background-color and height instead of borders
+    noWrap: boolean$2, // `<td>` and `<th>`
     object: null, // `<applet>`
     profile: null, // `<head>`
     prompt: null, // `<isindex>`
     rev: null, // `<link>`
-    rightMargin: number$2, // `<body>`
+    rightMargin: number$3, // `<body>`
     rules: null, // `<table>`
     scheme: null, // `<meta>`
-    scrolling: booleanish$2, // `<frame>`. Use overflow in the child context
+    scrolling: booleanish$3, // `<frame>`. Use overflow in the child context
     standby: null, // `<object>`
     summary: null, // `<table>`
     text: null, // `<body>`. Use CSS `color` instead
-    topMargin: number$2, // `<body>`
+    topMargin: number$3, // `<body>`
     valueType: null, // `<param>`
     version: null, // `<html>`. Use a doctype.
     vAlign: null, // Several. Use CSS `vertical-align` instead
     vLink: null, // `<body>`. Use CSS `a:visited {color}` instead
-    vSpace: number$2, // `<img>` and `<object>`
+    vSpace: number$3, // `<img>` and `<object>`
 
     // Non-standard Properties.
     allowTransparency: null,
     autoCorrect: null,
     autoSave: null,
-    disablePictureInPicture: boolean$1,
-    disableRemotePlayback: boolean$1,
+    disablePictureInPicture: boolean$2,
+    disableRemotePlayback: boolean$2,
     prefix: null,
     property: null,
-    results: number$2,
+    results: number$3,
     security: null,
     unselectable: null
-  }
+  },
+  space: 'html',
+  transform: caseInsensitiveTransform$4
 });
 
-const svg$1 = create$6({
-  space: 'svg',
+const svg$3 = create$7({
   attributes: {
     accentHeight: 'accent-height',
     alignmentBaseline: 'alignment-baseline',
@@ -6398,31 +7511,30 @@ const svg$1 = create$6({
     playbackOrder: 'playbackorder',
     timelineBegin: 'timelinebegin'
   },
-  transform: caseSensitiveTransform$2,
   properties: {
-    about: commaOrSpaceSeparated,
-    accentHeight: number$2,
+    about: commaOrSpaceSeparated$1,
+    accentHeight: number$3,
     accumulate: null,
     additive: null,
     alignmentBaseline: null,
-    alphabetic: number$2,
-    amplitude: number$2,
+    alphabetic: number$3,
+    amplitude: number$3,
     arabicForm: null,
-    ascent: number$2,
+    ascent: number$3,
     attributeName: null,
     attributeType: null,
-    azimuth: number$2,
+    azimuth: number$3,
     bandwidth: null,
     baselineShift: null,
     baseFrequency: null,
     baseProfile: null,
     bbox: null,
     begin: null,
-    bias: number$2,
+    bias: number$3,
     by: null,
     calcMode: null,
-    capHeight: number$2,
-    className: spaceSeparated$2,
+    capHeight: number$3,
+    className: spaceSeparated$3,
     clip: null,
     clipPath: null,
     clipPathUnits: null,
@@ -6442,26 +7554,26 @@ const svg$1 = create$6({
     d: null,
     dataType: null,
     defaultAction: null,
-    descent: number$2,
-    diffuseConstant: number$2,
+    descent: number$3,
+    diffuseConstant: number$3,
     direction: null,
     display: null,
     dur: null,
-    divisor: number$2,
+    divisor: number$3,
     dominantBaseline: null,
-    download: boolean$1,
+    download: boolean$2,
     dx: null,
     dy: null,
     edgeMode: null,
     editable: null,
-    elevation: number$2,
+    elevation: number$3,
     enableBackground: null,
     end: null,
     event: null,
-    exponent: number$2,
+    exponent: number$3,
     externalResourcesRequired: null,
     fill: null,
-    fillOpacity: number$2,
+    fillOpacity: number$3,
     fillRule: null,
     filter: null,
     filterRes: null,
@@ -6482,37 +7594,37 @@ const svg$1 = create$6({
     from: null,
     fx: null,
     fy: null,
-    g1: commaSeparated$1,
-    g2: commaSeparated$1,
-    glyphName: commaSeparated$1,
+    g1: commaSeparated$2,
+    g2: commaSeparated$2,
+    glyphName: commaSeparated$2,
     glyphOrientationHorizontal: null,
     glyphOrientationVertical: null,
     glyphRef: null,
     gradientTransform: null,
     gradientUnits: null,
     handler: null,
-    hanging: number$2,
+    hanging: number$3,
     hatchContentUnits: null,
     hatchUnits: null,
     height: null,
     href: null,
     hrefLang: null,
-    horizAdvX: number$2,
-    horizOriginX: number$2,
-    horizOriginY: number$2,
+    horizAdvX: number$3,
+    horizOriginX: number$3,
+    horizOriginY: number$3,
     id: null,
-    ideographic: number$2,
+    ideographic: number$3,
     imageRendering: null,
     initialVisibility: null,
     in: null,
     in2: null,
-    intercept: number$2,
-    k: number$2,
-    k1: number$2,
-    k2: number$2,
-    k3: number$2,
-    k4: number$2,
-    kernelMatrix: commaOrSpaceSeparated,
+    intercept: number$3,
+    k: number$3,
+    k1: number$3,
+    k2: number$3,
+    k3: number$3,
+    k4: number$3,
+    kernelMatrix: commaOrSpaceSeparated$1,
     kernelUnitLength: null,
     keyPoints: null, // SEMI_COLON_SEPARATED
     keySplines: null, // SEMI_COLON_SEPARATED
@@ -6522,7 +7634,7 @@ const svg$1 = create$6({
     lengthAdjust: null,
     letterSpacing: null,
     lightingColor: null,
-    limitingConeAngle: number$2,
+    limitingConeAngle: number$3,
     local: null,
     markerEnd: null,
     markerMid: null,
@@ -6538,7 +7650,7 @@ const svg$1 = create$6({
     media: null,
     mediaCharacterEncoding: null,
     mediaContentEncodings: null,
-    mediaSize: number$2,
+    mediaSize: number$3,
     mediaTime: null,
     method: null,
     min: null,
@@ -6644,43 +7756,43 @@ const svg$1 = create$6({
     origin: null,
     overflow: null,
     overlay: null,
-    overlinePosition: number$2,
-    overlineThickness: number$2,
+    overlinePosition: number$3,
+    overlineThickness: number$3,
     paintOrder: null,
     panose1: null,
     path: null,
-    pathLength: number$2,
+    pathLength: number$3,
     patternContentUnits: null,
     patternTransform: null,
     patternUnits: null,
     phase: null,
-    ping: spaceSeparated$2,
+    ping: spaceSeparated$3,
     pitch: null,
     playbackOrder: null,
     pointerEvents: null,
     points: null,
-    pointsAtX: number$2,
-    pointsAtY: number$2,
-    pointsAtZ: number$2,
+    pointsAtX: number$3,
+    pointsAtY: number$3,
+    pointsAtZ: number$3,
     preserveAlpha: null,
     preserveAspectRatio: null,
     primitiveUnits: null,
     propagate: null,
-    property: commaOrSpaceSeparated,
+    property: commaOrSpaceSeparated$1,
     r: null,
     radius: null,
     referrerPolicy: null,
     refX: null,
     refY: null,
-    rel: commaOrSpaceSeparated,
-    rev: commaOrSpaceSeparated,
+    rel: commaOrSpaceSeparated$1,
+    rev: commaOrSpaceSeparated$1,
     renderingIntent: null,
     repeatCount: null,
     repeatDur: null,
-    requiredExtensions: commaOrSpaceSeparated,
-    requiredFeatures: commaOrSpaceSeparated,
-    requiredFonts: commaOrSpaceSeparated,
-    requiredFormats: commaOrSpaceSeparated,
+    requiredExtensions: commaOrSpaceSeparated$1,
+    requiredFeatures: commaOrSpaceSeparated$1,
+    requiredFonts: commaOrSpaceSeparated$1,
+    requiredFormats: commaOrSpaceSeparated$1,
     resource: null,
     restart: null,
     result: null,
@@ -6693,8 +7805,8 @@ const svg$1 = create$6({
     side: null,
     slope: null,
     snapshotTime: null,
-    specularConstant: number$2,
-    specularExponent: number$2,
+    specularConstant: number$3,
+    specularExponent: number$3,
     spreadMethod: null,
     spacing: null,
     startOffset: null,
@@ -6704,30 +7816,30 @@ const svg$1 = create$6({
     stitchTiles: null,
     stopColor: null,
     stopOpacity: null,
-    strikethroughPosition: number$2,
-    strikethroughThickness: number$2,
+    strikethroughPosition: number$3,
+    strikethroughThickness: number$3,
     string: null,
     stroke: null,
-    strokeDashArray: commaOrSpaceSeparated,
+    strokeDashArray: commaOrSpaceSeparated$1,
     strokeDashOffset: null,
     strokeLineCap: null,
     strokeLineJoin: null,
-    strokeMiterLimit: number$2,
-    strokeOpacity: number$2,
+    strokeMiterLimit: number$3,
+    strokeOpacity: number$3,
     strokeWidth: null,
     style: null,
-    surfaceScale: number$2,
+    surfaceScale: number$3,
     syncBehavior: null,
     syncBehaviorDefault: null,
     syncMaster: null,
     syncTolerance: null,
     syncToleranceDefault: null,
-    systemLanguage: commaOrSpaceSeparated,
-    tabIndex: number$2,
+    systemLanguage: commaOrSpaceSeparated$1,
+    tabIndex: number$3,
     tableValues: null,
     target: null,
-    targetX: number$2,
-    targetY: number$2,
+    targetX: number$3,
+    targetY: number$3,
     textAnchor: null,
     textDecoration: null,
     textRendering: null,
@@ -6736,28 +7848,28 @@ const svg$1 = create$6({
     title: null,
     transformBehavior: null,
     type: null,
-    typeOf: commaOrSpaceSeparated,
+    typeOf: commaOrSpaceSeparated$1,
     to: null,
     transform: null,
     transformOrigin: null,
     u1: null,
     u2: null,
-    underlinePosition: number$2,
-    underlineThickness: number$2,
+    underlinePosition: number$3,
+    underlineThickness: number$3,
     unicode: null,
     unicodeBidi: null,
     unicodeRange: null,
-    unitsPerEm: number$2,
+    unitsPerEm: number$3,
     values: null,
-    vAlphabetic: number$2,
-    vMathematical: number$2,
+    vAlphabetic: number$3,
+    vMathematical: number$3,
     vectorEffect: null,
-    vHanging: number$2,
-    vIdeographic: number$2,
+    vHanging: number$3,
+    vIdeographic: number$3,
     version: null,
-    vertAdvY: number$2,
-    vertOriginX: number$2,
-    vertOriginY: number$2,
+    vertAdvY: number$3,
+    vertOriginX: number$3,
+    vertOriginY: number$3,
     viewBox: null,
     viewTarget: null,
     visibility: null,
@@ -6769,87 +7881,56 @@ const svg$1 = create$6({
     x1: null,
     x2: null,
     xChannelSelector: null,
-    xHeight: number$2,
+    xHeight: number$3,
     y: null,
     y1: null,
     y2: null,
     yChannelSelector: null,
     z: null,
     zoomAndPan: null
+  },
+  space: 'svg',
+  transform: caseSensitiveTransform$3
+});
+
+const xlink$3 = create$7({
+  properties: {
+    xLinkActuate: null,
+    xLinkArcRole: null,
+    xLinkHref: null,
+    xLinkRole: null,
+    xLinkShow: null,
+    xLinkTitle: null,
+    xLinkType: null
+  },
+  space: 'xlink',
+  transform(_, property) {
+    return 'xlink:' + property.slice(5).toLowerCase()
+  }
+});
+
+const xmlns$3 = create$7({
+  attributes: {xmlnsxlink: 'xmlns:xlink'},
+  properties: {xmlnsXLink: null, xmlns: null},
+  space: 'xmlns',
+  transform: caseInsensitiveTransform$4
+});
+
+const xml$3 = create$7({
+  properties: {xmlBase: null, xmlLang: null, xmlSpace: null},
+  space: 'xml',
+  transform(_, property) {
+    return 'xml:' + property.slice(3).toLowerCase()
   }
 });
 
 /**
- * @typedef {import('./util/schema.js').Schema} Schema
- */
-
-
-const valid$1 = /^data[-\w.:]+$/i;
-const dash$1 = /-[a-z]/g;
-const cap$2 = /[A-Z]/g;
-
-/**
- * @param {Schema} schema
- * @param {string} value
- * @returns {Info}
- */
-function find$2(schema, value) {
-  const normal = normalize$5(value);
-  let prop = value;
-  let Type = Info$3;
-
-  if (normal in schema.normal) {
-    return schema.property[schema.normal[normal]]
-  }
-
-  if (normal.length > 4 && normal.slice(0, 4) === 'data' && valid$1.test(value)) {
-    // Attribute or property.
-    if (value.charAt(4) === '-') {
-      // Turn it into a property.
-      const rest = value.slice(5).replace(dash$1, camelcase$1);
-      prop = 'data' + rest.charAt(0).toUpperCase() + rest.slice(1);
-    } else {
-      // Turn it into an attribute.
-      const rest = value.slice(4);
-
-      if (!dash$1.test(rest)) {
-        let dashes = rest.replace(cap$2, kebab$1);
-
-        if (dashes.charAt(0) !== '-') {
-          dashes = '-' + dashes;
-        }
-
-        value = 'data' + dashes;
-      }
-    }
-
-    Type = DefinedInfo$3;
-  }
-
-  return new Type(prop, value)
-}
-
-/**
- * @param {string} $0
- * @returns {string}
- */
-function kebab$1($0) {
-  return '-' + $0.toLowerCase()
-}
-
-/**
- * @param {string} $0
- * @returns {string}
- */
-function camelcase$1($0) {
-  return $0.charAt(1).toUpperCase()
-}
-
-/**
- * `hast` is close to `React`, but differs in a couple of cases.
+ * Special cases for React (`Record<string, string>`).
  *
- * To get a React property from a hast property, check if it is in
- * `hastToReact`, if it is, then use the corresponding value,
+ * `hast` is close to `React` but differs in a couple of cases.
+ * To get a React property from a hast property,
+ * check if it is in `hastToReact`.
+ * If it is, use the corresponding value;
  * otherwise, use the hast property.
  *
  * @type {Record<string, string>}
@@ -6875,12 +7956,105 @@ const hastToReact = {
 };
 
 /**
- * @typedef {import('./lib/util/info.js').Info} Info
- * @typedef {import('./lib/util/schema.js').Schema} Schema
+ * @import {Schema} from 'property-information'
  */
 
-const html$4 = merge$2([xml$2, xlink$2, xmlns$2, aria$2, html$5], 'html');
-const svg = merge$2([xml$2, xlink$2, xmlns$2, aria$2, svg$1], 'svg');
+
+const cap$3 = /[A-Z]/g;
+const dash$2 = /-[a-z]/g;
+const valid$2 = /^data[-\w.:]+$/i;
+
+/**
+ * Look up info on a property.
+ *
+ * In most cases the given `schema` contains info on the property.
+ * All standard,
+ * most legacy,
+ * and some non-standard properties are supported.
+ * For these cases,
+ * the returned `Info` has hints about the value of the property.
+ *
+ * `name` can also be a valid data attribute or property,
+ * in which case an `Info` object with the correctly cased `attribute` and
+ * `property` is returned.
+ *
+ * `name` can be an unknown attribute,
+ * in which case an `Info` object with `attribute` and `property` set to the
+ * given name is returned.
+ * It is not recommended to provide unsupported legacy or recently specced
+ * properties.
+ *
+ *
+ * @param {Schema} schema
+ *   Schema;
+ *   either the `html` or `svg` export.
+ * @param {string} value
+ *   An attribute-like or property-like name;
+ *   it will be passed through `normalize` to hopefully find the correct info.
+ * @returns {Info}
+ *   Info.
+ */
+function find$3(schema, value) {
+  const normal = normalize$6(value);
+  let property = value;
+  let Type = Info$4;
+
+  if (normal in schema.normal) {
+    return schema.property[schema.normal[normal]]
+  }
+
+  if (normal.length > 4 && normal.slice(0, 4) === 'data' && valid$2.test(value)) {
+    // Attribute or property.
+    if (value.charAt(4) === '-') {
+      // Turn it into a property.
+      const rest = value.slice(5).replace(dash$2, camelcase$2);
+      property = 'data' + rest.charAt(0).toUpperCase() + rest.slice(1);
+    } else {
+      // Turn it into an attribute.
+      const rest = value.slice(4);
+
+      if (!dash$2.test(rest)) {
+        let dashes = rest.replace(cap$3, kebab$2);
+
+        if (dashes.charAt(0) !== '-') {
+          dashes = '-' + dashes;
+        }
+
+        value = 'data' + dashes;
+      }
+    }
+
+    Type = DefinedInfo$4;
+  }
+
+  return new Type(property, value)
+}
+
+/**
+ * @param {string} $0
+ *   Value.
+ * @returns {string}
+ *   Kebab.
+ */
+function kebab$2($0) {
+  return '-' + $0.toLowerCase()
+}
+
+/**
+ * @param {string} $0
+ *   Value.
+ * @returns {string}
+ *   Camel.
+ */
+function camelcase$2($0) {
+  return $0.charAt(1).toUpperCase()
+}
+
+// Note: types exposed from `index.d.ts`.
+
+const html$6 = merge$3([aria$3, html$7, xlink$3, xmlns$3, xml$3], 'html');
+
+const svg$2 = merge$3([aria$3, svg$3, xlink$3, xmlns$3, xml$3], 'svg');
 
 /**
  * Parse space-separated tokens to an array of strings.
@@ -6907,7 +8081,7 @@ function stringify$3(values) {
   return values.join(' ').trim()
 }
 
-var cjs = {};
+var cjs$1 = {};
 
 // http://www.w3.org/TR/CSS21/grammar.html
 // https://github.com/visionmedia/css-parse/pull/49#issuecomment-30088027
@@ -7167,12 +8341,12 @@ function trim(str) {
   return str ? str.replace(TRIM_REGEX, EMPTY_STRING) : EMPTY_STRING;
 }
 
-var __importDefault = (commonjsGlobal && commonjsGlobal.__importDefault) || function (mod) {
+var __importDefault$1 = (commonjsGlobal && commonjsGlobal.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-Object.defineProperty(cjs, "__esModule", { value: true });
-var _default = cjs.default = StyleToObject;
-var inline_style_parser_1 = __importDefault(inlineStyleParser);
+Object.defineProperty(cjs$1, "__esModule", { value: true });
+cjs$1.default = StyleToObject;
+var inline_style_parser_1 = __importDefault$1(inlineStyleParser);
 /**
  * Parses inline style to object.
  *
@@ -7210,8 +8384,80 @@ function StyleToObject(style, iterator) {
     return styleObject;
 }
 
-// ensure compatibility with rollup umd build
-const styleToObject = _default.default || _default;
+var utilities = {};
+
+Object.defineProperty(utilities, "__esModule", { value: true });
+utilities.camelCase = void 0;
+var CUSTOM_PROPERTY_REGEX = /^--[a-zA-Z0-9_-]+$/;
+var HYPHEN_REGEX = /-([a-z])/g;
+var NO_HYPHEN_REGEX = /^[^-]+$/;
+var VENDOR_PREFIX_REGEX = /^-(webkit|moz|ms|o|khtml)-/;
+var MS_VENDOR_PREFIX_REGEX = /^-(ms)-/;
+/**
+ * Checks whether to skip camelCase.
+ */
+var skipCamelCase = function (property) {
+    return !property ||
+        NO_HYPHEN_REGEX.test(property) ||
+        CUSTOM_PROPERTY_REGEX.test(property);
+};
+/**
+ * Replacer that capitalizes first character.
+ */
+var capitalize = function (match, character) {
+    return character.toUpperCase();
+};
+/**
+ * Replacer that removes beginning hyphen of vendor prefix property.
+ */
+var trimHyphen = function (match, prefix) { return "".concat(prefix, "-"); };
+/**
+ * CamelCases a CSS property.
+ */
+var camelCase = function (property, options) {
+    if (options === void 0) { options = {}; }
+    if (skipCamelCase(property)) {
+        return property;
+    }
+    property = property.toLowerCase();
+    if (options.reactCompat) {
+        // `-ms` vendor prefix should not be capitalized
+        property = property.replace(MS_VENDOR_PREFIX_REGEX, trimHyphen);
+    }
+    else {
+        // for non-React, remove first hyphen so vendor prefix is not capitalized
+        property = property.replace(VENDOR_PREFIX_REGEX, trimHyphen);
+    }
+    return property.replace(HYPHEN_REGEX, capitalize);
+};
+utilities.camelCase = camelCase;
+
+var __importDefault = (commonjsGlobal && commonjsGlobal.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+var style_to_object_1 = __importDefault(cjs$1);
+var utilities_1 = utilities;
+/**
+ * Parses CSS inline style to JavaScript object (camelCased).
+ */
+function StyleToJS(style, options) {
+    var output = {};
+    if (!style || typeof style !== 'string') {
+        return output;
+    }
+    (0, style_to_object_1.default)(style, function (property, value) {
+        // skip CSS comment
+        if (property && value) {
+            output[(0, utilities_1.camelCase)(property, options)] = value;
+        }
+    });
+    return output;
+}
+StyleToJS.default = StyleToJS;
+var cjs = StyleToJS;
+
+
+const styleToJs = /*@__PURE__*/getDefaultExportFromCjs(cjs);
 
 /**
  * @typedef {import('unist').Node} Node
@@ -7703,18 +8949,17 @@ VFileMessage.prototype.source = undefined;
  * @import {MdxJsxFlowElementHast, MdxJsxTextElementHast} from 'mdast-util-mdx-jsx'
  * @import {MdxjsEsmHast} from 'mdast-util-mdxjs-esm'
  * @import {Position} from 'unist'
- * @import {Child, Create, Field, State, Style} from './types.js'
+ * @import {Child, Create, Field, JsxElement, State, Style} from './types.js'
  */
 
 
 // To do: next major: `Object.hasOwn`.
-const own$b = {}.hasOwnProperty;
+const own$a = {}.hasOwnProperty;
 
 /** @type {Map<string, number>} */
 const emptyMap = new Map();
 
-const cap$1 = /[A-Z]/g;
-const dashSomething = /-([a-z])/g;
+const cap$2 = /[A-Z]/g;
 
 // `react-dom` triggers a warning for *any* white space in tables.
 // To follow GFM, `mdast-util-to-hast` injects line endings between elements.
@@ -7741,7 +8986,7 @@ const docs = 'https://github.com/syntax-tree/hast-util-to-jsx-runtime';
  *   Tree to transform.
  * @param {Options} options
  *   Configuration (required).
- * @returns {JSX.Element}
+ * @returns {JsxElement}
  *   JSX element.
  */
 
@@ -7786,7 +9031,7 @@ function toJsxRuntime(tree, options) {
     ignoreInvalidStyle: options.ignoreInvalidStyle || false,
     passKeys: options.passKeys !== false,
     passNode: options.passNode || false,
-    schema: options.space === 'svg' ? svg : html$4,
+    schema: options.space === 'svg' ? svg$2 : html$6,
     stylePropertyNameCase: options.stylePropertyNameCase || 'dom',
     tableCellAlignToStyle: options.tableCellAlignToStyle !== false
   };
@@ -7862,7 +9107,7 @@ function element$6(state, node, key) {
   let schema = parentSchema;
 
   if (node.tagName.toLowerCase() === 'svg' && parentSchema.space === 'html') {
-    schema = svg;
+    schema = svg$2;
     state.schema = schema;
   }
 
@@ -7951,7 +9196,7 @@ function mdxJsxElement(state, node, key) {
   let schema = parentSchema;
 
   if (node.name === 'svg' && parentSchema.space === 'html') {
-    schema = svg;
+    schema = svg$2;
     state.schema = schema;
   }
 
@@ -8120,7 +9365,7 @@ function createElementProps(state, node) {
   let prop;
 
   for (prop in node.properties) {
-    if (prop !== 'children' && own$b.call(node.properties, prop)) {
+    if (prop !== 'children' && own$a.call(node.properties, prop)) {
       const result = createProperty$1(state, prop, node.properties[prop]);
 
       if (result) {
@@ -8273,7 +9518,7 @@ function createChildren$1(state, node) {
  *   Field for runtime, optional.
  */
 function createProperty$1(state, prop, value) {
-  const info = find$2(state.schema, prop);
+  const info = find$3(state.schema, prop);
 
   // Ignore nullish and `NaN` values.
   if (
@@ -8323,49 +9568,24 @@ function createProperty$1(state, prop, value) {
  *   Throws `VFileMessage` when CSS cannot be parsed.
  */
 function parseStyle(state, value) {
-  /** @type {Style} */
-  const result = {};
-
   try {
-    styleToObject(value, replacer);
+    return styleToJs(value, {reactCompat: true})
   } catch (error) {
-    if (!state.ignoreInvalidStyle) {
-      const cause = /** @type {Error} */ (error);
-      const message = new VFileMessage('Cannot parse `style` attribute', {
-        ancestors: state.ancestors,
-        cause,
-        ruleId: 'style',
-        source: 'hast-util-to-jsx-runtime'
-      });
-      message.file = state.filePath || undefined;
-      message.url = docs + '#cannot-parse-style-attribute';
-
-      throw message
-    }
-  }
-
-  return result
-
-  /**
-   * Add a CSS property (normal, so with dashes) to `result` as a DOM CSS
-   * property.
-   *
-   * @param {string} name
-   *   Key.
-   * @param {string} value
-   *   Value
-   * @returns {undefined}
-   *   Nothing.
-   */
-  function replacer(name, value) {
-    let key = name;
-
-    if (key.slice(0, 2) !== '--') {
-      if (key.slice(0, 4) === '-ms-') key = 'ms-' + key.slice(4);
-      key = key.replace(dashSomething, toCamel);
+    if (state.ignoreInvalidStyle) {
+      return {}
     }
 
-    result[key] = value;
+    const cause = /** @type {Error} */ (error);
+    const message = new VFileMessage('Cannot parse `style` attribute', {
+      ancestors: state.ancestors,
+      cause,
+      ruleId: 'style',
+      source: 'hast-util-to-jsx-runtime'
+    });
+    message.file = state.filePath || undefined;
+    message.url = docs + '#cannot-parse-style-attribute';
+
+    throw message
   }
 }
 
@@ -8419,9 +9639,8 @@ function findComponentFromName(state, name, allowExpression) {
   // Only literals can be passed in `components` currently.
   // No identifiers / member expressions.
   if (result.type === 'Literal') {
-    const name = /** @type {keyof JSX.IntrinsicElements} */ (result.value);
-
-    return own$b.call(state.components, name) ? state.components[name] : name
+    const name = /** @type {string | number} */ (result.value);
+    return own$a.call(state.components, name) ? state.components[name] : name
   }
 
   // Assume component.
@@ -8466,7 +9685,7 @@ function transformStylesToCssCasing(domCasing) {
   let from;
 
   for (from in domCasing) {
-    if (own$b.call(domCasing, from)) {
+    if (own$a.call(domCasing, from)) {
       cssCasing[transformStyleToCssCasing(from)] = domCasing[from];
     }
   }
@@ -8481,24 +9700,10 @@ function transformStylesToCssCasing(domCasing) {
  * @returns {string}
  */
 function transformStyleToCssCasing(from) {
-  let to = from.replace(cap$1, toDash);
+  let to = from.replace(cap$2, toDash);
   // Handle `ms-xxx` -> `-ms-xxx`.
   if (to.slice(0, 3) === 'ms-') to = '-' + to;
   return to
-}
-
-/**
- * Make `$1` capitalized.
- *
- * @param {string} _
- *   Whatever.
- * @param {string} $1
- *   Single ASCII alphabetical.
- * @returns {string}
- *   Capitalized `$1`.
- */
-function toCamel(_, $1) {
-  return $1.toUpperCase()
 }
 
 /**
@@ -8662,12 +9867,12 @@ const element$5 = document.createElement('i');
 
 /**
  * @param {string} value
- * @returns {string|false}
+ * @returns {string | false}
  */
 function decodeNamedCharacterReference(value) {
   const characterReference = '&' + value + ';';
   element$5.innerHTML = characterReference;
-  const char = element$5.textContent;
+  const character = element$5.textContent;
 
   // Some named character references do not require the closing semicolon
   // (`&not`, for instance), which leads to situations where parsing the assumed
@@ -8675,9 +9880,12 @@ function decodeNamedCharacterReference(value) {
   // When we encounter a trailing semicolon after parsing, and the character
   // reference to decode was not a semicolon (`&semi;`), we can assume that the
   // matching was not complete.
-  // @ts-expect-error: TypeScript is wrong that `textContent` on elements can
-  // yield `null`.
-  if (char.charCodeAt(char.length - 1) === 59 /* `;` */ && value !== 'semi') {
+  if (
+    // @ts-expect-error: TypeScript is wrong that `textContent` on elements can
+    // yield `null`.
+    character.charCodeAt(character.length - 1) === 59 /* `;` */ &&
+    value !== 'semi'
+  ) {
     return false
   }
 
@@ -8685,7 +9893,7 @@ function decodeNamedCharacterReference(value) {
   // not valid.
   // @ts-expect-error: TypeScript is wrong that `textContent` on elements can
   // yield `null`.
-  return char === characterReference ? false : char
+  return character === characterReference ? false : character
 }
 
 /**
@@ -11875,7 +13083,7 @@ function subtokenize(eventsArray) {
             otherEvent[1].type = "lineEnding";
             lineIndex = otherIndex;
           }
-        } else {
+        } else if (otherEvent[1].type === "linePrefix" || otherEvent[1].type === "listItemIndent") ; else {
           break;
         }
       }
@@ -11914,7 +13122,13 @@ function subcontent(events, eventIndex) {
   let startPosition = eventIndex - 1;
   /** @type {Array<number>} */
   const startPositions = [];
-  const tokenizer = token._tokenizer || context.parser[token.contentType](token.start);
+  let tokenizer = token._tokenizer;
+  if (!tokenizer) {
+    tokenizer = context.parser[token.contentType](token.start);
+    if (token._contentTypeTextTrailing) {
+      tokenizer._contentTypeTextTrailing = true;
+    }
+  }
   const childEvents = tokenizer.events;
   /** @type {Array<[number, number]>} */
   const jumps = [];
@@ -15978,7 +17192,7 @@ function resolveToSetextUnderline(events, context) {
   const heading = {
     type: "setextHeading",
     start: {
-      ...events[text][1].start
+      ...events[content][1].start
     },
     end: {
       ...events[events.length - 1][1].end
@@ -16338,6 +17552,11 @@ function resolveAllLineSuffixes(events, context) {
           index++;
           break;
         }
+      }
+
+      // Allow final trailing whitespace.
+      if (context._contentTypeTextTrailing && eventIndex === events.length) {
+        size = 0;
       }
       if (size) {
         const token = {
@@ -16962,6 +18181,7 @@ function sliceChunks(chunks, token) {
       const head = view[0];
       if (typeof head === 'string') {
         view[0] = head.slice(startBufferIndex);
+        /* c8 ignore next 4 -- used to be used, no longer */
       } else {
         view.shift();
       }
@@ -17304,7 +18524,7 @@ function decode$1($0, $1, $2) {
  * } from './types.js'
  */
 
-const own$a = {}.hasOwnProperty;
+const own$9 = {}.hasOwnProperty;
 
 /**
  * Turn markdown into a syntax tree.
@@ -17491,7 +18711,7 @@ function compiler(options) {
     index = -1;
     while (++index < events.length) {
       const handler = config[events[index][0]];
-      if (own$a.call(handler, events[index][1].type)) {
+      if (own$9.call(handler, events[index][1].type)) {
         handler[events[index][1].type].call(Object.assign({
           sliceSerialize: events[index][2].sliceSerialize
         }, context), events[index][1]);
@@ -18381,7 +19601,7 @@ function extension(combined, extension) {
   /** @type {keyof Extension} */
   let key;
   for (key in extension) {
-    if (own$a.call(extension, key)) {
+    if (own$9.call(extension, key)) {
       switch (key) {
         case 'canContainEols':
           {
@@ -18750,7 +19970,7 @@ function heading(state, node) {
  * @returns {Element | Raw | undefined}
  *   hast node.
  */
-function html$3(state, node) {
+function html$5(state, node) {
   if (state.options.allowDangerousHtml) {
     /** @type {Raw} */
     const result = {type: 'raw', value: node.value};
@@ -19566,7 +20786,7 @@ const handlers = {
   emphasis,
   footnoteReference,
   heading,
-  html: html$3,
+  html: html$5,
   imageReference,
   image,
   inlineCode,
@@ -19661,6 +20881,12 @@ const deserializer = ($, _) => {
         return as(BigInt(value), index);
       case 'BigInt':
         return as(Object(BigInt(value)), index);
+      case 'ArrayBuffer':
+        return as(new Uint8Array(value).buffer, value);
+      case 'DataView': {
+        const { buffer } = new Uint8Array(value);
+        return as(new DataView(buffer), value);
+      }
     }
     return as(new env[type](value), index);
   };
@@ -19703,6 +20929,8 @@ const typeOf = value => {
       return [MAP, EMPTY];
     case 'Set':
       return [SET, EMPTY];
+    case 'DataView':
+      return [ARRAY, asString];
   }
 
   if (asString.includes('Array'))
@@ -19752,9 +20980,17 @@ const serializer = (strict, json, $, _) => {
         return as([TYPE, entry], value);
       }
       case ARRAY: {
-        if (type)
-          return as([type, [...value]], value);
-  
+        if (type) {
+          let spread = value;
+          if (type === 'DataView') {
+            spread = new Uint8Array(value.buffer);
+          }
+          else if (type === 'ArrayBuffer') {
+            spread = new Uint8Array(value);
+          }
+          return as([type, [...spread]], value);
+        }
+
         const arr = [];
         const index = as([TYPE, arr], value);
         for (const entry of value)
@@ -20524,7 +21760,7 @@ function visit(tree, testOrVisitor, visitorOrReverse, maybeReverse) {
  */
 
 
-const own$9 = {}.hasOwnProperty;
+const own$8 = {}.hasOwnProperty;
 
 /** @type {Options} */
 const emptyOptions$3 = {};
@@ -20597,7 +21833,7 @@ function createState(tree, options) {
     const type = node.type;
     const handle = state.handlers[type];
 
-    if (own$9.call(state.handlers, type) && handle) {
+    if (own$8.call(state.handlers, type) && handle) {
       return handle(state, node, parent)
     }
 
@@ -20753,7 +21989,7 @@ function defaultUnknownHandler(state, node) {
   /** @type {HastElement | HastText} */
   const result =
     'value' in node &&
-    !(own$9.call(data, 'hProperties') || own$9.call(data, 'hChildren'))
+    !(own$8.call(data, 'hProperties') || own$8.call(data, 'hChildren'))
       ? {type: 'text', value: node.value}
       : {
           type: 'element',
@@ -20919,8 +22155,13 @@ function toHast(tree, options) {
   return result
 }
 
-// Include `data` fields in mdast and `raw` nodes in hast.
-/// <reference types="mdast-util-to-hast" />
+/**
+ * @import {Root as HastRoot} from 'hast'
+ * @import {Root as MdastRoot} from 'mdast'
+ * @import {Options as ToHastOptions} from 'mdast-util-to-hast'
+ * @import {Processor} from 'unified'
+ * @import {VFile} from 'vfile'
+ */
 
 
 /**
@@ -20930,12 +22171,15 @@ function toHast(tree, options) {
  *
  * ###### Signature
  *
- * *   if a processor is given, runs the (rehype) plugins used on it with a
- *     hast tree, then discards the result (*bridge mode*)
- * *   otherwise, returns a hast tree, the plugins used after `remarkRehype`
- *     are rehype plugins (*mutate mode*)
+ * * if a processor is given,
+ *   runs the (rehype) plugins used on it with a hast tree,
+ *   then discards the result (*bridge mode*)
+ * * otherwise,
+ *   returns a hast tree,
+ *   the plugins used after `remarkRehype` are rehype plugins (*mutate mode*)
  *
- * > 👉 **Note**: It’s highly unlikely that you want to pass a `processor`.
+ * > 👉 **Note**:
+ * > It’s highly unlikely that you want to pass a `processor`.
  *
  * ###### HTML
  *
@@ -20943,36 +22187,40 @@ function toHast(tree, options) {
  * as semistandard `raw` nodes.
  * Most plugins ignore `raw` nodes but two notable ones don’t:
  *
- * *   `rehype-stringify` also has an option `allowDangerousHtml` which will
- *     output the raw HTML.
- *     This is typically discouraged as noted by the option name but is useful if
- *     you completely trust authors
- * *   `rehype-raw` can handle the raw embedded HTML strings by parsing them
- *     into standard hast nodes (`element`, `text`, etc).
- *     This is a heavy task as it needs a full HTML parser, but it is the only way
- *     to support untrusted content
+ * * `rehype-stringify` also has an option `allowDangerousHtml` which will
+ *   output the raw HTML.
+ *   This is typically discouraged as noted by the option name but is useful if
+ *   you completely trust authors
+ * * `rehype-raw` can handle the raw embedded HTML strings by parsing them
+ *   into standard hast nodes (`element`, `text`, etc);
+ *   this is a heavy task as it needs a full HTML parser,
+ *   but it is the only way to support untrusted content
  *
  * ###### Footnotes
  *
  * Many options supported here relate to footnotes.
- * Footnotes are not specified by CommonMark, which we follow by default.
- * They are supported by GitHub, so footnotes can be enabled in markdown with
- * `remark-gfm`.
+ * Footnotes are not specified by CommonMark,
+ * which we follow by default.
+ * They are supported by GitHub,
+ * so footnotes can be enabled in markdown with `remark-gfm`.
  *
  * The options `footnoteBackLabel` and `footnoteLabel` define natural language
- * that explains footnotes, which is hidden for sighted users but shown to
- * assistive technology.
- * When your page is not in English, you must define translated values.
+ * that explains footnotes,
+ * which is hidden for sighted users but shown to assistive technology.
+ * When your page is not in English,
+ * you must define translated values.
  *
- * Back references use ARIA attributes, but the section label itself uses a
- * heading that is hidden with an `sr-only` class.
- * To show it to sighted users, define different attributes in
- * `footnoteLabelProperties`.
+ * Back references use ARIA attributes,
+ * but the section label itself uses a heading that is hidden with an
+ * `sr-only` class.
+ * To show it to sighted users,
+ * define different attributes in `footnoteLabelProperties`.
  *
  * ###### Clobbering
  *
- * Footnotes introduces a problem, as it links footnote calls to footnote
- * definitions on the page through `id` attributes generated from user content,
+ * Footnotes introduces a problem,
+ * as it links footnote calls to footnote definitions on the page through `id`
+ * attributes generated from user content,
  * which results in DOM clobbering.
  *
  * DOM clobbering is this:
@@ -20994,11 +22242,13 @@ function toHast(tree, options) {
  * Unknown nodes are nodes with a type that isn’t in `handlers` or `passThrough`.
  * The default behavior for unknown nodes is:
  *
- * *   when the node has a `value` (and doesn’t have `data.hName`,
- *     `data.hProperties`, or `data.hChildren`, see later), create a hast `text`
- *     node
- * *   otherwise, create a `<div>` element (which could be changed with
- *     `data.hName`), with its children mapped from mdast to hast as well
+ * * when the node has a `value`
+ *   (and doesn’t have `data.hName`, `data.hProperties`, or `data.hChildren`,
+ *   see later),
+ *   create a hast `text` node
+ * * otherwise,
+ *   create a `<div>` element (which could be changed with `data.hName`),
+ *   with its children mapped from mdast to hast as well
  *
  * This behavior can be changed by passing an `unknownHandler`.
  *
@@ -21011,10 +22261,16 @@ function toHast(tree, options) {
  * @param {Readonly<Options> | null | undefined} [options]
  * @returns {TransformMutate}
  *
+ * @overload
+ * @param {Readonly<Options> | Processor | null | undefined} [destination]
+ * @param {Readonly<Options> | null | undefined} [options]
+ * @returns {TransformBridge | TransformMutate}
+ *
  * @param {Readonly<Options> | Processor | null | undefined} [destination]
  *   Processor or configuration (optional).
  * @param {Readonly<Options> | null | undefined} [options]
- *   When a processor was given, configuration (optional).
+ *   When a processor was given,
+ *   configuration (optional).
  * @returns {TransformBridge | TransformMutate}
  *   Transform.
  */
@@ -21680,7 +22936,7 @@ function join(...segments) {
     }
   }
 
-  return joined === undefined ? '.' : normalize$4(joined)
+  return joined === undefined ? '.' : normalize$5(joined)
 }
 
 /**
@@ -21693,7 +22949,7 @@ function join(...segments) {
  */
 // Note: `normalize` is not exposed as `path.normalize`, so some code is
 // manually removed from it.
-function normalize$4(path) {
+function normalize$5(path) {
   assertPath$1(path);
 
   const absolute = path.codePointAt(0) === 47; /* `/` */
@@ -22634,7 +23890,7 @@ const CallableInstance =
 // `parse` is called.
 // Currently, we allow directly setting `processor.parser`, which is untyped.
 
-const own$8 = {}.hasOwnProperty;
+const own$7 = {}.hasOwnProperty;
 
 /**
  * @template {Node | undefined} [ParseTree=undefined]
@@ -22855,7 +24111,7 @@ class Processor extends CallableInstance {
       }
 
       // Get `key`.
-      return (own$8.call(this.namespace, key) && this.namespace[key]) || undefined
+      return (own$7.call(this.namespace, key) && this.namespace[key]) || undefined
     }
 
     // Set space.
@@ -23584,9 +24840,7 @@ function isUint8Array(value) {
   )
 }
 
-// Register `Raw` in tree:
-/// <reference types="mdast-util-to-hast" />
-
+const {createElement: createElement$1,useEffect: useEffect$1,useState: useState$1} = await importShared('react');
 
 const changelog =
   'https://github.com/remarkjs/react-markdown/blob/main/changelog.md';
@@ -23636,26 +24890,35 @@ const deprecations = [
 /**
  * Component to render markdown.
  *
+ * This is a synchronous component.
+ * When using async plugins,
+ * see {@linkcode MarkdownAsync} or {@linkcode MarkdownHooks}.
+ *
  * @param {Readonly<Options>} options
  *   Props.
- * @returns {JSX.Element}
+ * @returns {ReactElement}
  *   React element.
  */
 function Markdown(options) {
-  const allowedElements = options.allowedElements;
-  const allowElement = options.allowElement;
-  const children = options.children || '';
-  const className = options.className;
-  const components = options.components;
-  const disallowedElements = options.disallowedElements;
+  const processor = createProcessor(options);
+  const file = createFile(options);
+  return post(processor.runSync(processor.parse(file), file), options)
+}
+
+/**
+ * Set up the `unified` processor.
+ *
+ * @param {Readonly<Options>} options
+ *   Props.
+ * @returns {Processor<MdastRoot, MdastRoot, Root, undefined, undefined>}
+ *   Result.
+ */
+function createProcessor(options) {
   const rehypePlugins = options.rehypePlugins || emptyPlugins;
   const remarkPlugins = options.remarkPlugins || emptyPlugins;
   const remarkRehypeOptions = options.remarkRehypeOptions
     ? {...options.remarkRehypeOptions, ...emptyRemarkRehypeOptions}
     : emptyRemarkRehypeOptions;
-  const skipHtml = options.skipHtml;
-  const unwrapDisallowed = options.unwrapDisallowed;
-  const urlTransform = options.urlTransform || defaultUrlTransform;
 
   const processor = unified()
     .use(remarkParse)
@@ -23663,11 +24926,46 @@ function Markdown(options) {
     .use(remarkRehype, remarkRehypeOptions)
     .use(rehypePlugins);
 
+  return processor
+}
+
+/**
+ * Set up the virtual file.
+ *
+ * @param {Readonly<Options>} options
+ *   Props.
+ * @returns {VFile}
+ *   Result.
+ */
+function createFile(options) {
+  const children = options.children || '';
   const file = new VFile();
 
   if (typeof children === 'string') {
     file.value = children;
   }
+
+  return file
+}
+
+/**
+ * Process the result from unified some more.
+ *
+ * @param {Nodes} tree
+ *   Tree.
+ * @param {Readonly<Options>} options
+ *   Props.
+ * @returns {ReactElement}
+ *   React element.
+ */
+function post(tree, options) {
+  const allowedElements = options.allowedElements;
+  const allowElement = options.allowElement;
+  const components = options.components;
+  const disallowedElements = options.disallowedElements;
+  const skipHtml = options.skipHtml;
+  const unwrapDisallowed = options.unwrapDisallowed;
+  const urlTransform = options.urlTransform || defaultUrlTransform;
 
   for (const deprecation of deprecations) {
     if (Object.hasOwn(options, deprecation.from)) {
@@ -23687,27 +24985,26 @@ function Markdown(options) {
     }
   }
 
-  const mdastTree = processor.parse(file);
-  /** @type {Nodes} */
-  let hastTree = processor.runSync(mdastTree, file);
-
   // Wrap in `div` if there’s a class name.
-  if (className) {
-    hastTree = {
+  if (options.className) {
+    tree = {
       type: 'element',
       tagName: 'div',
-      properties: {className},
+      properties: {className: options.className},
       // Assume no doctypes.
       children: /** @type {Array<ElementContent>} */ (
-        hastTree.type === 'root' ? hastTree.children : [hastTree]
+        tree.type === 'root' ? tree.children : [tree]
       )
     };
   }
 
-  visit(hastTree, transform);
+  visit(tree, transform);
 
-  return toJsxRuntime(hastTree, {
+  return toJsxRuntime(tree, {
     Fragment: jsxRuntimeExports.Fragment,
+    // @ts-expect-error
+    // React components are allowed to return numbers,
+    // but not according to the types in hast-util-to-jsx-runtime
     components,
     ignoreInvalidStyle: true,
     jsx: jsxRuntimeExports.jsx,
@@ -23716,7 +25013,7 @@ function Markdown(options) {
     passNode: true
   })
 
-  /** @type {Visitor} */
+  /** @type {BuildVisitor<Root>} */
   function transform(node, index, parent) {
     if (node.type === 'raw' && parent && typeof index === 'number') {
       if (skipHtml) {
@@ -23750,8 +25047,8 @@ function Markdown(options) {
       let remove = allowedElements
         ? !allowedElements.includes(node.tagName)
         : disallowedElements
-        ? disallowedElements.includes(node.tagName)
-        : false;
+          ? disallowedElements.includes(node.tagName)
+          : false;
 
       if (!remove && allowElement && typeof index === 'number') {
         remove = !allowElement(node, index, parent);
@@ -23790,11 +25087,11 @@ function defaultUrlTransform(value) {
 
   if (
     // If there is no protocol, it’s relative.
-    colon < 0 ||
+    colon === -1 ||
     // If the first colon is after a `?`, `#`, or `/`, it’s not a protocol.
-    (slash > -1 && colon > slash) ||
-    (questionMark > -1 && colon > questionMark) ||
-    (numberSign > -1 && colon > numberSign) ||
+    (slash !== -1 && colon > slash) ||
+    (questionMark !== -1 && colon > questionMark) ||
+    (numberSign !== -1 && colon > numberSign) ||
     // It is a protocol, it should be allowed.
     safeProtocol.test(value.slice(0, colon))
   ) {
@@ -23808,7 +25105,7 @@ function _objectWithoutPropertiesLoose(r, e) {
   if (null == r) return {};
   var t = {};
   for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
-    if (e.includes(n)) continue;
+    if (-1 !== e.indexOf(n)) continue;
     t[n] = r[n];
   }
   return t;
@@ -23820,8 +25117,8 @@ function _objectWithoutProperties(e, t) {
     r,
     i = _objectWithoutPropertiesLoose(e, t);
   if (Object.getOwnPropertySymbols) {
-    var s = Object.getOwnPropertySymbols(e);
-    for (r = 0; r < s.length; r++) o = s[r], t.includes(o) || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
+    var n = Object.getOwnPropertySymbols(e);
+    for (r = 0; r < n.length; r++) o = n[r], -1 === t.indexOf(o) && {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
   }
   return i;
 }
@@ -23870,7 +25167,7 @@ function toPrimitive(t, r) {
   if ("object" != _typeof(t) || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
-    var i = e.call(t, r || "default");
+    var i = e.call(t, r);
     if ("object" != _typeof(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
@@ -23885,9 +25182,9 @@ function toPropertyKey(t) {
 function _defineProperty(e, r, t) {
   return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
     value: t,
-    enumerable: !0,
-    configurable: !0,
-    writable: !0
+    enumerable: true,
+    configurable: true,
+    writable: true
   }) : e[r] = t, e;
 }
 
@@ -23902,7 +25199,7 @@ function _extends() {
 }
 
 function ownKeys$1(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$1(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$1(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$1(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread$1(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$1(Object(t), true).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$1(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 const React$1 = await importShared('react');
 
 
@@ -24015,7 +25312,7 @@ const checkForListedLanguage = (function (astGenerator, language) {
 
 var _excluded = ["language", "children", "style", "customStyle", "codeTagProps", "useInlineStyles", "showLineNumbers", "showInlineLineNumbers", "startingLineNumber", "lineNumberContainerStyle", "lineNumberStyle", "wrapLines", "wrapLongLines", "lineProps", "renderer", "PreTag", "CodeTag", "code", "astGenerator"];
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), true).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 const React = await importShared('react');
 var newLineRegex = /\n/g;
 function getNewLines(str) {
@@ -24419,15 +25716,15 @@ function extend() {
     return target
 }
 
-var schema$1 = Schema$2;
+var schema$1 = Schema$3;
 
-var proto$2 = Schema$2.prototype;
+var proto$2 = Schema$3.prototype;
 
 proto$2.space = null;
 proto$2.normal = {};
 proto$2.property = {};
 
-function Schema$2(property, normal, space) {
+function Schema$3(property, normal, space) {
   this.property = property;
   this.normal = normal;
 
@@ -24437,11 +25734,11 @@ function Schema$2(property, normal, space) {
 }
 
 var xtend = immutable;
-var Schema$1 = schema$1;
+var Schema$2 = schema$1;
 
-var merge_1 = merge$1;
+var merge_1 = merge$2;
 
-function merge$1(definitions) {
+function merge$2(definitions) {
   var length = definitions.length;
   var property = [];
   var normal = [];
@@ -24456,22 +25753,22 @@ function merge$1(definitions) {
     space = info.space;
   }
 
-  return new Schema$1(
+  return new Schema$2(
     xtend.apply(null, property),
     xtend.apply(null, normal),
     space
   )
 }
 
-var normalize_1 = normalize$3;
+var normalize_1 = normalize$4;
 
-function normalize$3(value) {
+function normalize$4(value) {
   return value.toLowerCase()
 }
 
-var info = Info$2;
+var info = Info$3;
 
-var proto$1 = Info$2.prototype;
+var proto$1 = Info$3.prototype;
 
 proto$1.space = null;
 proto$1.attribute = null;
@@ -24486,36 +25783,36 @@ proto$1.commaOrSpaceSeparated = false;
 proto$1.mustUseProperty = false;
 proto$1.defined = false;
 
-function Info$2(property, attribute) {
+function Info$3(property, attribute) {
   this.property = property;
   this.attribute = attribute;
 }
 
-var types$3 = {};
+var types$4 = {};
 
-var powers = 0;
+var powers$1 = 0;
 
-types$3.boolean = increment();
-types$3.booleanish = increment();
-types$3.overloadedBoolean = increment();
-types$3.number = increment();
-types$3.spaceSeparated = increment();
-types$3.commaSeparated = increment();
-types$3.commaOrSpaceSeparated = increment();
+types$4.boolean = increment$1();
+types$4.booleanish = increment$1();
+types$4.overloadedBoolean = increment$1();
+types$4.number = increment$1();
+types$4.spaceSeparated = increment$1();
+types$4.commaSeparated = increment$1();
+types$4.commaOrSpaceSeparated = increment$1();
 
-function increment() {
-  return Math.pow(2, ++powers)
+function increment$1() {
+  return Math.pow(2, ++powers$1)
 }
 
-var Info$1 = info;
-var types$2 = types$3;
+var Info$2 = info;
+var types$3 = types$4;
 
-var definedInfo = DefinedInfo$2;
+var definedInfo = DefinedInfo$3;
 
-DefinedInfo$2.prototype = new Info$1();
-DefinedInfo$2.prototype.defined = true;
+DefinedInfo$3.prototype = new Info$2();
+DefinedInfo$3.prototype.defined = true;
 
-var checks = [
+var checks$1 = [
   'boolean',
   'booleanish',
   'overloadedBoolean',
@@ -24524,35 +25821,35 @@ var checks = [
   'spaceSeparated',
   'commaOrSpaceSeparated'
 ];
-var checksLength = checks.length;
+var checksLength = checks$1.length;
 
-function DefinedInfo$2(property, attribute, mask, space) {
+function DefinedInfo$3(property, attribute, mask, space) {
   var index = -1;
   var check;
 
-  mark(this, 'space', space);
+  mark$1(this, 'space', space);
 
-  Info$1.call(this, property, attribute);
+  Info$2.call(this, property, attribute);
 
   while (++index < checksLength) {
-    check = checks[index];
-    mark(this, check, (mask & types$2[check]) === types$2[check]);
+    check = checks$1[index];
+    mark$1(this, check, (mask & types$3[check]) === types$3[check]);
   }
 }
 
-function mark(values, key, value) {
+function mark$1(values, key, value) {
   if (value) {
     values[key] = value;
   }
 }
 
-var normalize$2 = normalize_1;
-var Schema = schema$1;
-var DefinedInfo$1 = definedInfo;
+var normalize$3 = normalize_1;
+var Schema$1 = schema$1;
+var DefinedInfo$2 = definedInfo;
 
-var create_1 = create$5;
+var create_1 = create$6;
 
-function create$5(definition) {
+function create$6(definition) {
   var space = definition.space;
   var mustUseProperty = definition.mustUseProperty || [];
   var attributes = definition.attributes || {};
@@ -24564,7 +25861,7 @@ function create$5(definition) {
   var info;
 
   for (prop in props) {
-    info = new DefinedInfo$1(
+    info = new DefinedInfo$2(
       prop,
       transform(attributes, prop),
       props[prop],
@@ -24577,16 +25874,16 @@ function create$5(definition) {
 
     property[prop] = info;
 
-    normal[normalize$2(prop)] = prop;
-    normal[normalize$2(info.attribute)] = prop;
+    normal[normalize$3(prop)] = prop;
+    normal[normalize$3(info.attribute)] = prop;
   }
 
-  return new Schema(property, normal, space)
+  return new Schema$1(property, normal, space)
 }
 
-var create$4 = create_1;
+var create$5 = create_1;
 
-var xlink$1 = create$4({
+var xlink$2 = create$5({
   space: 'xlink',
   transform: xlinkTransform,
   properties: {
@@ -24604,9 +25901,9 @@ function xlinkTransform(_, prop) {
   return 'xlink:' + prop.slice(5).toLowerCase()
 }
 
-var create$3 = create_1;
+var create$4 = create_1;
 
-var xml$1 = create$3({
+var xml$2 = create$4({
   space: 'xml',
   transform: xmlTransform,
   properties: {
@@ -24620,92 +25917,92 @@ function xmlTransform(_, prop) {
   return 'xml:' + prop.slice(3).toLowerCase()
 }
 
-var caseSensitiveTransform_1 = caseSensitiveTransform$1;
+var caseSensitiveTransform_1 = caseSensitiveTransform$2;
 
-function caseSensitiveTransform$1(attributes, attribute) {
+function caseSensitiveTransform$2(attributes, attribute) {
   return attribute in attributes ? attributes[attribute] : attribute
 }
 
-var caseSensitiveTransform = caseSensitiveTransform_1;
+var caseSensitiveTransform$1 = caseSensitiveTransform_1;
 
-var caseInsensitiveTransform_1 = caseInsensitiveTransform$2;
+var caseInsensitiveTransform_1 = caseInsensitiveTransform$3;
 
-function caseInsensitiveTransform$2(attributes, property) {
-  return caseSensitiveTransform(attributes, property.toLowerCase())
+function caseInsensitiveTransform$3(attributes, property) {
+  return caseSensitiveTransform$1(attributes, property.toLowerCase())
 }
 
-var create$2 = create_1;
-var caseInsensitiveTransform$1 = caseInsensitiveTransform_1;
+var create$3 = create_1;
+var caseInsensitiveTransform$2 = caseInsensitiveTransform_1;
 
-var xmlns$1 = create$2({
+var xmlns$2 = create$3({
   space: 'xmlns',
   attributes: {
     xmlnsxlink: 'xmlns:xlink'
   },
-  transform: caseInsensitiveTransform$1,
+  transform: caseInsensitiveTransform$2,
   properties: {
     xmlns: null,
     xmlnsXLink: null
   }
 });
 
-var types$1 = types$3;
-var create$1 = create_1;
+var types$2 = types$4;
+var create$2 = create_1;
 
-var booleanish$1 = types$1.booleanish;
-var number$1 = types$1.number;
-var spaceSeparated$1 = types$1.spaceSeparated;
+var booleanish$2 = types$2.booleanish;
+var number$2 = types$2.number;
+var spaceSeparated$2 = types$2.spaceSeparated;
 
-var aria$1 = create$1({
+var aria$2 = create$2({
   transform: ariaTransform,
   properties: {
     ariaActiveDescendant: null,
-    ariaAtomic: booleanish$1,
+    ariaAtomic: booleanish$2,
     ariaAutoComplete: null,
-    ariaBusy: booleanish$1,
-    ariaChecked: booleanish$1,
-    ariaColCount: number$1,
-    ariaColIndex: number$1,
-    ariaColSpan: number$1,
-    ariaControls: spaceSeparated$1,
+    ariaBusy: booleanish$2,
+    ariaChecked: booleanish$2,
+    ariaColCount: number$2,
+    ariaColIndex: number$2,
+    ariaColSpan: number$2,
+    ariaControls: spaceSeparated$2,
     ariaCurrent: null,
-    ariaDescribedBy: spaceSeparated$1,
+    ariaDescribedBy: spaceSeparated$2,
     ariaDetails: null,
-    ariaDisabled: booleanish$1,
-    ariaDropEffect: spaceSeparated$1,
+    ariaDisabled: booleanish$2,
+    ariaDropEffect: spaceSeparated$2,
     ariaErrorMessage: null,
-    ariaExpanded: booleanish$1,
-    ariaFlowTo: spaceSeparated$1,
-    ariaGrabbed: booleanish$1,
+    ariaExpanded: booleanish$2,
+    ariaFlowTo: spaceSeparated$2,
+    ariaGrabbed: booleanish$2,
     ariaHasPopup: null,
-    ariaHidden: booleanish$1,
+    ariaHidden: booleanish$2,
     ariaInvalid: null,
     ariaKeyShortcuts: null,
     ariaLabel: null,
-    ariaLabelledBy: spaceSeparated$1,
-    ariaLevel: number$1,
+    ariaLabelledBy: spaceSeparated$2,
+    ariaLevel: number$2,
     ariaLive: null,
-    ariaModal: booleanish$1,
-    ariaMultiLine: booleanish$1,
-    ariaMultiSelectable: booleanish$1,
+    ariaModal: booleanish$2,
+    ariaMultiLine: booleanish$2,
+    ariaMultiSelectable: booleanish$2,
     ariaOrientation: null,
-    ariaOwns: spaceSeparated$1,
+    ariaOwns: spaceSeparated$2,
     ariaPlaceholder: null,
-    ariaPosInSet: number$1,
-    ariaPressed: booleanish$1,
-    ariaReadOnly: booleanish$1,
+    ariaPosInSet: number$2,
+    ariaPressed: booleanish$2,
+    ariaReadOnly: booleanish$2,
     ariaRelevant: null,
-    ariaRequired: booleanish$1,
-    ariaRoleDescription: spaceSeparated$1,
-    ariaRowCount: number$1,
-    ariaRowIndex: number$1,
-    ariaRowSpan: number$1,
-    ariaSelected: booleanish$1,
-    ariaSetSize: number$1,
+    ariaRequired: booleanish$2,
+    ariaRoleDescription: spaceSeparated$2,
+    ariaRowCount: number$2,
+    ariaRowIndex: number$2,
+    ariaRowSpan: number$2,
+    ariaSelected: booleanish$2,
+    ariaSetSize: number$2,
     ariaSort: null,
-    ariaValueMax: number$1,
-    ariaValueMin: number$1,
-    ariaValueNow: number$1,
+    ariaValueMax: number$2,
+    ariaValueMin: number$2,
+    ariaValueNow: number$2,
     ariaValueText: null,
     role: null
   }
@@ -24715,18 +26012,18 @@ function ariaTransform(_, prop) {
   return prop === 'role' ? prop : 'aria-' + prop.slice(4).toLowerCase()
 }
 
-var types = types$3;
-var create = create_1;
-var caseInsensitiveTransform = caseInsensitiveTransform_1;
+var types$1 = types$4;
+var create$1 = create_1;
+var caseInsensitiveTransform$1 = caseInsensitiveTransform_1;
 
-var boolean = types.boolean;
-var overloadedBoolean = types.overloadedBoolean;
-var booleanish = types.booleanish;
-var number = types.number;
-var spaceSeparated = types.spaceSeparated;
-var commaSeparated = types.commaSeparated;
+var boolean$1 = types$1.boolean;
+var overloadedBoolean$1 = types$1.overloadedBoolean;
+var booleanish$1 = types$1.booleanish;
+var number$1 = types$1.number;
+var spaceSeparated$1 = types$1.spaceSeparated;
+var commaSeparated$1 = types$1.commaSeparated;
 
-var html$2 = create({
+var html$4 = create$1({
   space: 'html',
   attributes: {
     acceptcharset: 'accept-charset',
@@ -24734,98 +26031,98 @@ var html$2 = create({
     htmlfor: 'for',
     httpequiv: 'http-equiv'
   },
-  transform: caseInsensitiveTransform,
+  transform: caseInsensitiveTransform$1,
   mustUseProperty: ['checked', 'multiple', 'muted', 'selected'],
   properties: {
     // Standard Properties.
     abbr: null,
-    accept: commaSeparated,
-    acceptCharset: spaceSeparated,
-    accessKey: spaceSeparated,
+    accept: commaSeparated$1,
+    acceptCharset: spaceSeparated$1,
+    accessKey: spaceSeparated$1,
     action: null,
     allow: null,
-    allowFullScreen: boolean,
-    allowPaymentRequest: boolean,
-    allowUserMedia: boolean,
+    allowFullScreen: boolean$1,
+    allowPaymentRequest: boolean$1,
+    allowUserMedia: boolean$1,
     alt: null,
     as: null,
-    async: boolean,
+    async: boolean$1,
     autoCapitalize: null,
-    autoComplete: spaceSeparated,
-    autoFocus: boolean,
-    autoPlay: boolean,
-    capture: boolean,
+    autoComplete: spaceSeparated$1,
+    autoFocus: boolean$1,
+    autoPlay: boolean$1,
+    capture: boolean$1,
     charSet: null,
-    checked: boolean,
+    checked: boolean$1,
     cite: null,
-    className: spaceSeparated,
-    cols: number,
+    className: spaceSeparated$1,
+    cols: number$1,
     colSpan: null,
     content: null,
-    contentEditable: booleanish,
-    controls: boolean,
-    controlsList: spaceSeparated,
-    coords: number | commaSeparated,
+    contentEditable: booleanish$1,
+    controls: boolean$1,
+    controlsList: spaceSeparated$1,
+    coords: number$1 | commaSeparated$1,
     crossOrigin: null,
     data: null,
     dateTime: null,
     decoding: null,
-    default: boolean,
-    defer: boolean,
+    default: boolean$1,
+    defer: boolean$1,
     dir: null,
     dirName: null,
-    disabled: boolean,
-    download: overloadedBoolean,
-    draggable: booleanish,
+    disabled: boolean$1,
+    download: overloadedBoolean$1,
+    draggable: booleanish$1,
     encType: null,
     enterKeyHint: null,
     form: null,
     formAction: null,
     formEncType: null,
     formMethod: null,
-    formNoValidate: boolean,
+    formNoValidate: boolean$1,
     formTarget: null,
-    headers: spaceSeparated,
-    height: number,
-    hidden: boolean,
-    high: number,
+    headers: spaceSeparated$1,
+    height: number$1,
+    hidden: boolean$1,
+    high: number$1,
     href: null,
     hrefLang: null,
-    htmlFor: spaceSeparated,
-    httpEquiv: spaceSeparated,
+    htmlFor: spaceSeparated$1,
+    httpEquiv: spaceSeparated$1,
     id: null,
     imageSizes: null,
-    imageSrcSet: commaSeparated,
+    imageSrcSet: commaSeparated$1,
     inputMode: null,
     integrity: null,
     is: null,
-    isMap: boolean,
+    isMap: boolean$1,
     itemId: null,
-    itemProp: spaceSeparated,
-    itemRef: spaceSeparated,
-    itemScope: boolean,
-    itemType: spaceSeparated,
+    itemProp: spaceSeparated$1,
+    itemRef: spaceSeparated$1,
+    itemScope: boolean$1,
+    itemType: spaceSeparated$1,
     kind: null,
     label: null,
     lang: null,
     language: null,
     list: null,
     loading: null,
-    loop: boolean,
-    low: number,
+    loop: boolean$1,
+    low: number$1,
     manifest: null,
     max: null,
-    maxLength: number,
+    maxLength: number$1,
     media: null,
     method: null,
     min: null,
-    minLength: number,
-    multiple: boolean,
-    muted: boolean,
+    minLength: number$1,
+    multiple: boolean$1,
+    muted: boolean$1,
     name: null,
     nonce: null,
-    noModule: boolean,
-    noValidate: boolean,
+    noModule: boolean$1,
+    noValidate: boolean$1,
     onAbort: null,
     onAfterPrint: null,
     onAuxClick: null,
@@ -24909,61 +26206,61 @@ var html$2 = create({
     onVolumeChange: null,
     onWaiting: null,
     onWheel: null,
-    open: boolean,
-    optimum: number,
+    open: boolean$1,
+    optimum: number$1,
     pattern: null,
-    ping: spaceSeparated,
+    ping: spaceSeparated$1,
     placeholder: null,
-    playsInline: boolean,
+    playsInline: boolean$1,
     poster: null,
     preload: null,
-    readOnly: boolean,
+    readOnly: boolean$1,
     referrerPolicy: null,
-    rel: spaceSeparated,
-    required: boolean,
-    reversed: boolean,
-    rows: number,
-    rowSpan: number,
-    sandbox: spaceSeparated,
+    rel: spaceSeparated$1,
+    required: boolean$1,
+    reversed: boolean$1,
+    rows: number$1,
+    rowSpan: number$1,
+    sandbox: spaceSeparated$1,
     scope: null,
-    scoped: boolean,
-    seamless: boolean,
-    selected: boolean,
+    scoped: boolean$1,
+    seamless: boolean$1,
+    selected: boolean$1,
     shape: null,
-    size: number,
+    size: number$1,
     sizes: null,
     slot: null,
-    span: number,
-    spellCheck: booleanish,
+    span: number$1,
+    spellCheck: booleanish$1,
     src: null,
     srcDoc: null,
     srcLang: null,
-    srcSet: commaSeparated,
-    start: number,
+    srcSet: commaSeparated$1,
+    start: number$1,
     step: null,
     style: null,
-    tabIndex: number,
+    tabIndex: number$1,
     target: null,
     title: null,
     translate: null,
     type: null,
-    typeMustMatch: boolean,
+    typeMustMatch: boolean$1,
     useMap: null,
-    value: booleanish,
-    width: number,
+    value: booleanish$1,
+    width: number$1,
     wrap: null,
 
     // Legacy.
     // See: https://html.spec.whatwg.org/#other-elements,-attributes-and-apis
     align: null, // Several. Use CSS `text-align` instead,
     aLink: null, // `<body>`. Use CSS `a:active {color}` instead
-    archive: spaceSeparated, // `<object>`. List of URIs to archives
+    archive: spaceSeparated$1, // `<object>`. List of URIs to archives
     axis: null, // `<td>` and `<th>`. Use `scope` on `<th>`
     background: null, // `<body>`. Use CSS `background-image` instead
     bgColor: null, // `<body>` and table elements. Use CSS `background-color` instead
-    border: number, // `<table>`. Use CSS `border-width` instead,
+    border: number$1, // `<table>`. Use CSS `border-width` instead,
     borderColor: null, // `<table>`. Use CSS `border-color` instead,
-    bottomMargin: number, // `<body>`
+    bottomMargin: number$1, // `<body>`
     cellPadding: null, // `<table>`
     cellSpacing: null, // `<table>`
     char: null, // Several table elements. When `align=char`, sets the character to align on
@@ -24974,86 +26271,86 @@ var html$2 = create({
     codeBase: null, // `<object>`
     codeType: null, // `<object>`
     color: null, // `<font>` and `<hr>`. Use CSS instead
-    compact: boolean, // Lists. Use CSS to reduce space between items instead
-    declare: boolean, // `<object>`
+    compact: boolean$1, // Lists. Use CSS to reduce space between items instead
+    declare: boolean$1, // `<object>`
     event: null, // `<script>`
     face: null, // `<font>`. Use CSS instead
     frame: null, // `<table>`
     frameBorder: null, // `<iframe>`. Use CSS `border` instead
-    hSpace: number, // `<img>` and `<object>`
-    leftMargin: number, // `<body>`
+    hSpace: number$1, // `<img>` and `<object>`
+    leftMargin: number$1, // `<body>`
     link: null, // `<body>`. Use CSS `a:link {color: *}` instead
     longDesc: null, // `<frame>`, `<iframe>`, and `<img>`. Use an `<a>`
     lowSrc: null, // `<img>`. Use a `<picture>`
-    marginHeight: number, // `<body>`
-    marginWidth: number, // `<body>`
-    noResize: boolean, // `<frame>`
-    noHref: boolean, // `<area>`. Use no href instead of an explicit `nohref`
-    noShade: boolean, // `<hr>`. Use background-color and height instead of borders
-    noWrap: boolean, // `<td>` and `<th>`
+    marginHeight: number$1, // `<body>`
+    marginWidth: number$1, // `<body>`
+    noResize: boolean$1, // `<frame>`
+    noHref: boolean$1, // `<area>`. Use no href instead of an explicit `nohref`
+    noShade: boolean$1, // `<hr>`. Use background-color and height instead of borders
+    noWrap: boolean$1, // `<td>` and `<th>`
     object: null, // `<applet>`
     profile: null, // `<head>`
     prompt: null, // `<isindex>`
     rev: null, // `<link>`
-    rightMargin: number, // `<body>`
+    rightMargin: number$1, // `<body>`
     rules: null, // `<table>`
     scheme: null, // `<meta>`
-    scrolling: booleanish, // `<frame>`. Use overflow in the child context
+    scrolling: booleanish$1, // `<frame>`. Use overflow in the child context
     standby: null, // `<object>`
     summary: null, // `<table>`
     text: null, // `<body>`. Use CSS `color` instead
-    topMargin: number, // `<body>`
+    topMargin: number$1, // `<body>`
     valueType: null, // `<param>`
     version: null, // `<html>`. Use a doctype.
     vAlign: null, // Several. Use CSS `vertical-align` instead
     vLink: null, // `<body>`. Use CSS `a:visited {color}` instead
-    vSpace: number, // `<img>` and `<object>`
+    vSpace: number$1, // `<img>` and `<object>`
 
     // Non-standard Properties.
     allowTransparency: null,
     autoCorrect: null,
     autoSave: null,
-    disablePictureInPicture: boolean,
-    disableRemotePlayback: boolean,
+    disablePictureInPicture: boolean$1,
+    disableRemotePlayback: boolean$1,
     prefix: null,
     property: null,
-    results: number,
+    results: number$1,
     security: null,
     unselectable: null
   }
 });
 
-var merge = merge_1;
-var xlink = xlink$1;
-var xml = xml$1;
-var xmlns = xmlns$1;
-var aria = aria$1;
-var html$1 = html$2;
+var merge$1 = merge_1;
+var xlink$1 = xlink$2;
+var xml$1 = xml$2;
+var xmlns$1 = xmlns$2;
+var aria$1 = aria$2;
+var html$3 = html$4;
 
-var html_1$1 = merge([xml, xlink, xmlns, aria, html$1]);
+var html_1$1 = merge$1([xml$1, xlink$1, xmlns$1, aria$1, html$3]);
 
-var normalize$1 = normalize_1;
-var DefinedInfo = definedInfo;
-var Info = info;
+var normalize$2 = normalize_1;
+var DefinedInfo$1 = definedInfo;
+var Info$1 = info;
 
 var data = 'data';
 
-var find_1 = find$1;
+var find_1 = find$2;
 
-var valid = /^data[-\w.:]+$/i;
-var dash = /-[a-z]/g;
-var cap = /[A-Z]/g;
+var valid$1 = /^data[-\w.:]+$/i;
+var dash$1 = /-[a-z]/g;
+var cap$1 = /[A-Z]/g;
 
-function find$1(schema, value) {
-  var normal = normalize$1(value);
+function find$2(schema, value) {
+  var normal = normalize$2(value);
   var prop = value;
-  var Type = Info;
+  var Type = Info$1;
 
   if (normal in schema.normal) {
     return schema.property[schema.normal[normal]]
   }
 
-  if (normal.length > 4 && normal.slice(0, 4) === data && valid.test(value)) {
+  if (normal.length > 4 && normal.slice(0, 4) === data && valid$1.test(value)) {
     // Attribute or property.
     if (value.charAt(4) === '-') {
       prop = datasetToProperty(value);
@@ -25061,25 +26358,25 @@ function find$1(schema, value) {
       value = datasetToAttribute(value);
     }
 
-    Type = DefinedInfo;
+    Type = DefinedInfo$1;
   }
 
   return new Type(prop, value)
 }
 
 function datasetToProperty(attribute) {
-  var value = attribute.slice(5).replace(dash, camelcase);
+  var value = attribute.slice(5).replace(dash$1, camelcase$1);
   return data + value.charAt(0).toUpperCase() + value.slice(1)
 }
 
 function datasetToAttribute(property) {
   var value = property.slice(4);
 
-  if (dash.test(value)) {
+  if (dash$1.test(value)) {
     return property
   }
 
-  value = value.replace(cap, kebab);
+  value = value.replace(cap$1, kebab$1);
 
   if (value.charAt(0) !== '-') {
     value = '-' + value;
@@ -25088,11 +26385,11 @@ function datasetToAttribute(property) {
   return data + value
 }
 
-function kebab($0) {
+function kebab$1($0) {
   return '-' + $0.toLowerCase()
 }
 
-function camelcase($0) {
+function camelcase$1($0) {
   return $0.charAt(1).toUpperCase()
 }
 
@@ -25209,15 +26506,15 @@ function stringify$1(values, options) {
   return values.join(right + comma + left).trim()
 }
 
-var find = find_1;
-var normalize = normalize_1;
+var find$1 = find_1;
+var normalize$1 = normalize_1;
 var parseSelector$2 = hastUtilParseSelector;
 var spaces = spaceSeparatedTokens.parse;
 var commas = commaSeparatedTokens.parse;
 
 var factory_1 = factory$1;
 
-var own$7 = {}.hasOwnProperty;
+var own$6 = {}.hasOwnProperty;
 
 function factory$1(schema, defaultTagName, caseSensitive) {
   var adjust = caseSensitive ? createAdjustMap$2(caseSensitive) : null;
@@ -25231,7 +26528,7 @@ function factory$1(schema, defaultTagName, caseSensitive) {
     var name = node.tagName.toLowerCase();
     var property;
 
-    node.tagName = adjust && own$7.call(adjust, name) ? adjust[name] : name;
+    node.tagName = adjust && own$6.call(adjust, name) ? adjust[name] : name;
 
     if (properties && isChildren(properties, node)) {
       children.unshift(properties);
@@ -25264,7 +26561,7 @@ function factory$1(schema, defaultTagName, caseSensitive) {
       return
     }
 
-    info = find(schema, key);
+    info = find$1(schema, key);
     property = info.property;
     result = value;
 
@@ -25386,7 +26683,7 @@ function parsePrimitive$2(info, name, value) {
     // Accept `boolean` and `string`.
     if (
       typeof result === 'string' &&
-      (result === '' || normalize(value) === normalize(name))
+      (result === '' || normalize$1(value) === normalize$1(name))
     ) {
       result = true;
     }
@@ -25423,10 +26720,10 @@ function createAdjustMap$2(values) {
 var schema = html_1$1;
 var factory = factory_1;
 
-var html = factory(schema, 'div');
-html.displayName = 'html';
+var html$2 = factory(schema, 'div');
+html$2.displayName = 'html';
 
-var html_1 = html;
+var html_1 = html$2;
 
 var hastscript = html_1;
 
@@ -25762,7 +27059,7 @@ var decodeEntity = decodeEntity_browser;
 
 var parseEntities_1 = parseEntities;
 
-var own$6 = {}.hasOwnProperty;
+var own$5 = {}.hasOwnProperty;
 var fromCharCode = String.fromCharCode;
 var noop = Function.prototype;
 
@@ -25991,7 +27288,7 @@ function parse(value, settings) {
         // Check if we can match a legacy named reference.
         // If so, we cache that as the last viable named reference.
         // This ensures we do not need to walk backwards later.
-        if (type === name && own$6.call(legacy, characters)) {
+        if (type === name && own$5.call(legacy, characters)) {
           entityCharacters = characters;
           entity = legacy[characters];
         }
@@ -27975,7 +29272,7 @@ var js = javascript_1;
 
 restore();
 
-var own$5 = {}.hasOwnProperty;
+var own$4 = {}.hasOwnProperty;
 
 // Inherit.
 function Refractor() {}
@@ -28057,7 +29354,7 @@ function highlight(value, name) {
       throw new Error('Expected `string` for `name`, got `' + name + '`')
     }
 
-    if (own$5.call(refract.languages, name)) {
+    if (own$4.call(refract.languages, name)) {
       grammar = refract.languages[name];
     } else {
       throw new Error('Unknown language: `' + name + '` is not registered')
@@ -28072,7 +29369,7 @@ function registered(language) {
     throw new Error('Expected `string` for `language`, got `' + language + '`')
   }
 
-  return own$5.call(refract.languages, language)
+  return own$4.call(refract.languages, language)
 }
 
 function listLanguages() {
@@ -28082,7 +29379,7 @@ function listLanguages() {
 
   for (language in languages) {
     if (
-      own$5.call(languages, language) &&
+      own$4.call(languages, language) &&
       typeof languages[language] === 'object'
     ) {
       list.push(language);
@@ -56369,7 +57666,7 @@ var fontMetricsData = {
     "732": [0, 0.72222, 0, 0, 0.55556],
     "770": [0, 0.72222, 0, 0, 0.55556],
     "771": [0, 0.72222, 0, 0, 0.55556],
-    "8214": [-0.00099, 0.601, 0, 0, 0.77778],
+    "8214": [-99e-5, 0.601, 0, 0, 0.77778],
     "8593": [1e-05, 0.6, 0, 0, 0.66667],
     "8595": [1e-05, 0.6, 0, 0, 0.66667],
     "8657": [1e-05, 0.6, 0, 0, 0.77778],
@@ -56378,8 +57675,8 @@ var fontMetricsData = {
     "8720": [0.25001, 0.75, 0, 0, 0.94445],
     "8721": [0.25001, 0.75, 0, 0, 1.05556],
     "8730": [0.35001, 0.85, 0, 0, 1.0],
-    "8739": [-0.00599, 0.606, 0, 0, 0.33333],
-    "8741": [-0.00599, 0.606, 0, 0, 0.55556],
+    "8739": [-599e-5, 0.606, 0, 0, 0.33333],
+    "8741": [-599e-5, 0.606, 0, 0, 0.55556],
     "8747": [0.30612, 0.805, 0.19445, 0, 0.47222],
     "8748": [0.306, 0.805, 0.19445, 0, 0.47222],
     "8749": [0.306, 0.805, 0.19445, 0, 0.47222],
@@ -56392,7 +57689,7 @@ var fontMetricsData = {
     "8969": [0.35001, 0.85, 0, 0, 0.47222],
     "8970": [0.35001, 0.85, 0, 0, 0.47222],
     "8971": [0.35001, 0.85, 0, 0, 0.47222],
-    "9168": [-0.00099, 0.601, 0, 0, 0.66667],
+    "9168": [-99e-5, 0.601, 0, 0, 0.66667],
     "10216": [0.35001, 0.85, 0, 0, 0.47222],
     "10217": [0.35001, 0.85, 0, 0, 0.47222],
     "10752": [0.25001, 0.75, 0, 0, 1.11111],
@@ -56490,10 +57787,10 @@ var fontMetricsData = {
     "9119": [1e-05, 0.6, 0, 0, 0.875],
     "9120": [0.64502, 1.155, 0, 0, 0.875],
     "9121": [0.64502, 1.155, 0, 0, 0.66667],
-    "9122": [-0.00099, 0.601, 0, 0, 0.66667],
+    "9122": [-99e-5, 0.601, 0, 0, 0.66667],
     "9123": [0.64502, 1.155, 0, 0, 0.66667],
     "9124": [0.64502, 1.155, 0, 0, 0.66667],
-    "9125": [-0.00099, 0.601, 0, 0, 0.66667],
+    "9125": [-99e-5, 0.601, 0, 0, 0.66667],
     "9126": [0.64502, 1.155, 0, 0, 0.66667],
     "9127": [1e-05, 0.9, 0, 0, 0.88889],
     "9128": [0.65002, 1.15, 0, 0, 0.88889],
@@ -56505,8 +57802,8 @@ var fontMetricsData = {
     "9143": [0.88502, 0.915, 0, 0, 1.05556],
     "10216": [1.25003, 1.75, 0, 0, 0.80556],
     "10217": [1.25003, 1.75, 0, 0, 0.80556],
-    "57344": [-0.00499, 0.605, 0, 0, 1.05556],
-    "57345": [-0.00499, 0.605, 0, 0, 1.05556],
+    "57344": [-499e-5, 0.605, 0, 0, 1.05556],
+    "57345": [-499e-5, 0.605, 0, 0, 1.05556],
     "57680": [0, 0.12, 0, 0, 0.45],
     "57681": [0, 0.12, 0, 0, 0.45],
     "57682": [0, 0.12, 0, 0, 0.45],
@@ -57419,9 +58716,19 @@ var toNode = function toNode(tagName) {
   return node;
 };
 /**
- * Convert into an HTML markup string
+ * https://w3c.github.io/html-reference/syntax.html#syntax-attributes
+ *
+ * > Attribute Names must consist of one or more characters
+ * other than the space characters, U+0000 NULL,
+ * '"', "'", ">", "/", "=", the control characters,
+ * and any characters that are not defined by Unicode.
  */
 
+
+var invalidAttributeNameRegex = /[\s"'>/=\x00-\x1f]/;
+/**
+ * Convert into an HTML markup string
+ */
 
 var toMarkup = function toMarkup(tagName) {
   var markup = "<" + tagName; // Add the class
@@ -57445,6 +58752,10 @@ var toMarkup = function toMarkup(tagName) {
 
   for (var attr in this.attributes) {
     if (this.attributes.hasOwnProperty(attr)) {
+      if (invalidAttributeNameRegex.test(attr)) {
+        throw new ParseError("Invalid attribute name '" + attr + "'");
+      }
+
       markup += " " + attr + "=\"" + utils.escape(this.attributes[attr]) + "\"";
     }
   }
@@ -60154,7 +61465,19 @@ class MathNode {
     }
 
     for (var i = 0; i < this.children.length; i++) {
-      node.appendChild(this.children[i].toNode());
+      // Combine multiple TextNodes into one TextNode, to prevent
+      // screen readers from reading each as a separate word [#3995]
+      if (this.children[i] instanceof TextNode && this.children[i + 1] instanceof TextNode) {
+        var text = this.children[i].toText() + this.children[++i].toText();
+
+        while (this.children[i + 1] instanceof TextNode) {
+          text += this.children[++i].toText();
+        }
+
+        node.appendChild(new TextNode(text).toNode());
+      } else {
+        node.appendChild(this.children[i].toNode());
+      }
     }
 
     return node;
@@ -60425,10 +61748,32 @@ var getVariant = function getVariant(group, options) {
   return null;
 };
 /**
+ * Check for <mi>.</mi> which is how a dot renders in MathML,
+ * or <mo separator="true" lspace="0em" rspace="0em">,</mo>
+ * which is how a braced comma {,} renders in MathML
+ */
+
+function isNumberPunctuation(group) {
+  if (!group) {
+    return false;
+  }
+
+  if (group.type === 'mi' && group.children.length === 1) {
+    var child = group.children[0];
+    return child instanceof TextNode && child.text === '.';
+  } else if (group.type === 'mo' && group.children.length === 1 && group.getAttribute('separator') === 'true' && group.getAttribute('lspace') === '0em' && group.getAttribute('rspace') === '0em') {
+    var _child = group.children[0];
+    return _child instanceof TextNode && _child.text === ',';
+  } else {
+    return false;
+  }
+}
+/**
  * Takes a list of nodes, builds them, and returns a list of the generated
  * MathML nodes.  Also combine consecutive <mtext> outputs into a single
  * <mtext> tag.
  */
+
 
 var buildExpression = function buildExpression(expression, options, isOrdgroup) {
   if (expression.length === 1) {
@@ -60458,22 +61803,30 @@ var buildExpression = function buildExpression(expression, options, isOrdgroup) 
       } else if (_group.type === 'mn' && lastGroup.type === 'mn') {
         lastGroup.children.push(..._group.children);
         continue; // Concatenate <mn>...</mn> followed by <mi>.</mi>
-      } else if (_group.type === 'mi' && _group.children.length === 1 && lastGroup.type === 'mn') {
-        var child = _group.children[0];
+      } else if (isNumberPunctuation(_group) && lastGroup.type === 'mn') {
+        lastGroup.children.push(..._group.children);
+        continue; // Concatenate <mi>.</mi> followed by <mn>...</mn>
+      } else if (_group.type === 'mn' && isNumberPunctuation(lastGroup)) {
+        _group.children = [...lastGroup.children, ..._group.children];
+        groups.pop(); // Put preceding <mn>...</mn> or <mi>.</mi> inside base of
+        // <msup><mn>...base...</mn>...exponent...</msup> (or <msub>)
+      } else if ((_group.type === 'msup' || _group.type === 'msub') && _group.children.length >= 1 && (lastGroup.type === 'mn' || isNumberPunctuation(lastGroup))) {
+        var base = _group.children[0];
 
-        if (child instanceof TextNode && child.text === '.') {
-          lastGroup.children.push(..._group.children);
-          continue;
-        }
+        if (base instanceof MathNode && base.type === 'mn') {
+          base.children = [...lastGroup.children, ...base.children];
+          groups.pop();
+        } // \not
+
       } else if (lastGroup.type === 'mi' && lastGroup.children.length === 1) {
         var lastChild = lastGroup.children[0];
 
         if (lastChild instanceof TextNode && lastChild.text === '\u0338' && (_group.type === 'mo' || _group.type === 'mi' || _group.type === 'mn')) {
-          var _child = _group.children[0];
+          var child = _group.children[0];
 
-          if (_child instanceof TextNode && _child.text.length > 0) {
+          if (child instanceof TextNode && child.text.length > 0) {
             // Overlay with combining character long solidus
-            _child.text = _child.text.slice(0, 1) + "\u0338" + _child.text.slice(1);
+            child.text = child.text.slice(0, 1) + "\u0338" + child.text.slice(1);
             groups.pop();
           }
         }
@@ -68810,7 +70163,7 @@ defineMacro("\\char", function (context) {
 // \renewcommand{\macro}[args]{definition}
 // TODO: Optional arguments: \newcommand{\macro}[args][default]{definition}
 
-var newcommand = (context, existsOK, nonexistsOK) => {
+var newcommand = (context, existsOK, nonexistsOK, skipIfExists) => {
   var arg = context.consumeArg().tokens;
 
   if (arg.length !== 1) {
@@ -68847,19 +70200,22 @@ var newcommand = (context, existsOK, nonexistsOK) => {
 
     numArgs = parseInt(argText);
     arg = context.consumeArg().tokens;
-  } // Final arg is the expansion of the macro
+  }
 
+  if (!(exists && skipIfExists)) {
+    // Final arg is the expansion of the macro
+    context.macros.set(name, {
+      tokens: arg,
+      numArgs
+    });
+  }
 
-  context.macros.set(name, {
-    tokens: arg,
-    numArgs
-  });
   return '';
 };
 
-defineMacro("\\newcommand", context => newcommand(context, false, true));
-defineMacro("\\renewcommand", context => newcommand(context, true, false));
-defineMacro("\\providecommand", context => newcommand(context, true, true)); // terminal (console) tools
+defineMacro("\\newcommand", context => newcommand(context, false, true, false));
+defineMacro("\\renewcommand", context => newcommand(context, true, false, false));
+defineMacro("\\providecommand", context => newcommand(context, true, true, true)); // terminal (console) tools
 
 defineMacro("\\message", context => {
   var arg = context.consumeArgs(1)[0]; // eslint-disable-next-line no-console
@@ -71848,11 +73204,21 @@ var renderToHTMLTree = function renderToHTMLTree(expression, options) {
   }
 };
 
+var version = "0.16.21";
+var __domTree = {
+  Span,
+  Anchor,
+  SymbolNode,
+  SvgNode,
+  PathNode,
+  LineNode
+}; // ESM exports
+
 var katex = {
   /**
    * Current KaTeX version
    */
-  version: "0.16.15",
+  version,
 
   /**
    * Renders the given LaTeX into an HTML+MathML combination, and adds
@@ -71872,7 +73238,7 @@ var katex = {
   ParseError,
 
   /**
-   * The shema of Settings
+   * The schema of Settings
    */
   SETTINGS_SCHEMA,
 
@@ -71932,18 +73298,11 @@ var katex = {
   /**
    * Expose the dom tree node types, which can be useful for type checking nodes.
    *
-   * NOTE: This method is not currently recommended for public use.
+   * NOTE: These methods are not currently recommended for public use.
    * The internal tree representation is unstable and is very likely
    * to change. Use at your own risk.
    */
-  __domTree: {
-    Span,
-    Anchor,
-    SymbolNode,
-    SvgNode,
-    PathNode,
-    LineNode
-  }
+  __domTree
 };
 
 /// <reference types="mdast-util-math" />
@@ -72070,30 +73429,23 @@ function parseSelector$1(selector, defaultTagName) {
 }
 
 /**
- * @typedef {import('hast').Element} Element
- * @typedef {import('hast').Nodes} Nodes
- * @typedef {import('hast').Root} Root
- * @typedef {import('hast').RootContent} RootContent
- *
- * @typedef {import('property-information').Info} Info
- * @typedef {import('property-information').Schema} Schema
+ * @import {Element, Nodes, RootContent, Root} from 'hast'
+ * @import {Info, Schema} from 'property-information'
  */
 
-
-const own$4 = {}.hasOwnProperty;
 
 /**
  * @param {Schema} schema
  *   Schema to use.
  * @param {string} defaultTagName
  *   Default tag name.
- * @param {Array<string> | undefined} [caseSensitive]
+ * @param {ReadonlyArray<string> | undefined} [caseSensitive]
  *   Case-sensitive tag names (default: `undefined`).
  * @returns
  *   `h`.
  */
 function createH$1(schema, defaultTagName, caseSensitive) {
-  const adjust = caseSensitive && createAdjustMap$1(caseSensitive);
+  const adjust = caseSensitive ? createAdjustMap$1(caseSensitive) : undefined;
 
   /**
    * Hyperscript compatible DSL for creating virtual hast trees.
@@ -72124,11 +73476,10 @@ function createH$1(schema, defaultTagName, caseSensitive) {
    *   Result.
    */
   function h(selector, properties, ...children) {
-    let index = -1;
     /** @type {Result} */
     let node;
 
-    if (selector === undefined || selector === null) {
+    if (selector === null || selector === undefined) {
       node = {type: 'root', children: []};
       // Properties are not supported for roots.
       const child = /** @type {Child} */ (properties);
@@ -72136,29 +73487,23 @@ function createH$1(schema, defaultTagName, caseSensitive) {
     } else {
       node = parseSelector$1(selector, defaultTagName);
       // Normalize the name.
-      node.tagName = node.tagName.toLowerCase();
-      if (adjust && own$4.call(adjust, node.tagName)) {
-        node.tagName = adjust[node.tagName];
-      }
+      const lower = node.tagName.toLowerCase();
+      const adjusted = adjust ? adjust.get(lower) : undefined;
+      node.tagName = adjusted || lower;
 
-      // Handle props.
+      // Handle properties.
       if (isChild$1(properties)) {
         children.unshift(properties);
       } else {
-        /** @type {string} */
-        let key;
-
-        for (key in properties) {
-          if (own$4.call(properties, key)) {
-            addProperty$1(schema, node.properties, key, properties[key]);
-          }
+        for (const [key, value] of Object.entries(properties)) {
+          addProperty$1(schema, node.properties, key, value);
         }
       }
     }
 
     // Handle children.
-    while (++index < children.length) {
-      addChild$1(node.children, children[index]);
+    for (const child of children) {
+      addChild$1(node.children, child);
     }
 
     if (node.type === 'element' && node.tagName === 'template') {
@@ -72200,7 +73545,7 @@ function isChild$1(value) {
     if (value && typeof value === 'object') {
       if (!Array.isArray(value)) return true
 
-      const list = /** @type {Array<unknown>} */ (value);
+      const list = /** @type {ReadonlyArray<unknown>} */ (value);
 
       for (const item of list) {
         if (typeof item !== 'number' && typeof item !== 'string') {
@@ -72234,13 +73579,12 @@ function isChild$1(value) {
  *   Nothing.
  */
 function addProperty$1(schema, properties, key, value) {
-  const info = find$2(schema, key);
-  let index = -1;
+  const info = find$3(schema, key);
   /** @type {PropertyValue} */
   let result;
 
   // Ignore nullish and NaN values.
-  if (value === undefined || value === null) return
+  if (value === null || value === undefined) return
 
   if (typeof value === 'number') {
     // Ignore NaN.
@@ -72264,7 +73608,7 @@ function addProperty$1(schema, properties, key, value) {
       result = parsePrimitive$1(info, info.property, value);
     }
   } else if (Array.isArray(value)) {
-    result = value.concat();
+    result = [...value];
   } else {
     result = info.property === 'style' ? style$1(value) : String(value);
   }
@@ -72273,12 +73617,13 @@ function addProperty$1(schema, properties, key, value) {
     /** @type {Array<number | string>} */
     const finalResult = [];
 
-    while (++index < result.length) {
+    for (const item of result) {
       // Assume no booleans in array.
-      const value = /** @type {number | string} */ (
-        parsePrimitive$1(info, info.property, result[index])
+      finalResult.push(
+        /** @type {number | string} */ (
+          parsePrimitive$1(info, info.property, item)
+        )
       );
-      finalResult[index] = value;
     }
 
     result = finalResult;
@@ -72287,8 +73632,9 @@ function addProperty$1(schema, properties, key, value) {
   // Class names (which can be added both on the `selector` and here).
   if (info.property === 'className' && Array.isArray(properties.className)) {
     // Assume no booleans in `className`.
-    const value = /** @type {number | string} */ (result);
-    result = properties.className.concat(value);
+    result = properties.className.concat(
+      /** @type {Array<number | string> | number | string} */ (result)
+    );
   }
 
   properties[info.property] = result;
@@ -72303,13 +73649,11 @@ function addProperty$1(schema, properties, key, value) {
  *   Nothing.
  */
 function addChild$1(nodes, value) {
-  let index = -1;
-
-  if (value === undefined || value === null) ; else if (typeof value === 'string' || typeof value === 'number') {
+  if (value === null || value === undefined) ; else if (typeof value === 'number' || typeof value === 'string') {
     nodes.push({type: 'text', value: String(value)});
   } else if (Array.isArray(value)) {
-    while (++index < value.length) {
-      addChild$1(nodes, value[index]);
+    for (const child of value) {
+      addChild$1(nodes, child);
     }
   } else if (typeof value === 'object' && 'type' in value) {
     if (value.type === 'root') {
@@ -72342,7 +73686,7 @@ function parsePrimitive$1(info, name, value) {
 
     if (
       (info.boolean || info.overloadedBoolean) &&
-      (value === '' || normalize$5(value) === normalize$5(name))
+      (value === '' || normalize$6(value) === normalize$6(name))
     ) {
       return true
     }
@@ -72354,21 +73698,17 @@ function parsePrimitive$1(info, name, value) {
 /**
  * Serialize a `style` object as a string.
  *
- * @param {Style} value
+ * @param {Style} styles
  *   Style object.
  * @returns {string}
  *   CSS string.
  */
-function style$1(value) {
+function style$1(styles) {
   /** @type {Array<string>} */
   const result = [];
-  /** @type {string} */
-  let key;
 
-  for (key in value) {
-    if (own$4.call(value, key)) {
-      result.push([key, value[key]].join(': '));
-    }
+  for (const [key, value] of Object.entries(styles)) {
+    result.push([key, value].join(': '));
   }
 
   return result.join('; ')
@@ -72377,23 +73717,27 @@ function style$1(value) {
 /**
  * Create a map to adjust casing.
  *
- * @param {Array<string>} values
+ * @param {ReadonlyArray<string>} values
  *   List of properly cased keys.
- * @returns {Record<string, string>}
+ * @returns {Map<string, string>}
  *   Map of lowercase keys to uppercase keys.
  */
 function createAdjustMap$1(values) {
-  /** @type {Record<string, string>} */
-  const result = {};
-  let index = -1;
+  /** @type {Map<string, string>} */
+  const result = new Map();
 
-  while (++index < values.length) {
-    result[values[index].toLowerCase()] = values[index];
+  for (const value of values) {
+    result.set(value.toLowerCase(), value);
   }
 
   return result
 }
 
+/**
+ * List of case-sensitive SVG tag names.
+ *
+ * @type {ReadonlyArray<string>}
+ */
 const svgCaseSensitiveTagNames$1 = [
   'altGlyph',
   'altGlyphDef',
@@ -72436,23 +73780,22 @@ const svgCaseSensitiveTagNames$1 = [
   'textPath'
 ];
 
+// Register the JSX namespace on `h`.
 /**
- * @typedef {import('./create-h.js').Child} Child
- *   Acceptable child value.
- * @typedef {import('./create-h.js').Properties} Properties
- *   Acceptable value for element properties.
- * @typedef {import('./create-h.js').Result} Result
- *   Result from a `h` (or `s`) call.
+ * @typedef {import('./jsx-classic.js').Element} h.JSX.Element
+ * @typedef {import('./jsx-classic.js').ElementChildrenAttribute} h.JSX.ElementChildrenAttribute
+ * @typedef {import('./jsx-classic.js').IntrinsicAttributes} h.JSX.IntrinsicAttributes
+ * @typedef {import('./jsx-classic.js').IntrinsicElements} h.JSX.IntrinsicElements
  */
 
 
 // Note: this explicit type is needed, otherwise TS creates broken types.
 /** @type {ReturnType<createH>} */
-const h$1 = createH$1(html$4, 'div');
+const h$1 = createH$1(html$6, 'div');
 
 // Note: this explicit type is needed, otherwise TS creates broken types.
 /** @type {ReturnType<createH>} */
-const s$1 = createH$1(svg, 'g', svgCaseSensitiveTagNames$1);
+const s$1 = createH$1(svg$2, 'g', svgCaseSensitiveTagNames$1);
 
 /**
  * Map of web namespaces.
@@ -73046,10 +74389,7 @@ function toText(tree, options) {
   const children = 'children' in tree ? tree.children : [];
   const block = blockOrCaption(tree);
   const whitespace = inferWhitespace(tree, {
-    whitespace: options_.whitespace || 'normal',
-    breakBefore: false,
-    breakAfter: false
-  });
+    whitespace: options_.whitespace || 'normal'});
 
   /** @type {Array<BreakNumber | string>} */
   const results = [];
@@ -73065,7 +74405,6 @@ function toText(tree, options) {
   if (tree.type === 'text' || tree.type === 'comment') {
     results.push(
       ...collectText(tree, {
-        whitespace,
         breakBefore: true,
         breakAfter: true
       })
@@ -73743,30 +75082,23 @@ function parseSelector(selector, defaultTagName) {
 }
 
 /**
- * @typedef {import('hast').Element} Element
- * @typedef {import('hast').Nodes} Nodes
- * @typedef {import('hast').Root} Root
- * @typedef {import('hast').RootContent} RootContent
- *
- * @typedef {import('property-information').Info} Info
- * @typedef {import('property-information').Schema} Schema
+ * @import {Element, Nodes, RootContent, Root} from 'hast'
+ * @import {Info, Schema} from 'property-information'
  */
 
-
-const own$3 = {}.hasOwnProperty;
 
 /**
  * @param {Schema} schema
  *   Schema to use.
  * @param {string} defaultTagName
  *   Default tag name.
- * @param {Array<string> | undefined} [caseSensitive]
+ * @param {ReadonlyArray<string> | undefined} [caseSensitive]
  *   Case-sensitive tag names (default: `undefined`).
  * @returns
  *   `h`.
  */
 function createH(schema, defaultTagName, caseSensitive) {
-  const adjust = caseSensitive && createAdjustMap(caseSensitive);
+  const adjust = caseSensitive ? createAdjustMap(caseSensitive) : undefined;
 
   /**
    * Hyperscript compatible DSL for creating virtual hast trees.
@@ -73797,11 +75129,10 @@ function createH(schema, defaultTagName, caseSensitive) {
    *   Result.
    */
   function h(selector, properties, ...children) {
-    let index = -1;
     /** @type {Result} */
     let node;
 
-    if (selector === undefined || selector === null) {
+    if (selector === null || selector === undefined) {
       node = {type: 'root', children: []};
       // Properties are not supported for roots.
       const child = /** @type {Child} */ (properties);
@@ -73809,29 +75140,23 @@ function createH(schema, defaultTagName, caseSensitive) {
     } else {
       node = parseSelector(selector, defaultTagName);
       // Normalize the name.
-      node.tagName = node.tagName.toLowerCase();
-      if (adjust && own$3.call(adjust, node.tagName)) {
-        node.tagName = adjust[node.tagName];
-      }
+      const lower = node.tagName.toLowerCase();
+      const adjusted = adjust ? adjust.get(lower) : undefined;
+      node.tagName = adjusted || lower;
 
-      // Handle props.
+      // Handle properties.
       if (isChild(properties)) {
         children.unshift(properties);
       } else {
-        /** @type {string} */
-        let key;
-
-        for (key in properties) {
-          if (own$3.call(properties, key)) {
-            addProperty(schema, node.properties, key, properties[key]);
-          }
+        for (const [key, value] of Object.entries(properties)) {
+          addProperty(schema, node.properties, key, value);
         }
       }
     }
 
     // Handle children.
-    while (++index < children.length) {
-      addChild(node.children, children[index]);
+    for (const child of children) {
+      addChild(node.children, child);
     }
 
     if (node.type === 'element' && node.tagName === 'template') {
@@ -73873,7 +75198,7 @@ function isChild(value) {
     if (value && typeof value === 'object') {
       if (!Array.isArray(value)) return true
 
-      const list = /** @type {Array<unknown>} */ (value);
+      const list = /** @type {ReadonlyArray<unknown>} */ (value);
 
       for (const item of list) {
         if (typeof item !== 'number' && typeof item !== 'string') {
@@ -73907,13 +75232,12 @@ function isChild(value) {
  *   Nothing.
  */
 function addProperty(schema, properties, key, value) {
-  const info = find$2(schema, key);
-  let index = -1;
+  const info = find$3(schema, key);
   /** @type {PropertyValue} */
   let result;
 
   // Ignore nullish and NaN values.
-  if (value === undefined || value === null) return
+  if (value === null || value === undefined) return
 
   if (typeof value === 'number') {
     // Ignore NaN.
@@ -73937,7 +75261,7 @@ function addProperty(schema, properties, key, value) {
       result = parsePrimitive(info, info.property, value);
     }
   } else if (Array.isArray(value)) {
-    result = value.concat();
+    result = [...value];
   } else {
     result = info.property === 'style' ? style(value) : String(value);
   }
@@ -73946,12 +75270,13 @@ function addProperty(schema, properties, key, value) {
     /** @type {Array<number | string>} */
     const finalResult = [];
 
-    while (++index < result.length) {
+    for (const item of result) {
       // Assume no booleans in array.
-      const value = /** @type {number | string} */ (
-        parsePrimitive(info, info.property, result[index])
+      finalResult.push(
+        /** @type {number | string} */ (
+          parsePrimitive(info, info.property, item)
+        )
       );
-      finalResult[index] = value;
     }
 
     result = finalResult;
@@ -73960,8 +75285,9 @@ function addProperty(schema, properties, key, value) {
   // Class names (which can be added both on the `selector` and here).
   if (info.property === 'className' && Array.isArray(properties.className)) {
     // Assume no booleans in `className`.
-    const value = /** @type {number | string} */ (result);
-    result = properties.className.concat(value);
+    result = properties.className.concat(
+      /** @type {Array<number | string> | number | string} */ (result)
+    );
   }
 
   properties[info.property] = result;
@@ -73976,13 +75302,11 @@ function addProperty(schema, properties, key, value) {
  *   Nothing.
  */
 function addChild(nodes, value) {
-  let index = -1;
-
-  if (value === undefined || value === null) ; else if (typeof value === 'string' || typeof value === 'number') {
+  if (value === null || value === undefined) ; else if (typeof value === 'number' || typeof value === 'string') {
     nodes.push({type: 'text', value: String(value)});
   } else if (Array.isArray(value)) {
-    while (++index < value.length) {
-      addChild(nodes, value[index]);
+    for (const child of value) {
+      addChild(nodes, child);
     }
   } else if (typeof value === 'object' && 'type' in value) {
     if (value.type === 'root') {
@@ -74015,7 +75339,7 @@ function parsePrimitive(info, name, value) {
 
     if (
       (info.boolean || info.overloadedBoolean) &&
-      (value === '' || normalize$5(value) === normalize$5(name))
+      (value === '' || normalize$6(value) === normalize$6(name))
     ) {
       return true
     }
@@ -74027,21 +75351,17 @@ function parsePrimitive(info, name, value) {
 /**
  * Serialize a `style` object as a string.
  *
- * @param {Style} value
+ * @param {Style} styles
  *   Style object.
  * @returns {string}
  *   CSS string.
  */
-function style(value) {
+function style(styles) {
   /** @type {Array<string>} */
   const result = [];
-  /** @type {string} */
-  let key;
 
-  for (key in value) {
-    if (own$3.call(value, key)) {
-      result.push([key, value[key]].join(': '));
-    }
+  for (const [key, value] of Object.entries(styles)) {
+    result.push([key, value].join(': '));
   }
 
   return result.join('; ')
@@ -74050,23 +75370,27 @@ function style(value) {
 /**
  * Create a map to adjust casing.
  *
- * @param {Array<string>} values
+ * @param {ReadonlyArray<string>} values
  *   List of properly cased keys.
- * @returns {Record<string, string>}
+ * @returns {Map<string, string>}
  *   Map of lowercase keys to uppercase keys.
  */
 function createAdjustMap(values) {
-  /** @type {Record<string, string>} */
-  const result = {};
-  let index = -1;
+  /** @type {Map<string, string>} */
+  const result = new Map();
 
-  while (++index < values.length) {
-    result[values[index].toLowerCase()] = values[index];
+  for (const value of values) {
+    result.set(value.toLowerCase(), value);
   }
 
   return result
 }
 
+/**
+ * List of case-sensitive SVG tag names.
+ *
+ * @type {ReadonlyArray<string>}
+ */
 const svgCaseSensitiveTagNames = [
   'altGlyph',
   'altGlyphDef',
@@ -74109,23 +75433,22 @@ const svgCaseSensitiveTagNames = [
   'textPath'
 ];
 
+// Register the JSX namespace on `h`.
 /**
- * @typedef {import('./create-h.js').Child} Child
- *   Acceptable child value.
- * @typedef {import('./create-h.js').Properties} Properties
- *   Acceptable value for element properties.
- * @typedef {import('./create-h.js').Result} Result
- *   Result from a `h` (or `s`) call.
+ * @typedef {import('./jsx-classic.js').Element} h.JSX.Element
+ * @typedef {import('./jsx-classic.js').ElementChildrenAttribute} h.JSX.ElementChildrenAttribute
+ * @typedef {import('./jsx-classic.js').IntrinsicAttributes} h.JSX.IntrinsicAttributes
+ * @typedef {import('./jsx-classic.js').IntrinsicElements} h.JSX.IntrinsicElements
  */
 
 
 // Note: this explicit type is needed, otherwise TS creates broken types.
 /** @type {ReturnType<createH>} */
-const h = createH(html$4, 'div');
+const h = createH(html$6, 'div');
 
 // Note: this explicit type is needed, otherwise TS creates broken types.
 /** @type {ReturnType<createH>} */
-const s = createH(svg, 'g', svgCaseSensitiveTagNames);
+const s = createH(svg$2, 'g', svgCaseSensitiveTagNames);
 
 /**
  * @import {VFile, Value} from 'vfile'
@@ -74231,7 +75554,7 @@ function next(value, from) {
  */
 
 
-const own$2 = {}.hasOwnProperty;
+const own$3 = {}.hasOwnProperty;
 /** @type {unknown} */
 // type-coverage:ignore-next-line
 const proto = Object.prototype;
@@ -74253,7 +75576,7 @@ function fromParse5(tree, options) {
     {
       file: settings.file || undefined,
       location: false,
-      schema: settings.space === 'svg' ? svg : html$4,
+      schema: settings.space === 'svg' ? svg$2 : html$6,
       verbose: settings.verbose || false
     },
     tree
@@ -74374,7 +75697,7 @@ function all$2(state, nodes) {
 function element$2(state, node) {
   const schema = state.schema;
 
-  state.schema = node.namespaceURI === webNamespaces.svg ? svg : html$4;
+  state.schema = node.namespaceURI === webNamespaces.svg ? svg$2 : html$6;
 
   // Props.
   let index = -1;
@@ -74385,7 +75708,7 @@ function element$2(state, node) {
     const attribute = node.attrs[index];
     const name =
       (attribute.prefix ? attribute.prefix + ':' : '') + attribute.name;
-    if (!own$2.call(proto, name)) {
+    if (!own$3.call(proto, name)) {
       properties[name] = attribute.value;
     }
   }
@@ -74478,8 +75801,8 @@ function createLocation(state, node, location) {
 
       if (location.attrs) {
         for (key in location.attrs) {
-          if (own$2.call(location.attrs, key)) {
-            properties[find$2(state.schema, key).property] = position(
+          if (own$3.call(location.attrs, key)) {
+            properties[find$3(state.schema, key).property] = position(
               location.attrs[key]
             );
           }
@@ -74537,6 +75860,1268 @@ function position(loc) {
 function point(point) {
   return point.line && point.column ? point : undefined
 }
+
+/**
+ * @typedef {import('./info.js').Info} Info
+ * @typedef {Record<string, Info>} Properties
+ * @typedef {Record<string, string>} Normal
+ */
+
+class Schema {
+  /**
+   * @constructor
+   * @param {Properties} property
+   * @param {Normal} normal
+   * @param {string} [space]
+   */
+  constructor(property, normal, space) {
+    this.property = property;
+    this.normal = normal;
+    if (space) {
+      this.space = space;
+    }
+  }
+}
+
+/** @type {Properties} */
+Schema.prototype.property = {};
+/** @type {Normal} */
+Schema.prototype.normal = {};
+/** @type {string|null} */
+Schema.prototype.space = null;
+
+/**
+ * @typedef {import('./schema.js').Properties} Properties
+ * @typedef {import('./schema.js').Normal} Normal
+ */
+
+
+/**
+ * @param {Schema[]} definitions
+ * @param {string} [space]
+ * @returns {Schema}
+ */
+function merge(definitions, space) {
+  /** @type {Properties} */
+  const property = {};
+  /** @type {Normal} */
+  const normal = {};
+  let index = -1;
+
+  while (++index < definitions.length) {
+    Object.assign(property, definitions[index].property);
+    Object.assign(normal, definitions[index].normal);
+  }
+
+  return new Schema(property, normal, space)
+}
+
+/**
+ * @param {string} value
+ * @returns {string}
+ */
+function normalize(value) {
+  return value.toLowerCase()
+}
+
+class Info {
+  /**
+   * @constructor
+   * @param {string} property
+   * @param {string} attribute
+   */
+  constructor(property, attribute) {
+    /** @type {string} */
+    this.property = property;
+    /** @type {string} */
+    this.attribute = attribute;
+  }
+}
+
+/** @type {string|null} */
+Info.prototype.space = null;
+Info.prototype.boolean = false;
+Info.prototype.booleanish = false;
+Info.prototype.overloadedBoolean = false;
+Info.prototype.number = false;
+Info.prototype.commaSeparated = false;
+Info.prototype.spaceSeparated = false;
+Info.prototype.commaOrSpaceSeparated = false;
+Info.prototype.mustUseProperty = false;
+Info.prototype.defined = false;
+
+let powers = 0;
+
+const boolean = increment();
+const booleanish = increment();
+const overloadedBoolean = increment();
+const number = increment();
+const spaceSeparated = increment();
+const commaSeparated = increment();
+const commaOrSpaceSeparated = increment();
+
+function increment() {
+  return 2 ** ++powers
+}
+
+const types = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  boolean,
+  booleanish,
+  commaOrSpaceSeparated,
+  commaSeparated,
+  number,
+  overloadedBoolean,
+  spaceSeparated
+}, Symbol.toStringTag, { value: 'Module' }));
+
+/** @type {Array<keyof types>} */
+// @ts-expect-error: hush.
+const checks = Object.keys(types);
+
+class DefinedInfo extends Info {
+  /**
+   * @constructor
+   * @param {string} property
+   * @param {string} attribute
+   * @param {number|null} [mask]
+   * @param {string} [space]
+   */
+  constructor(property, attribute, mask, space) {
+    let index = -1;
+
+    super(property, attribute);
+
+    mark(this, 'space', space);
+
+    if (typeof mask === 'number') {
+      while (++index < checks.length) {
+        const check = checks[index];
+        mark(this, checks[index], (mask & types[check]) === types[check]);
+      }
+    }
+  }
+}
+
+DefinedInfo.prototype.defined = true;
+
+/**
+ * @param {DefinedInfo} values
+ * @param {string} key
+ * @param {unknown} value
+ */
+function mark(values, key, value) {
+  if (value) {
+    // @ts-expect-error: assume `value` matches the expected value of `key`.
+    values[key] = value;
+  }
+}
+
+/**
+ * @typedef {import('./schema.js').Properties} Properties
+ * @typedef {import('./schema.js').Normal} Normal
+ *
+ * @typedef {Record<string, string>} Attributes
+ *
+ * @typedef {Object} Definition
+ * @property {Record<string, number|null>} properties
+ * @property {(attributes: Attributes, property: string) => string} transform
+ * @property {string} [space]
+ * @property {Attributes} [attributes]
+ * @property {Array<string>} [mustUseProperty]
+ */
+
+
+const own$2 = {}.hasOwnProperty;
+
+/**
+ * @param {Definition} definition
+ * @returns {Schema}
+ */
+function create(definition) {
+  /** @type {Properties} */
+  const property = {};
+  /** @type {Normal} */
+  const normal = {};
+  /** @type {string} */
+  let prop;
+
+  for (prop in definition.properties) {
+    if (own$2.call(definition.properties, prop)) {
+      const value = definition.properties[prop];
+      const info = new DefinedInfo(
+        prop,
+        definition.transform(definition.attributes || {}, prop),
+        value,
+        definition.space
+      );
+
+      if (
+        definition.mustUseProperty &&
+        definition.mustUseProperty.includes(prop)
+      ) {
+        info.mustUseProperty = true;
+      }
+
+      property[prop] = info;
+
+      normal[normalize(prop)] = prop;
+      normal[normalize(info.attribute)] = prop;
+    }
+  }
+
+  return new Schema(property, normal, definition.space)
+}
+
+const xlink = create({
+  space: 'xlink',
+  transform(_, prop) {
+    return 'xlink:' + prop.slice(5).toLowerCase()
+  },
+  properties: {
+    xLinkActuate: null,
+    xLinkArcRole: null,
+    xLinkHref: null,
+    xLinkRole: null,
+    xLinkShow: null,
+    xLinkTitle: null,
+    xLinkType: null
+  }
+});
+
+const xml = create({
+  space: 'xml',
+  transform(_, prop) {
+    return 'xml:' + prop.slice(3).toLowerCase()
+  },
+  properties: {xmlLang: null, xmlBase: null, xmlSpace: null}
+});
+
+/**
+ * @param {Record<string, string>} attributes
+ * @param {string} attribute
+ * @returns {string}
+ */
+function caseSensitiveTransform(attributes, attribute) {
+  return attribute in attributes ? attributes[attribute] : attribute
+}
+
+/**
+ * @param {Record<string, string>} attributes
+ * @param {string} property
+ * @returns {string}
+ */
+function caseInsensitiveTransform(attributes, property) {
+  return caseSensitiveTransform(attributes, property.toLowerCase())
+}
+
+const xmlns = create({
+  space: 'xmlns',
+  attributes: {xmlnsxlink: 'xmlns:xlink'},
+  transform: caseInsensitiveTransform,
+  properties: {xmlns: null, xmlnsXLink: null}
+});
+
+const aria = create({
+  transform(_, prop) {
+    return prop === 'role' ? prop : 'aria-' + prop.slice(4).toLowerCase()
+  },
+  properties: {
+    ariaActiveDescendant: null,
+    ariaAtomic: booleanish,
+    ariaAutoComplete: null,
+    ariaBusy: booleanish,
+    ariaChecked: booleanish,
+    ariaColCount: number,
+    ariaColIndex: number,
+    ariaColSpan: number,
+    ariaControls: spaceSeparated,
+    ariaCurrent: null,
+    ariaDescribedBy: spaceSeparated,
+    ariaDetails: null,
+    ariaDisabled: booleanish,
+    ariaDropEffect: spaceSeparated,
+    ariaErrorMessage: null,
+    ariaExpanded: booleanish,
+    ariaFlowTo: spaceSeparated,
+    ariaGrabbed: booleanish,
+    ariaHasPopup: null,
+    ariaHidden: booleanish,
+    ariaInvalid: null,
+    ariaKeyShortcuts: null,
+    ariaLabel: null,
+    ariaLabelledBy: spaceSeparated,
+    ariaLevel: number,
+    ariaLive: null,
+    ariaModal: booleanish,
+    ariaMultiLine: booleanish,
+    ariaMultiSelectable: booleanish,
+    ariaOrientation: null,
+    ariaOwns: spaceSeparated,
+    ariaPlaceholder: null,
+    ariaPosInSet: number,
+    ariaPressed: booleanish,
+    ariaReadOnly: booleanish,
+    ariaRelevant: null,
+    ariaRequired: booleanish,
+    ariaRoleDescription: spaceSeparated,
+    ariaRowCount: number,
+    ariaRowIndex: number,
+    ariaRowSpan: number,
+    ariaSelected: booleanish,
+    ariaSetSize: number,
+    ariaSort: null,
+    ariaValueMax: number,
+    ariaValueMin: number,
+    ariaValueNow: number,
+    ariaValueText: null,
+    role: null
+  }
+});
+
+const html$1 = create({
+  space: 'html',
+  attributes: {
+    acceptcharset: 'accept-charset',
+    classname: 'class',
+    htmlfor: 'for',
+    httpequiv: 'http-equiv'
+  },
+  transform: caseInsensitiveTransform,
+  mustUseProperty: ['checked', 'multiple', 'muted', 'selected'],
+  properties: {
+    // Standard Properties.
+    abbr: null,
+    accept: commaSeparated,
+    acceptCharset: spaceSeparated,
+    accessKey: spaceSeparated,
+    action: null,
+    allow: null,
+    allowFullScreen: boolean,
+    allowPaymentRequest: boolean,
+    allowUserMedia: boolean,
+    alt: null,
+    as: null,
+    async: boolean,
+    autoCapitalize: null,
+    autoComplete: spaceSeparated,
+    autoFocus: boolean,
+    autoPlay: boolean,
+    blocking: spaceSeparated,
+    capture: null,
+    charSet: null,
+    checked: boolean,
+    cite: null,
+    className: spaceSeparated,
+    cols: number,
+    colSpan: null,
+    content: null,
+    contentEditable: booleanish,
+    controls: boolean,
+    controlsList: spaceSeparated,
+    coords: number | commaSeparated,
+    crossOrigin: null,
+    data: null,
+    dateTime: null,
+    decoding: null,
+    default: boolean,
+    defer: boolean,
+    dir: null,
+    dirName: null,
+    disabled: boolean,
+    download: overloadedBoolean,
+    draggable: booleanish,
+    encType: null,
+    enterKeyHint: null,
+    fetchPriority: null,
+    form: null,
+    formAction: null,
+    formEncType: null,
+    formMethod: null,
+    formNoValidate: boolean,
+    formTarget: null,
+    headers: spaceSeparated,
+    height: number,
+    hidden: boolean,
+    high: number,
+    href: null,
+    hrefLang: null,
+    htmlFor: spaceSeparated,
+    httpEquiv: spaceSeparated,
+    id: null,
+    imageSizes: null,
+    imageSrcSet: null,
+    inert: boolean,
+    inputMode: null,
+    integrity: null,
+    is: null,
+    isMap: boolean,
+    itemId: null,
+    itemProp: spaceSeparated,
+    itemRef: spaceSeparated,
+    itemScope: boolean,
+    itemType: spaceSeparated,
+    kind: null,
+    label: null,
+    lang: null,
+    language: null,
+    list: null,
+    loading: null,
+    loop: boolean,
+    low: number,
+    manifest: null,
+    max: null,
+    maxLength: number,
+    media: null,
+    method: null,
+    min: null,
+    minLength: number,
+    multiple: boolean,
+    muted: boolean,
+    name: null,
+    nonce: null,
+    noModule: boolean,
+    noValidate: boolean,
+    onAbort: null,
+    onAfterPrint: null,
+    onAuxClick: null,
+    onBeforeMatch: null,
+    onBeforePrint: null,
+    onBeforeToggle: null,
+    onBeforeUnload: null,
+    onBlur: null,
+    onCancel: null,
+    onCanPlay: null,
+    onCanPlayThrough: null,
+    onChange: null,
+    onClick: null,
+    onClose: null,
+    onContextLost: null,
+    onContextMenu: null,
+    onContextRestored: null,
+    onCopy: null,
+    onCueChange: null,
+    onCut: null,
+    onDblClick: null,
+    onDrag: null,
+    onDragEnd: null,
+    onDragEnter: null,
+    onDragExit: null,
+    onDragLeave: null,
+    onDragOver: null,
+    onDragStart: null,
+    onDrop: null,
+    onDurationChange: null,
+    onEmptied: null,
+    onEnded: null,
+    onError: null,
+    onFocus: null,
+    onFormData: null,
+    onHashChange: null,
+    onInput: null,
+    onInvalid: null,
+    onKeyDown: null,
+    onKeyPress: null,
+    onKeyUp: null,
+    onLanguageChange: null,
+    onLoad: null,
+    onLoadedData: null,
+    onLoadedMetadata: null,
+    onLoadEnd: null,
+    onLoadStart: null,
+    onMessage: null,
+    onMessageError: null,
+    onMouseDown: null,
+    onMouseEnter: null,
+    onMouseLeave: null,
+    onMouseMove: null,
+    onMouseOut: null,
+    onMouseOver: null,
+    onMouseUp: null,
+    onOffline: null,
+    onOnline: null,
+    onPageHide: null,
+    onPageShow: null,
+    onPaste: null,
+    onPause: null,
+    onPlay: null,
+    onPlaying: null,
+    onPopState: null,
+    onProgress: null,
+    onRateChange: null,
+    onRejectionHandled: null,
+    onReset: null,
+    onResize: null,
+    onScroll: null,
+    onScrollEnd: null,
+    onSecurityPolicyViolation: null,
+    onSeeked: null,
+    onSeeking: null,
+    onSelect: null,
+    onSlotChange: null,
+    onStalled: null,
+    onStorage: null,
+    onSubmit: null,
+    onSuspend: null,
+    onTimeUpdate: null,
+    onToggle: null,
+    onUnhandledRejection: null,
+    onUnload: null,
+    onVolumeChange: null,
+    onWaiting: null,
+    onWheel: null,
+    open: boolean,
+    optimum: number,
+    pattern: null,
+    ping: spaceSeparated,
+    placeholder: null,
+    playsInline: boolean,
+    popover: null,
+    popoverTarget: null,
+    popoverTargetAction: null,
+    poster: null,
+    preload: null,
+    readOnly: boolean,
+    referrerPolicy: null,
+    rel: spaceSeparated,
+    required: boolean,
+    reversed: boolean,
+    rows: number,
+    rowSpan: number,
+    sandbox: spaceSeparated,
+    scope: null,
+    scoped: boolean,
+    seamless: boolean,
+    selected: boolean,
+    shadowRootClonable: boolean,
+    shadowRootDelegatesFocus: boolean,
+    shadowRootMode: null,
+    shape: null,
+    size: number,
+    sizes: null,
+    slot: null,
+    span: number,
+    spellCheck: booleanish,
+    src: null,
+    srcDoc: null,
+    srcLang: null,
+    srcSet: null,
+    start: number,
+    step: null,
+    style: null,
+    tabIndex: number,
+    target: null,
+    title: null,
+    translate: null,
+    type: null,
+    typeMustMatch: boolean,
+    useMap: null,
+    value: booleanish,
+    width: number,
+    wrap: null,
+    writingSuggestions: null,
+
+    // Legacy.
+    // See: https://html.spec.whatwg.org/#other-elements,-attributes-and-apis
+    align: null, // Several. Use CSS `text-align` instead,
+    aLink: null, // `<body>`. Use CSS `a:active {color}` instead
+    archive: spaceSeparated, // `<object>`. List of URIs to archives
+    axis: null, // `<td>` and `<th>`. Use `scope` on `<th>`
+    background: null, // `<body>`. Use CSS `background-image` instead
+    bgColor: null, // `<body>` and table elements. Use CSS `background-color` instead
+    border: number, // `<table>`. Use CSS `border-width` instead,
+    borderColor: null, // `<table>`. Use CSS `border-color` instead,
+    bottomMargin: number, // `<body>`
+    cellPadding: null, // `<table>`
+    cellSpacing: null, // `<table>`
+    char: null, // Several table elements. When `align=char`, sets the character to align on
+    charOff: null, // Several table elements. When `char`, offsets the alignment
+    classId: null, // `<object>`
+    clear: null, // `<br>`. Use CSS `clear` instead
+    code: null, // `<object>`
+    codeBase: null, // `<object>`
+    codeType: null, // `<object>`
+    color: null, // `<font>` and `<hr>`. Use CSS instead
+    compact: boolean, // Lists. Use CSS to reduce space between items instead
+    declare: boolean, // `<object>`
+    event: null, // `<script>`
+    face: null, // `<font>`. Use CSS instead
+    frame: null, // `<table>`
+    frameBorder: null, // `<iframe>`. Use CSS `border` instead
+    hSpace: number, // `<img>` and `<object>`
+    leftMargin: number, // `<body>`
+    link: null, // `<body>`. Use CSS `a:link {color: *}` instead
+    longDesc: null, // `<frame>`, `<iframe>`, and `<img>`. Use an `<a>`
+    lowSrc: null, // `<img>`. Use a `<picture>`
+    marginHeight: number, // `<body>`
+    marginWidth: number, // `<body>`
+    noResize: boolean, // `<frame>`
+    noHref: boolean, // `<area>`. Use no href instead of an explicit `nohref`
+    noShade: boolean, // `<hr>`. Use background-color and height instead of borders
+    noWrap: boolean, // `<td>` and `<th>`
+    object: null, // `<applet>`
+    profile: null, // `<head>`
+    prompt: null, // `<isindex>`
+    rev: null, // `<link>`
+    rightMargin: number, // `<body>`
+    rules: null, // `<table>`
+    scheme: null, // `<meta>`
+    scrolling: booleanish, // `<frame>`. Use overflow in the child context
+    standby: null, // `<object>`
+    summary: null, // `<table>`
+    text: null, // `<body>`. Use CSS `color` instead
+    topMargin: number, // `<body>`
+    valueType: null, // `<param>`
+    version: null, // `<html>`. Use a doctype.
+    vAlign: null, // Several. Use CSS `vertical-align` instead
+    vLink: null, // `<body>`. Use CSS `a:visited {color}` instead
+    vSpace: number, // `<img>` and `<object>`
+
+    // Non-standard Properties.
+    allowTransparency: null,
+    autoCorrect: null,
+    autoSave: null,
+    disablePictureInPicture: boolean,
+    disableRemotePlayback: boolean,
+    prefix: null,
+    property: null,
+    results: number,
+    security: null,
+    unselectable: null
+  }
+});
+
+const svg$1 = create({
+  space: 'svg',
+  attributes: {
+    accentHeight: 'accent-height',
+    alignmentBaseline: 'alignment-baseline',
+    arabicForm: 'arabic-form',
+    baselineShift: 'baseline-shift',
+    capHeight: 'cap-height',
+    className: 'class',
+    clipPath: 'clip-path',
+    clipRule: 'clip-rule',
+    colorInterpolation: 'color-interpolation',
+    colorInterpolationFilters: 'color-interpolation-filters',
+    colorProfile: 'color-profile',
+    colorRendering: 'color-rendering',
+    crossOrigin: 'crossorigin',
+    dataType: 'datatype',
+    dominantBaseline: 'dominant-baseline',
+    enableBackground: 'enable-background',
+    fillOpacity: 'fill-opacity',
+    fillRule: 'fill-rule',
+    floodColor: 'flood-color',
+    floodOpacity: 'flood-opacity',
+    fontFamily: 'font-family',
+    fontSize: 'font-size',
+    fontSizeAdjust: 'font-size-adjust',
+    fontStretch: 'font-stretch',
+    fontStyle: 'font-style',
+    fontVariant: 'font-variant',
+    fontWeight: 'font-weight',
+    glyphName: 'glyph-name',
+    glyphOrientationHorizontal: 'glyph-orientation-horizontal',
+    glyphOrientationVertical: 'glyph-orientation-vertical',
+    hrefLang: 'hreflang',
+    horizAdvX: 'horiz-adv-x',
+    horizOriginX: 'horiz-origin-x',
+    horizOriginY: 'horiz-origin-y',
+    imageRendering: 'image-rendering',
+    letterSpacing: 'letter-spacing',
+    lightingColor: 'lighting-color',
+    markerEnd: 'marker-end',
+    markerMid: 'marker-mid',
+    markerStart: 'marker-start',
+    navDown: 'nav-down',
+    navDownLeft: 'nav-down-left',
+    navDownRight: 'nav-down-right',
+    navLeft: 'nav-left',
+    navNext: 'nav-next',
+    navPrev: 'nav-prev',
+    navRight: 'nav-right',
+    navUp: 'nav-up',
+    navUpLeft: 'nav-up-left',
+    navUpRight: 'nav-up-right',
+    onAbort: 'onabort',
+    onActivate: 'onactivate',
+    onAfterPrint: 'onafterprint',
+    onBeforePrint: 'onbeforeprint',
+    onBegin: 'onbegin',
+    onCancel: 'oncancel',
+    onCanPlay: 'oncanplay',
+    onCanPlayThrough: 'oncanplaythrough',
+    onChange: 'onchange',
+    onClick: 'onclick',
+    onClose: 'onclose',
+    onCopy: 'oncopy',
+    onCueChange: 'oncuechange',
+    onCut: 'oncut',
+    onDblClick: 'ondblclick',
+    onDrag: 'ondrag',
+    onDragEnd: 'ondragend',
+    onDragEnter: 'ondragenter',
+    onDragExit: 'ondragexit',
+    onDragLeave: 'ondragleave',
+    onDragOver: 'ondragover',
+    onDragStart: 'ondragstart',
+    onDrop: 'ondrop',
+    onDurationChange: 'ondurationchange',
+    onEmptied: 'onemptied',
+    onEnd: 'onend',
+    onEnded: 'onended',
+    onError: 'onerror',
+    onFocus: 'onfocus',
+    onFocusIn: 'onfocusin',
+    onFocusOut: 'onfocusout',
+    onHashChange: 'onhashchange',
+    onInput: 'oninput',
+    onInvalid: 'oninvalid',
+    onKeyDown: 'onkeydown',
+    onKeyPress: 'onkeypress',
+    onKeyUp: 'onkeyup',
+    onLoad: 'onload',
+    onLoadedData: 'onloadeddata',
+    onLoadedMetadata: 'onloadedmetadata',
+    onLoadStart: 'onloadstart',
+    onMessage: 'onmessage',
+    onMouseDown: 'onmousedown',
+    onMouseEnter: 'onmouseenter',
+    onMouseLeave: 'onmouseleave',
+    onMouseMove: 'onmousemove',
+    onMouseOut: 'onmouseout',
+    onMouseOver: 'onmouseover',
+    onMouseUp: 'onmouseup',
+    onMouseWheel: 'onmousewheel',
+    onOffline: 'onoffline',
+    onOnline: 'ononline',
+    onPageHide: 'onpagehide',
+    onPageShow: 'onpageshow',
+    onPaste: 'onpaste',
+    onPause: 'onpause',
+    onPlay: 'onplay',
+    onPlaying: 'onplaying',
+    onPopState: 'onpopstate',
+    onProgress: 'onprogress',
+    onRateChange: 'onratechange',
+    onRepeat: 'onrepeat',
+    onReset: 'onreset',
+    onResize: 'onresize',
+    onScroll: 'onscroll',
+    onSeeked: 'onseeked',
+    onSeeking: 'onseeking',
+    onSelect: 'onselect',
+    onShow: 'onshow',
+    onStalled: 'onstalled',
+    onStorage: 'onstorage',
+    onSubmit: 'onsubmit',
+    onSuspend: 'onsuspend',
+    onTimeUpdate: 'ontimeupdate',
+    onToggle: 'ontoggle',
+    onUnload: 'onunload',
+    onVolumeChange: 'onvolumechange',
+    onWaiting: 'onwaiting',
+    onZoom: 'onzoom',
+    overlinePosition: 'overline-position',
+    overlineThickness: 'overline-thickness',
+    paintOrder: 'paint-order',
+    panose1: 'panose-1',
+    pointerEvents: 'pointer-events',
+    referrerPolicy: 'referrerpolicy',
+    renderingIntent: 'rendering-intent',
+    shapeRendering: 'shape-rendering',
+    stopColor: 'stop-color',
+    stopOpacity: 'stop-opacity',
+    strikethroughPosition: 'strikethrough-position',
+    strikethroughThickness: 'strikethrough-thickness',
+    strokeDashArray: 'stroke-dasharray',
+    strokeDashOffset: 'stroke-dashoffset',
+    strokeLineCap: 'stroke-linecap',
+    strokeLineJoin: 'stroke-linejoin',
+    strokeMiterLimit: 'stroke-miterlimit',
+    strokeOpacity: 'stroke-opacity',
+    strokeWidth: 'stroke-width',
+    tabIndex: 'tabindex',
+    textAnchor: 'text-anchor',
+    textDecoration: 'text-decoration',
+    textRendering: 'text-rendering',
+    transformOrigin: 'transform-origin',
+    typeOf: 'typeof',
+    underlinePosition: 'underline-position',
+    underlineThickness: 'underline-thickness',
+    unicodeBidi: 'unicode-bidi',
+    unicodeRange: 'unicode-range',
+    unitsPerEm: 'units-per-em',
+    vAlphabetic: 'v-alphabetic',
+    vHanging: 'v-hanging',
+    vIdeographic: 'v-ideographic',
+    vMathematical: 'v-mathematical',
+    vectorEffect: 'vector-effect',
+    vertAdvY: 'vert-adv-y',
+    vertOriginX: 'vert-origin-x',
+    vertOriginY: 'vert-origin-y',
+    wordSpacing: 'word-spacing',
+    writingMode: 'writing-mode',
+    xHeight: 'x-height',
+    // These were camelcased in Tiny. Now lowercased in SVG 2
+    playbackOrder: 'playbackorder',
+    timelineBegin: 'timelinebegin'
+  },
+  transform: caseSensitiveTransform,
+  properties: {
+    about: commaOrSpaceSeparated,
+    accentHeight: number,
+    accumulate: null,
+    additive: null,
+    alignmentBaseline: null,
+    alphabetic: number,
+    amplitude: number,
+    arabicForm: null,
+    ascent: number,
+    attributeName: null,
+    attributeType: null,
+    azimuth: number,
+    bandwidth: null,
+    baselineShift: null,
+    baseFrequency: null,
+    baseProfile: null,
+    bbox: null,
+    begin: null,
+    bias: number,
+    by: null,
+    calcMode: null,
+    capHeight: number,
+    className: spaceSeparated,
+    clip: null,
+    clipPath: null,
+    clipPathUnits: null,
+    clipRule: null,
+    color: null,
+    colorInterpolation: null,
+    colorInterpolationFilters: null,
+    colorProfile: null,
+    colorRendering: null,
+    content: null,
+    contentScriptType: null,
+    contentStyleType: null,
+    crossOrigin: null,
+    cursor: null,
+    cx: null,
+    cy: null,
+    d: null,
+    dataType: null,
+    defaultAction: null,
+    descent: number,
+    diffuseConstant: number,
+    direction: null,
+    display: null,
+    dur: null,
+    divisor: number,
+    dominantBaseline: null,
+    download: boolean,
+    dx: null,
+    dy: null,
+    edgeMode: null,
+    editable: null,
+    elevation: number,
+    enableBackground: null,
+    end: null,
+    event: null,
+    exponent: number,
+    externalResourcesRequired: null,
+    fill: null,
+    fillOpacity: number,
+    fillRule: null,
+    filter: null,
+    filterRes: null,
+    filterUnits: null,
+    floodColor: null,
+    floodOpacity: null,
+    focusable: null,
+    focusHighlight: null,
+    fontFamily: null,
+    fontSize: null,
+    fontSizeAdjust: null,
+    fontStretch: null,
+    fontStyle: null,
+    fontVariant: null,
+    fontWeight: null,
+    format: null,
+    fr: null,
+    from: null,
+    fx: null,
+    fy: null,
+    g1: commaSeparated,
+    g2: commaSeparated,
+    glyphName: commaSeparated,
+    glyphOrientationHorizontal: null,
+    glyphOrientationVertical: null,
+    glyphRef: null,
+    gradientTransform: null,
+    gradientUnits: null,
+    handler: null,
+    hanging: number,
+    hatchContentUnits: null,
+    hatchUnits: null,
+    height: null,
+    href: null,
+    hrefLang: null,
+    horizAdvX: number,
+    horizOriginX: number,
+    horizOriginY: number,
+    id: null,
+    ideographic: number,
+    imageRendering: null,
+    initialVisibility: null,
+    in: null,
+    in2: null,
+    intercept: number,
+    k: number,
+    k1: number,
+    k2: number,
+    k3: number,
+    k4: number,
+    kernelMatrix: commaOrSpaceSeparated,
+    kernelUnitLength: null,
+    keyPoints: null, // SEMI_COLON_SEPARATED
+    keySplines: null, // SEMI_COLON_SEPARATED
+    keyTimes: null, // SEMI_COLON_SEPARATED
+    kerning: null,
+    lang: null,
+    lengthAdjust: null,
+    letterSpacing: null,
+    lightingColor: null,
+    limitingConeAngle: number,
+    local: null,
+    markerEnd: null,
+    markerMid: null,
+    markerStart: null,
+    markerHeight: null,
+    markerUnits: null,
+    markerWidth: null,
+    mask: null,
+    maskContentUnits: null,
+    maskUnits: null,
+    mathematical: null,
+    max: null,
+    media: null,
+    mediaCharacterEncoding: null,
+    mediaContentEncodings: null,
+    mediaSize: number,
+    mediaTime: null,
+    method: null,
+    min: null,
+    mode: null,
+    name: null,
+    navDown: null,
+    navDownLeft: null,
+    navDownRight: null,
+    navLeft: null,
+    navNext: null,
+    navPrev: null,
+    navRight: null,
+    navUp: null,
+    navUpLeft: null,
+    navUpRight: null,
+    numOctaves: null,
+    observer: null,
+    offset: null,
+    onAbort: null,
+    onActivate: null,
+    onAfterPrint: null,
+    onBeforePrint: null,
+    onBegin: null,
+    onCancel: null,
+    onCanPlay: null,
+    onCanPlayThrough: null,
+    onChange: null,
+    onClick: null,
+    onClose: null,
+    onCopy: null,
+    onCueChange: null,
+    onCut: null,
+    onDblClick: null,
+    onDrag: null,
+    onDragEnd: null,
+    onDragEnter: null,
+    onDragExit: null,
+    onDragLeave: null,
+    onDragOver: null,
+    onDragStart: null,
+    onDrop: null,
+    onDurationChange: null,
+    onEmptied: null,
+    onEnd: null,
+    onEnded: null,
+    onError: null,
+    onFocus: null,
+    onFocusIn: null,
+    onFocusOut: null,
+    onHashChange: null,
+    onInput: null,
+    onInvalid: null,
+    onKeyDown: null,
+    onKeyPress: null,
+    onKeyUp: null,
+    onLoad: null,
+    onLoadedData: null,
+    onLoadedMetadata: null,
+    onLoadStart: null,
+    onMessage: null,
+    onMouseDown: null,
+    onMouseEnter: null,
+    onMouseLeave: null,
+    onMouseMove: null,
+    onMouseOut: null,
+    onMouseOver: null,
+    onMouseUp: null,
+    onMouseWheel: null,
+    onOffline: null,
+    onOnline: null,
+    onPageHide: null,
+    onPageShow: null,
+    onPaste: null,
+    onPause: null,
+    onPlay: null,
+    onPlaying: null,
+    onPopState: null,
+    onProgress: null,
+    onRateChange: null,
+    onRepeat: null,
+    onReset: null,
+    onResize: null,
+    onScroll: null,
+    onSeeked: null,
+    onSeeking: null,
+    onSelect: null,
+    onShow: null,
+    onStalled: null,
+    onStorage: null,
+    onSubmit: null,
+    onSuspend: null,
+    onTimeUpdate: null,
+    onToggle: null,
+    onUnload: null,
+    onVolumeChange: null,
+    onWaiting: null,
+    onZoom: null,
+    opacity: null,
+    operator: null,
+    order: null,
+    orient: null,
+    orientation: null,
+    origin: null,
+    overflow: null,
+    overlay: null,
+    overlinePosition: number,
+    overlineThickness: number,
+    paintOrder: null,
+    panose1: null,
+    path: null,
+    pathLength: number,
+    patternContentUnits: null,
+    patternTransform: null,
+    patternUnits: null,
+    phase: null,
+    ping: spaceSeparated,
+    pitch: null,
+    playbackOrder: null,
+    pointerEvents: null,
+    points: null,
+    pointsAtX: number,
+    pointsAtY: number,
+    pointsAtZ: number,
+    preserveAlpha: null,
+    preserveAspectRatio: null,
+    primitiveUnits: null,
+    propagate: null,
+    property: commaOrSpaceSeparated,
+    r: null,
+    radius: null,
+    referrerPolicy: null,
+    refX: null,
+    refY: null,
+    rel: commaOrSpaceSeparated,
+    rev: commaOrSpaceSeparated,
+    renderingIntent: null,
+    repeatCount: null,
+    repeatDur: null,
+    requiredExtensions: commaOrSpaceSeparated,
+    requiredFeatures: commaOrSpaceSeparated,
+    requiredFonts: commaOrSpaceSeparated,
+    requiredFormats: commaOrSpaceSeparated,
+    resource: null,
+    restart: null,
+    result: null,
+    rotate: null,
+    rx: null,
+    ry: null,
+    scale: null,
+    seed: null,
+    shapeRendering: null,
+    side: null,
+    slope: null,
+    snapshotTime: null,
+    specularConstant: number,
+    specularExponent: number,
+    spreadMethod: null,
+    spacing: null,
+    startOffset: null,
+    stdDeviation: null,
+    stemh: null,
+    stemv: null,
+    stitchTiles: null,
+    stopColor: null,
+    stopOpacity: null,
+    strikethroughPosition: number,
+    strikethroughThickness: number,
+    string: null,
+    stroke: null,
+    strokeDashArray: commaOrSpaceSeparated,
+    strokeDashOffset: null,
+    strokeLineCap: null,
+    strokeLineJoin: null,
+    strokeMiterLimit: number,
+    strokeOpacity: number,
+    strokeWidth: null,
+    style: null,
+    surfaceScale: number,
+    syncBehavior: null,
+    syncBehaviorDefault: null,
+    syncMaster: null,
+    syncTolerance: null,
+    syncToleranceDefault: null,
+    systemLanguage: commaOrSpaceSeparated,
+    tabIndex: number,
+    tableValues: null,
+    target: null,
+    targetX: number,
+    targetY: number,
+    textAnchor: null,
+    textDecoration: null,
+    textRendering: null,
+    textLength: null,
+    timelineBegin: null,
+    title: null,
+    transformBehavior: null,
+    type: null,
+    typeOf: commaOrSpaceSeparated,
+    to: null,
+    transform: null,
+    transformOrigin: null,
+    u1: null,
+    u2: null,
+    underlinePosition: number,
+    underlineThickness: number,
+    unicode: null,
+    unicodeBidi: null,
+    unicodeRange: null,
+    unitsPerEm: number,
+    values: null,
+    vAlphabetic: number,
+    vMathematical: number,
+    vectorEffect: null,
+    vHanging: number,
+    vIdeographic: number,
+    version: null,
+    vertAdvY: number,
+    vertOriginX: number,
+    vertOriginY: number,
+    viewBox: null,
+    viewTarget: null,
+    visibility: null,
+    width: null,
+    widths: null,
+    wordSpacing: null,
+    writingMode: null,
+    x: null,
+    x1: null,
+    x2: null,
+    xChannelSelector: null,
+    xHeight: number,
+    y: null,
+    y1: null,
+    y2: null,
+    yChannelSelector: null,
+    z: null,
+    zoomAndPan: null
+  }
+});
+
+/**
+ * @typedef {import('./util/schema.js').Schema} Schema
+ */
+
+
+const valid = /^data[-\w.:]+$/i;
+const dash = /-[a-z]/g;
+const cap = /[A-Z]/g;
+
+/**
+ * @param {Schema} schema
+ * @param {string} value
+ * @returns {Info}
+ */
+function find(schema, value) {
+  const normal = normalize(value);
+  let prop = value;
+  let Type = Info;
+
+  if (normal in schema.normal) {
+    return schema.property[schema.normal[normal]]
+  }
+
+  if (normal.length > 4 && normal.slice(0, 4) === 'data' && valid.test(value)) {
+    // Attribute or property.
+    if (value.charAt(4) === '-') {
+      // Turn it into a property.
+      const rest = value.slice(5).replace(dash, camelcase);
+      prop = 'data' + rest.charAt(0).toUpperCase() + rest.slice(1);
+    } else {
+      // Turn it into an attribute.
+      const rest = value.slice(4);
+
+      if (!dash.test(rest)) {
+        let dashes = rest.replace(cap, kebab);
+
+        if (dashes.charAt(0) !== '-') {
+          dashes = '-' + dashes;
+        }
+
+        value = 'data' + dashes;
+      }
+    }
+
+    Type = DefinedInfo;
+  }
+
+  return new Type(prop, value)
+}
+
+/**
+ * @param {string} $0
+ * @returns {string}
+ */
+function kebab($0) {
+  return '-' + $0.toLowerCase()
+}
+
+/**
+ * @param {string} $0
+ * @returns {string}
+ */
+function camelcase($0) {
+  return $0.charAt(1).toUpperCase()
+}
+
+/**
+ * @typedef {import('./lib/util/info.js').Info} Info
+ * @typedef {import('./lib/util/schema.js').Schema} Schema
+ */
+
+const html = merge([xml, xlink, xmlns, aria, html$1], 'html');
+const svg = merge([xml, xlink, xmlns, aria, svg$1], 'svg');
 
 /**
  * @callback Handler
@@ -74700,7 +77285,7 @@ const one = zwitch('type', {handlers: {root: root$1, element: element$1, text: t
 function toParse5(tree, options) {
   const settings = options || emptyOptions;
   const space = settings.space;
-  return one(tree, space === 'svg' ? svg : html$4)
+  return one(tree, space === 'svg' ? svg : html)
 }
 
 /**
@@ -74873,7 +77458,7 @@ function element$1(node, schema) {
  *   Field for runtime, optional.
  */
 function createProperty(schema, prop, value) {
-  const info = find$2(schema, prop);
+  const info = find(schema, prop);
 
   // Ignore nullish and `NaN` values.
   if (

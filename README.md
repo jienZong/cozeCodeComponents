@@ -22,6 +22,15 @@ npx functorz publish
 
 ```
 
+
+# 更新日志
+2025-04-08【v0.0.12】 将cozeWebSdk组件和cozeNodeSdk组件的UI样式更新为最新版 cozeWebSdk:1.2.0-beta.6  cozeNodeSdk:1.1.1
+2024-12-20【v0.0.11】 优化CozeNodeSdk组件输入区域UI样式
+2024-12-20【v0.0.10】 优化CozeNodeSdk组件，解决一些样式兼容的bug
+2024-12-18【v0.0.2】 新增 CozeNodeSdk 组件，CozeWebSdk 组件更新到 Coze 官方最新版本 1.1.0-beta.0
+
+
+
 # 组件配置文件说明
 
 cozeWebSDK 文档地址:https://www.coze.cn/docs/developer_guides/install_web_sdk
@@ -95,7 +104,4 @@ export interface CozeNodeSdkPropData {
 }
 ```
 
-# 更新日志
-2024-12-20【v0.0.11】 优化CozeNodeSdk组件输入区域UI样式
-2024-12-20【v0.0.10】 优化CozeNodeSdk组件，解决一些样式兼容的bug
-2024-12-18【v0.0.2】 新增 CozeNodeSdk 组件，CozeWebSdk 组件更新到 Coze 官方最新版本 1.1.0-beta.0
+

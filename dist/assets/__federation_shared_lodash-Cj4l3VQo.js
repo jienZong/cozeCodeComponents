@@ -4303,7 +4303,7 @@ lodash$1.exports;
 	        return symbolToString ? symbolToString.call(value) : '';
 	      }
 	      var result = (value + '');
-	      return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+	      return (result == '0' && (1 / value) == -Infinity) ? '-0' : result;
 	    }
 
 	    /**
@@ -5458,7 +5458,7 @@ lodash$1.exports;
 	      bitmask &= ~(isCurry ? WRAP_PARTIAL_RIGHT_FLAG : WRAP_PARTIAL_FLAG);
 
 	      if (!(bitmask & WRAP_CURRY_BOUND_FLAG)) {
-	        bitmask &= ~(WRAP_BIND_FLAG | WRAP_BIND_KEY_FLAG);
+	        bitmask &= -4;
 	      }
 	      var newData = [
 	        func, bitmask, thisArg, newPartials, newHolders, newPartialsRight,
@@ -5561,7 +5561,7 @@ lodash$1.exports;
 	      }
 	      var length = partials ? partials.length : 0;
 	      if (!length) {
-	        bitmask &= ~(WRAP_PARTIAL_FLAG | WRAP_PARTIAL_RIGHT_FLAG);
+	        bitmask &= -97;
 	        partials = holders = undefined$1;
 	      }
 	      ary = ary === undefined$1 ? ary : nativeMax(toInteger(ary), 0);
@@ -5594,7 +5594,7 @@ lodash$1.exports;
 	        : nativeMax(newData[9] - length, 0);
 
 	      if (!arity && bitmask & (WRAP_CURRY_FLAG | WRAP_CURRY_RIGHT_FLAG)) {
-	        bitmask &= ~(WRAP_CURRY_FLAG | WRAP_CURRY_RIGHT_FLAG);
+	        bitmask &= -25;
 	      }
 	      if (!bitmask || bitmask == WRAP_BIND_FLAG) {
 	        var result = createBind(func, bitmask, thisArg);
@@ -6826,7 +6826,7 @@ lodash$1.exports;
 	        return value;
 	      }
 	      var result = (value + '');
-	      return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+	      return (result == '0' && (1 / value) == -Infinity) ? '-0' : result;
 	    }
 
 	    /**
@@ -12168,7 +12168,7 @@ lodash$1.exports;
 	     * // => false
 	     */
 	    function isSafeInteger(value) {
-	      return isInteger(value) && value >= -MAX_SAFE_INTEGER && value <= MAX_SAFE_INTEGER;
+	      return isInteger(value) && value >= -9007199254740991 && value <= MAX_SAFE_INTEGER;
 	    }
 
 	    /**
@@ -12435,7 +12435,7 @@ lodash$1.exports;
 	        return value === 0 ? value : 0;
 	      }
 	      value = toNumber(value);
-	      if (value === INFINITY || value === -INFINITY) {
+	      if (value === INFINITY || value === -Infinity) {
 	        var sign = (value < 0 ? -1 : 1);
 	        return sign * MAX_INTEGER;
 	      }
@@ -12604,7 +12604,7 @@ lodash$1.exports;
 	     */
 	    function toSafeInteger(value) {
 	      return value
-	        ? baseClamp(toInteger(value), -MAX_SAFE_INTEGER, MAX_SAFE_INTEGER)
+	        ? baseClamp(toInteger(value), -9007199254740991, MAX_SAFE_INTEGER)
 	        : (value === 0 ? value : 0);
 	    }
 

@@ -1,6 +1,6 @@
 {
   "name": "cozeCodeComponents",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -21,11 +21,11 @@
     }
   },
   "dependencies": {
-    "@coze/api": "^1.0.14",
+    "@coze/api": "^1.1.1",
     "@types/katex": "^0.16.7",
     "@types/react-latex": "^2.0.3",
     "antd": "^5.21.3",
-    "axios": "^1.7.9",
+    "axios": "^1.8.4",
     "classnames": "^2.5.1",
     "immer": "^10.1.1",
     "katex": "^0.16.15",

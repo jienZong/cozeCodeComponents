@@ -1,10 +1,4 @@
-import {
-  CozeAPI,
-  ChatEventType,
-  //ChatStatus,
-  COZE_CN_BASE_URL,
-  RoleType,
-} from "@coze/api";
+import { CozeAPI, ChatEventType, COZE_CN_BASE_URL, RoleType } from '@coze/api';
 
 export { CozeAPI, ChatEventType, RoleType };
 
@@ -306,16 +300,16 @@ export class CozeApiClient {
       bot_id: this.bot_id,
       ...(conversation_initContent
         ? {
-            messages: [
-              {
-                role,
-                type: role == RoleType.User ? "question" : "answer",
-                content: conversation_initContent,
-                content_type:
-                  content_type == "object_string" ? "object_string" : "text",
-              },
-            ],
-          }
+          messages: [
+            {
+              role,
+              type: role == RoleType.User ? "question" : "answer",
+              content: conversation_initContent,
+              content_type:
+                content_type == "object_string" ? "object_string" : "text",
+            },
+          ],
+        }
         : {}),
     });
 
@@ -429,15 +423,15 @@ export class CozeApiClient {
       user_id: this.user_id,
       ...(content
         ? {
-            additional_messages: [
-              {
-                role: RoleType.User,
-                type: "question",
-                content,
-                content_type,
-              },
-            ],
-          }
+          additional_messages: [
+            {
+              role: RoleType.User,
+              type: "question",
+              content,
+              content_type,
+            },
+          ],
+        }
         : {}),
     });
 
@@ -604,13 +598,13 @@ export class CozeApiClient {
       content_type: hasAttachments ? "object_string" : "text",
       content_data: hasAttachments
         ? [
-            {
-              type: "text",
-              content: this.input_text_message,
-            },
-            ...this.input_file_messages,
-            ...this.input_image_messages,
-          ]
+          {
+            type: "text",
+            content: this.input_text_message,
+          },
+          ...this.input_file_messages,
+          ...this.input_image_messages,
+        ]
         : null,
     };
   }
