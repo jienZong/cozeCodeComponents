@@ -19,29 +19,27 @@ function(t){var r=e,i=r.lib,n=i.WordArray,o=i.Hasher,s=r.algo,a=n.create([0,1,2,
 
 
 
-
 // @ts-nocheck
 
-const privateKey = context.getArg("private_key") || "";
+const privateKey =context.getArg("private_key") || "";
 
-const kid = context.getArg("kid") || "";
-const iss = context.getArg("iss") || "";
+const kid =context.getArg("kid") || "";
+const iss =  context.getArg("iss") || "";
 const valid_seconds = parseInt(context.getArg("valid_seconds") || 7200);
 
 
 const header = {
-	alg: 'RS256',
-	typ: 'JWT',
-	kid
+  alg: 'RS256',
+  typ: 'JWT',
+  kid
 };
 
 const payload = {
-	iss,
-	aud: 'api.coze.cn',
-	iat: Math.floor(Date.now() / 1000),
-	exp: Math.floor(Date.now() / 1000) + valid_seconds,
-	jti: Math.random().toString(36).substring(2, 22),
-	session_name: `anonymous` + Date.now()
+  iss,
+  aud: 'api.coze.cn',
+  iat: Math.floor(Date.now() / 1000),
+  exp: Math.floor(Date.now() / 1000) + valid_seconds,
+  jti: Math.random().toString(36).substring(2, 22),
 };
 
 const header_str = base64URL(JSON.stringify(header));
@@ -49,7 +47,7 @@ const payload_str = base64URL(JSON.stringify(payload));
 const signature = RS256(header_str + "." + payload_str, extractPrivateKey(privateKey));
 const jwt = header_str + "." + payload_str + "." + signature;
 
-context.setReturn("jwt", jwt);
+context.setReturn("jwt",jwt);
 
 function RS256(data, priK) {
 	let signature = context.generateRSASignature(priK, data, 'SHA256withRSA');
@@ -68,11 +66,11 @@ function base64URL(str) {
 
 // 取出privateKey中核心计算部分
 function extractPrivateKey(privateKey) {
-	// 定义正则表达式，匹配私钥的首部和尾部
-	const privateKeyRegex = /^-----BEGIN PRIVATE KEY-----\n?|\n?-----END PRIVATE KEY-----$/gm;
-	// 使用正则表达式替换掉首部和尾部
-	const privateKeyWithoutBorders = privateKey.replace(privateKeyRegex, '');
-	// 替换掉所有换行和空格
-	const privateKeyCleaned = privateKeyWithoutBorders.replace(/[\n\s]/g, '');
-	return privateKeyCleaned;
+    // 定义正则表达式，匹配私钥的首部和尾部
+    const privateKeyRegex = /^-----BEGIN PRIVATE KEY-----\n?|\n?-----END PRIVATE KEY-----$/gm;
+    // 使用正则表达式替换掉首部和尾部
+    const privateKeyWithoutBorders = privateKey.replace(privateKeyRegex, '');
+    // 替换掉所有换行和空格
+    const privateKeyCleaned = privateKeyWithoutBorders.replace(/[\n\s]/g, '');
+    return privateKeyCleaned;
 }

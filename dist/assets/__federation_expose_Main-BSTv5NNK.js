@@ -49,7 +49,7 @@ function CozeWebSdk({ propData, event, propState }) {
     }
     initRef.current = true;
     propState?.config_botId?.set(String(propData?.config_botId));
-    sdkRef.current = new CozeWebSDK.WebChatClient({
+    const chatClient = {
       config: {
         // 智能体 ID
         botId: propData?.config_botId
@@ -68,6 +68,9 @@ function CozeWebSdk({ propData, event, propState }) {
         nickname: propData?.userInfo_nickname || "用户"
       },
       ui: {
+        header: {
+          isNeedClose: propData?.ui_header_isNeedClose == "true" ? true : false
+        },
         base: {
           icon: propData?.ui_base_icon || asstIconUrl,
           layout: "pc",
@@ -81,16 +84,6 @@ function CozeWebSdk({ propData, event, propState }) {
         footer: {
           isShow: propData?.ui_footer_expressionText ? true : false,
           expressionText: propData?.ui_footer_expressionText
-          // linkvars: {
-          //   nameA: {
-          //     text: "Coze",
-          //     link: "https://www.coze.cn/",
-          //   },
-          //   nameB: {
-          //     text: "Zion",
-          //     link: "https://zion.functorz.com/",
-          //   },
-          // },
         },
         chatBot: {
           title: propData?.ui_chatBot_title || void 0,
@@ -110,7 +103,9 @@ function CozeWebSdk({ propData, event, propState }) {
           }
         }
       }
-    });
+    };
+    console.log("chatClient", chatClient);
+    sdkRef.current = new CozeWebSDK.WebChatClient(chatClient);
     sdkRef.current.showChatBot();
     return () => {
     };

@@ -28,6 +28,9 @@ export interface CozeWebSdkPropData {
   // chatBot
   ui_chatBot_title?: string;
   ui_chatBot_width?: string;
+
+  // header 
+  ui_header_isNeedClose?: string;
 }
 
 export interface CozeWebSdkStateData {
@@ -54,6 +57,7 @@ export function CozeWebSdk({ propData, event, propState }: CozeWebSdkProps) {
   const initRef = useRef(false);  // 添加一个标记来追踪是否已经初始化
   const asstIconUrl = "https://lf-coze-web-cdn.coze.cn/obj/coze-web-cn/obric/coze/favicon.1970.png"
   const [isVisible, setIsVisible] = useState(false);
+
   useEffect(() => {
     if (!chatBotRef.current) {
       console.log("等待中渲染完成...");
@@ -71,8 +75,8 @@ export function CozeWebSdk({ propData, event, propState }: CozeWebSdkProps) {
 
     initRef.current = true;  // 标记已初始化
     propState?.config_botId?.set(String(propData?.config_botId));
-    // WebSDK
-    sdkRef.current = new CozeWebSDK.WebChatClient({
+
+    const chatClient = {
       config: {
         // 智能体 ID
         botId: propData?.config_botId,
@@ -85,12 +89,16 @@ export function CozeWebSdk({ propData, event, propState }: CozeWebSdkProps) {
         //访问密钥过期时，使用的新密钥，可以按需设置。
         onRefreshToken: () => propData?.auth_refreshToken || undefined,
       },
+
       userInfo: {
         id: propData?.userInfo_id || undefined,
         url: propData?.userInfo_url || asstIconUrl,
         nickname: propData?.userInfo_nickname || "用户",
       },
       ui: {
+        header: {
+          isNeedClose: propData?.ui_header_isNeedClose == "true" ? true : false,
+        },
         base: {
           icon: propData?.ui_base_icon || asstIconUrl,
           layout: "pc", // 改为 pc 布局，因为 mobile 布局会有固定宽度限制
@@ -103,16 +111,6 @@ export function CozeWebSdk({ propData, event, propState }: CozeWebSdkProps) {
         footer: {
           isShow: propData?.ui_footer_expressionText ? true : false,
           expressionText: propData?.ui_footer_expressionText,
-          // linkvars: {
-          //   nameA: {
-          //     text: "Coze",
-          //     link: "https://www.coze.cn/",
-          //   },
-          //   nameB: {
-          //     text: "Zion",
-          //     link: "https://zion.functorz.com/",
-          //   },
-          // },
         },
         chatBot: {
           title: propData?.ui_chatBot_title || undefined,
@@ -134,7 +132,12 @@ export function CozeWebSdk({ propData, event, propState }: CozeWebSdkProps) {
           },
         },
       },
-    });
+    }
+
+    console.log("chatClient", chatClient);
+
+    // WebSDK
+    sdkRef.current = new CozeWebSDK.WebChatClient(chatClient);
     sdkRef.current.showChatBot();
 
 

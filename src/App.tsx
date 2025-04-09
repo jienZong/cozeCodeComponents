@@ -2,24 +2,47 @@ import { BrowserRouter } from "react-router-dom";
 import "./App.scss";
 import Components from "./components/index";
 const {
-  CozeNodeSdk,
-  //  CozeWebSdk
+  // CozeNodeSdk,
+  CozeWebSdk
 } = Components;
 function App() {
   return (
     <BrowserRouter>
-      <div style={{ border: "1px solid #fe0",boxSizing:"border-box", maxWidth: "800px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "100%", margin: "0 auto"}}>
-        {/* <CozeWebSdk
+      <div style={{ border: "1px solid #fe0", boxSizing: "border-box", maxWidth: "800px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "100%", margin: "0 auto" }}>
+        <CozeWebSdk
           propData={{
             config_botId: "7440005235935920164",
-            auth_token: "pat_oue31YyvzrfVM55P1Jd2dK3IKDSuEat4zWvvzuAV9VBK8W147x9zD54qIXxHCrC5",
+            auth_type: "token",
+            auth_token: "czs_lsg2Ta6SpMOsZgie709dTHNirrp8ZSedrE27WVyM0NIXZXDDqZEE1PVnzKDldczEc",
+            auth_refreshToken: "czs_lsg2Ta6SpMOsZgie709dTHNirrp8ZSedrE27WVyM0NIXZXDDqZEE1PVnzKDldczEc",
+
+            // userInfo
+            userInfo_id: "1000000000000466",
+            userInfo_url: "",
+            userInfo_nickname: "",
+
+            // base
+            ui_base_icon: "",
+            ui_base_lang: "",
+
+            // asstBtn
+            ui_asstBtn_isNeed: "",
+
+            // footer
+            ui_footer_expressionText: "",
+
+            // chatBot
+            ui_chatBot_title: "",
+            ui_chatBot_width: "",
+
+            ui_header_isNeedClose: ""
           }}
           propState={{}}
           event={{}}
-        /> */}
+        />
         {/* <div style={{flex:1}}>121</div> */}
 
-        <CozeNodeSdk
+        {/* <CozeNodeSdk
           propData={{
             conversation_id: "7449991673377128475",
             ui_base_icon: "",
@@ -43,7 +66,7 @@ function App() {
               console.log(e, "onChatCreated===");
             },
           }}
-        />
+        /> */}
       </div>
     </BrowserRouter>
   );
